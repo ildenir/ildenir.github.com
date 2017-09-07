@@ -5,5 +5,5 @@ function openNav() {
 
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("content").style.margin = "0";
+    document.getElementById("content").style.margin = "auto";
 }
