@@ -2,16 +2,33 @@
 <meta charset="utf-8">
 
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="./org/font-awesome-4.7.0/css/font-awesome.css">
 <script src="main.js"></script>
 <title> titulo template </title>
 
 <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#"> About </a>
-  <a href="#"> Home </a>
+  <ul class="menu-principal">
+    <li><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <li> <a href="#"> Home </a></li>
+    <li> <a href="#"> Articles </a></li>
+    <li><a href="#"> About </a></li>
+  </ul>
+
+  <ul class="rede-social">
+    <li><a href="http://twitter.com/Uilcoder"><span class="fa fa-twitter"></span></a></li>
+    <li><a href="http://github.com/ildenir"><span class="fa fa-github"></span></a></li>
+  </ul>
 </div>
 
-<span onclick="openNav()" class="w3-button" > open </span>
+<header class="barra">
+  <div class="cabecalho-barra">
+    <span onclick="openNav()" class="w3-button" > 
+      <span class="fa fa-bars"></span> 
+    </span>
+    <p class="cabecalho-titulo"> Pagina pessoal </p>
+  </div>
+</header>
+
 
 <div id="conteudo">
 

@@ -33,9 +33,10 @@
     margin-left: 50px;
 }
 
-#conteudo {
-    transition: margin-left 0.5s;
-    padding: 20px;
+#content {
+    max-width: 89em;
+    width: 60%;
+    padding-left: 20px;    
 }
 
 .barra
