@@ -1,7 +1,16 @@
+#+TITLE: Esquilo de Pirai
+#+DATE: <2017-09-07 Thu>
+#+AUTHOR: Ildenir Barbosa
+#+EMAIL: ildenir+github@googlemail
 #+LANGUAGE: pt_BR
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: toc:nil num:nil
+#+KEYWORDS:
 
 *  Pagina principal
-
+   Lista de tarefas e ideias futuras para artigos e projetos estah
+   acessivel na pagina [[file:todo.org][Todo]].
+* 
 
 
 

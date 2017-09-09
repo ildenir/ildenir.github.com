@@ -4,16 +4,32 @@
 #+EMAIL: ildenir+github@googlemail.com
 #+LANGUAGE: pt_BR
 #+CREATOR: Emacs 25.2.1 (Org mode 9.0.9)
+#+OPTIONS: num:nil
 
 * Overview
-Este documento descreve o processo geracao estatica do site baseada no
-modulo org-mode do emacs. Este documento deve ser processado pelo
-org-mode babel para gerar o script em elisp .
 
-O objetivo site eh ser simples e com pouco conteudo
-dinamico. basicamente um conjunto de paginas de artigos e breve biografia.
-
+  Este documento descreve o processo de geracao estatica do site baseado no
+  modulo org-mode do emacs.
   
+  O script emacs-lisp para configurar projeto do org-mode pode ser gerado
+  processando este documento com 
+  org-mode babel. Basta executar o script
+  seguinte com o comando =C-c C-c= com o cursor sobre o bloco.
+  
+  #+BEGIN_SRC emacs-lisp :results output silent
+  (org-babel-tangle)
+  (load-file (concat (file-name-base) ".el"))
+  #+END_SRC
+  
+  O objetivo site eh ser simples e com pouco conteudo
+  dinamico. Basicamente um conjunto de paginas de artigos e breve biografia.
+  
+  O projeto do site segue a estrutura de diretorios como mostrado
+  abaixo. O diretorio =org= corresponde aos arquivos fontes de paginas
+  escritas em org-mode, estilos em css e etc. O diretorio =website= eh
+  gerado ao publicar o site. Seu conteudo eh resultado da compilacao dos
+  arquivos fonte, e portanto, totalmente descartavel.
+
 #+BEGIN_EXAMPLE
 ../
 ├── index.html
@@ -30,8 +46,8 @@ dinamico. basicamente um conjunto de paginas de artigos e breve biografia.
 └── style.css~
 #+END_EXAMPLE
 
-
 ** Variaveis utilitarias
+   Essas variaveis definem a localizacao dos diretorios do projeto.
 
 #+BEGIN_SRC emacs-lisp :tangle website-publish.el
 (defvar project-dir (expand-file-name (file-name-as-directory "~/ProjectsGitHub/ildenir.github.com/"))
@@ -45,8 +61,11 @@ dinamico. basicamente um conjunto de paginas de artigos e breve biografia.
 #+END_SRC
 
 ** Header e footer do site
-   cada pagina possui a barra de navegacao e um rodape com referencia
-   ao emacs como gerenciador de conteudo, data da ultima atualizacao
+   Toda pagina possui uma barra de navegacao e um rodape com referencia
+   ao emacs como gerenciador de conteudo, data da ultima atualizacao.
+
+   O conteudo do preambulo e *head* do html foram definidos em
+   variaveis separadas para simplificar definicao dos componentes do projeto.
 
 #+BEGIN_SRC emacs-lisp :tangle website-publish.el
 (defvar website-html-preamble "
@@ -56,6 +75,7 @@ dinamico. basicamente um conjunto de paginas de artigos e breve biografia.
     <li><a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>
     <li><a href=\"index.html\"> Home </a></li>
     <li> <a href=\"articles.html\"> Articles </a></li>
+    <li> <a href=\"site-map.html\"> Site Map </a></li>
     <li><a href=\"about.html\"> About </a></li>
   </ul>
 
@@ -82,39 +102,79 @@ dinamico. basicamente um conjunto de paginas de artigos e breve biografia.
 
 #+END_SRC
 
-** conteudo dinamico para pagina principal
-
-
-
 ** Componentes do projeto
+
 #+BEGIN_SRC emacs-lisp :tangle website-publish.el
-(require 'ox-publish)
-(setq org-publish-project-alist
-      `(
-	("org-notes"
-	 :base-directory ,src-dir
-	 :base-extension "org"
-	 :publishing-directory ,publish-dir
-	 :recursive t
-	 :publishing-function org-html-publish-to-html
-	 :headline-levels 4             ; Just the default for this project.
-	 :auto-preamble t
-	 :org-html-doctype html5
-	 :html-preamble ,website-html-preamble
-	 :html-head ,website-html-head
-	 )
-	("org-static"
-	 :base-directory ,src-dir
-	 :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf|otf\\|woff\\|woff2\\|ttf\\|svg"
-	 :publishing-directory ,publish-dir
-	 :recursive t
-	 :publishing-function org-publish-attachment
-	 )
-	("org" :components ("org-notes" "org-static"))))
+  (require 'ox-publish)
+  (setq org-publish-project-alist
+        `(
+          ("org-notes"
+           :base-directory ,src-dir
+           :base-extension "org"
+           :publishing-directory ,publish-dir
+           :recursive t
+           :publishing-function org-html-publish-to-html
+           :headline-levels 4             ; Just the default for this project.
+           :auto-preamble t
+           :org-html-doctype html5
+           :html-preamble ,website-html-preamble
+           :html-postamble-format ""
+           :html-head ,website-html-head
+           :auto-sitemap t
+           :sitemap-title "Site map"
+           :sitemap-filename "site-map.org"
+           )
+          ("org-static"
+           :base-directory ,src-dir
+           :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf|otf\\|woff\\|woff2\\|ttf\\|svg"
+           :publishing-directory ,publish-dir
+           :recursive t
+           :publishing-function org-publish-attachment
+           )
+          ("org" :components ("org-notes" "org-static"))))
 #+END_SRC
 
-** Utilitaria para criar novo
+** Utilitaria de suporte ao fluxo de trabalho
+   O fluxo de trabalho consiste em criar/editar os arquivos =org=,
+   =css=, =js= e etc com conteudo que pertencera ao site. Ao terminar
+   todas as edicoes, basta gerar o site com o comando
+   =org-publish= para publicar um projeto especifio ou
+   =org-publish-all= para publicar todos os projetos. Essa opcoes
+   tambem estao acessiveis pela combinacao de teclas =C-c C-e P x= ou
+   =C-c C-e P a=, respectivamente.
 
+   Ocasionamente, pode-se publicar o website via comando shell
+   =website-publish.sh=.
+
+   #+BEGIN_SRC sh :tangle website-publish.sh
+     #!/bin/bash
+     emacs --batch -l ./org/website-publish.el \
+           --eval="(require 'website-publish)"\
+           --eval="(org-publish-all)"
+   #+END_SRC
+
+   Os comando utilizados para publicar o site soh funcionara se quando
+   o arquivo =website-publish.el= for carregado. No inicio deste
+   documento, tem uma instruncao para carregar. Mas sempre sera
+   necessario abrir este documento e executar as intrucoes. Para
+   evitar esse trabalho extra, coloque as seguinte intrucao no seu
+   arquivo =.emacs=:
+   
+   #+BEGIN_SRC emacs-lisp :results output silent
+     (add-to-list 'load-path
+                  (expand-file-name "~/ProjectsGitHub/ildenir.github.com/org"))
+     (require 'website-publish)
+   #+END_SRC
+
+   - comando gerar entrada artigo
+
+** Exporta pacote website-publish
+   Agora o script serah finalizado com a exportacao do pacote para emacs.
+
+   #+BEGIN_SRC emacs-lisp :tangle website-publish.el
+   (provide 'website-publish)
+   #+END_SRC
+   
 * Referencia
   - [[http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing Org-mode files to html]]
   - [Dale]    [[http://dale.io/blog/automated-org-publishing.html][Automated Publishing Pipeline with Org Mode]]
