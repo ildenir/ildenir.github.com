@@ -13,9 +13,10 @@
 <div id=\"mySidenav\" class=\"sidenav\">
   <ul class=\"menu-principal\">
     <li><a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>
-    <li> <a href=\"#\"> Home </a></li>
-    <li> <a href=\"#\"> Articles </a></li>
-    <li><a href=\"#\"> About </a></li>
+    <li><a href=\"index.html\"> Home </a></li>
+    <li> <a href=\"articles.html\"> Articles </a></li>
+    <li> <a href=\"site-map.html\"> Site Map </a></li>
+    <li><a href=\"about.html\"> About </a></li>
   </ul>
 
   <ul class=\"rede-social\">
@@ -35,11 +36,14 @@
 
 ")
 
-(defvar website-html-postamble "")
-
 (defvar website-html-head "<link rel=\"stylesheet\" href=\"css/style.css\">
 <link rel=\"stylesheet\" href=\"font-awesome-4.7.0/css/font-awesome.css\">
 <script src=\"js/main.js\"></script>")
+
+(defun website-generate-article-list ()
+  "Gera lista com dados de artigos do projeto. A lista retornada 
+possui o formato (filename (title desc link-img pub-date)) onde 
+link-img pode ser nil caso nao exista")
 
 (require 'ox-publish)
 (setq org-publish-project-alist
@@ -53,9 +57,13 @@
          :headline-levels 4             ; Just the default for this project.
          :auto-preamble t
          :org-html-doctype html5
+         :exclude "\-.+"
          :html-preamble ,website-html-preamble
-         :html-postamble ,website-html-postamble
+         :html-postamble-format ""
          :html-head ,website-html-head
+         :auto-sitemap t
+         :sitemap-title "Site map"
+         :sitemap-filename "site-map.org"
          )
         ("org-static"
          :base-directory ,src-dir
@@ -65,3 +73,5 @@
          :publishing-function org-publish-attachment
          )
         ("org" :components ("org-notes" "org-static"))))
+
+(provide 'website-publish)
