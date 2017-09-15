@@ -10,7 +10,9 @@
 *  Pagina principal
    Lista de tarefas e ideias futuras para artigos e projetos estah
    acessivel na pagina [[file:todo.org][Todo]].
-* 
+
+   Acesse todos as pagina do site em [[file:site-map.org][Site map]].
+
 
 
 
