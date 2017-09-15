@@ -76,13 +76,11 @@
 
 #+BEGIN_SRC emacs-lisp :tangle website-publish.el
 (defvar website-html-preamble "
-
 <div id=\"mySidenav\" class=\"sidenav\">
   <ul class=\"menu-principal\">
     <li><a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>
     <li><a href=\"index.html\"> Home </a></li>
     <li> <a href=\"articles.html\"> Articles </a></li>
-    <li> <a href=\"site-map.html\"> Site Map </a></li>
     <li><a href=\"about.html\"> About </a></li>
   </ul>
 
@@ -117,16 +115,38 @@
    dinamico executa o script lisp contido e substitui o bloco pelo
    resultado do script. O processo de publicacao segue normalmente
    como os outros arquivos =org=. No caso do artigo, o script elisp
-   executado serah a funcao =website-generate-article-list=, que
-   produzirah uma lista =plist= com titulo, primeiro paragrafo como breve descricao,
+   executado serah a funcao ~website-generate-article-list~, que
+   produzirah uma lista ~plist~ com titulo, primeiro paragrafo como breve descricao,
    link para primeira imagem se existir e data de publicacao.
 
 #+BEGIN_SRC emacs-lisp :tangle website-publish.el
-  (defun website-generate-article-list ()
-    "Gera lista com dados de artigos do projeto. A lista retornada
-  possui o formato (filename (title desc link-img pub-date)) onde
-  link-img pode ser nil caso nao exista")
+  (require 'org-element)
+  (require 'dash)
 
+  (defun website-extract-article-data (filename)
+    "Extrai dados do artigo.
+  Retorna plist keys title image description date"
+    (with-temp-buffer
+      (insert-file-contents filename)
+      (org-mode)
+      (let* ((ast (org-element-parse-buffer))
+             (kv (org-element-map ast 'keyword
+                   (lambda(key) (list (org-element-property :key key) (org-element-property :value key)) )))
+             (link (org-element-map ast 'link
+                     (lambda(lk) (when (string= (org-element-property :type lk) "fuzzy") lk))))
+             (kv-filtered (-filter (lambda (el) (-contains? '("TITLE" "DATE" "DESCRIPTION") (car el))) kv))
+             kv-plist)
+        (setq kv-plist (plist-put kv-plist 'image (org-element-interpret-data (car link))))
+        (dolist (k kv-filtered kv-plist)
+          (message (car k))
+          (setq kv-plist (plist-put kv-plist (make-symbol (downcase (car k))) (car (cdr k))))))))
+
+
+  (defun website-generate-article-list ()
+    "Gera lista com dados de artigos do projeto.
+  A lista retornada possui o formato
+  (filename (title desc link-img pub-date)) onde link-img pode ser nil caso nao
+  exista. Description vai ser extraida de #+DESCRIPTION:" )
 #+END_SRC
 
 ** Componentes do projeto
@@ -144,7 +164,7 @@
              :headline-levels 4             ; Just the default for this project.
              :auto-preamble t
              :org-html-doctype html5
-             :exclude "\-.+"
+             :exclude "^\-.+"
              :html-preamble ,website-html-preamble
              :html-postamble-format ""
              :html-head ,website-html-head
@@ -166,8 +186,8 @@
    O fluxo de trabalho consiste em criar/editar os arquivos =org=,
    =css=, =js= e etc com conteudo que pertencera ao site. Ao terminar
    todas as edicoes, basta gerar o site com o comando
-   =org-publish= para publicar um projeto especifio ou
-   =org-publish-all= para publicar todos os projetos. Essa opcoes
+   ~org-publish~ para publicar um projeto especifio ou
+   ~org-publish-all~ para publicar todos os projetos. Essa opcoes
    tambem estao acessiveis pela combinacao de teclas =C-c C-e P x= ou
    =C-c C-e P a=, respectivamente.
 
@@ -198,6 +218,9 @@
    em um artigo quem nao sera publicado com as instrucoes acima. Para
    criar um rascunho, basta inserir um =- (menos)= no inicio do nome
    do arquivo, como =-Meu Artigo.org=.
+
+   Para facilitar criacao de um artigo, foi criado o um template q eh
+   inserido com o comando =<b= no buffer e tecla =TAB=.
 
 ** Exporta pacote website-publish
    Agora o script serah finalizado com a exportacao do pacote para emacs.
