@@ -1,16 +1,28 @@
 #+TITLE: Artigos
 #+DATE: <2017-09-07 Thu>
 #+AUTHOR: Ildenir Barbosa
-#+EMAIL: ildenir+github@googlemail
+#+EMAIL: ildenir+github@googlegmail.com
 #+LANGUAGE: pt_BR
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: toc:nil num:nil
 
 
-* Artigos
 #+BEGIN_SRC emacs-lisp :exports results :results raw
-  (princ "
-  #+BEGIN_article
-  Hello *elisp*!!!!!!!
-  #+END_article")
+  (require 'website-publish)
+
+  (defun article-entry-str (filename title desc date)
+    (string-join
+     (list
+      (format "\n* [[file:%s][%s]]" (file-name-nondirectory filename) title)
+      (format "\n - %s \n - %s\n" desc date))))
+
+  (defun article-entry (data)
+    (let ((fn (car data))
+          (pl (car (cdr data))))
+      (article-entry-str fn
+                         (plist-get pl 'title)
+                         (plist-get pl 'description)
+                         (plist-get pl 'date))))
+
+  (princ (string-join (mapcar #'article-entry (website-generate-article-alist)) "\n"))
 #+END_SRC
