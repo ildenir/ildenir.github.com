@@ -4,6 +4,7 @@
 #+EMAIL: ildenir+github@googlemail.com
 #+LANGUAGE: pt_BR
 #+CREATOR: Emacs 25.2.1 (Org mode 9.0.9)
+#+DESCRIPTION: Como este site eh gerado estaticamente com emacs.
 #+OPTIONS: num:nil
 
 * Overview
@@ -125,7 +126,7 @@
 
   (defun website-extract-article-data (filename)
     "Extrai dados do artigo.
-  Retorna plist keys title image description date"
+    Retorna plist keys title image description date"
     (with-temp-buffer
       (insert-file-contents filename)
       (org-mode)
@@ -139,47 +140,50 @@
         (setq kv-plist (plist-put kv-plist 'image (org-element-interpret-data (car link))))
         (dolist (k kv-filtered kv-plist)
           (message (car k))
-          (setq kv-plist (plist-put kv-plist (make-symbol (downcase (car k))) (car (cdr k))))))))
+          (setq kv-plist (plist-put kv-plist (intern (downcase (car k))) (car (cdr k))))))))
 
-
-  (defun website-generate-article-list ()
+  (defun website-generate-article-alist ()
     "Gera lista com dados de artigos do projeto.
   A lista retornada possui o formato
-  (filename (title desc link-img pub-date)) onde link-img pode ser nil caso nao
-  exista. Description vai ser extraida de #+DESCRIPTION:" )
+  '(filename (title desc link-img pub-date)) onde link-img pode ser nil caso nao
+  exista. Description vai ser extraida de #+DESCRIPTION:"
+    (let ((files (directory-files-recursively src-dir "\.org$")))
+      (mapcar (lambda (fn) (list fn (website-extract-article-data fn)))
+              files)))
 #+END_SRC
 
 ** Componentes do projeto
 
 #+BEGIN_SRC emacs-lisp :tangle website-publish.el
-    (require 'ox-publish)
-    (setq org-publish-project-alist
-          `(
-            ("org-notes"
-             :base-directory ,src-dir
-             :base-extension "org"
-             :publishing-directory ,publish-dir
-             :recursive t
-             :publishing-function org-html-publish-to-html
-             :headline-levels 4             ; Just the default for this project.
-             :auto-preamble t
-             :org-html-doctype html5
-             :exclude "^\-.+"
-             :html-preamble ,website-html-preamble
-             :html-postamble-format ""
-             :html-head ,website-html-head
-             :auto-sitemap t
-             :sitemap-title "Site map"
-             :sitemap-filename "site-map.org"
-             )
-            ("org-static"
-             :base-directory ,src-dir
-             :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf|otf\\|woff\\|woff2\\|ttf\\|svg"
-             :publishing-directory ,publish-dir
-             :recursive t
-             :publishing-function org-publish-attachment
-             )
-            ("org" :components ("org-notes" "org-static"))))
+      (require 'ox-publish)
+      (setq org-publish-project-alist
+            `(
+              ("org-notes"
+               :base-directory ,src-dir
+               :base-extension "org"
+               :publishing-directory ,publish-dir
+               :recursive t
+               :publishing-function org-html-publish-to-html
+               :headline-levels 4             ; Just the default for this project.
+               :auto-preamble t
+               :org-html-doctype html5
+               :org-html-html5-fancy t
+               :exclude "^\-.+"
+               :html-preamble ,website-html-preamble
+               :html-postamble-format ""
+               :html-head ,website-html-head
+               :auto-sitemap t
+               :sitemap-title "Site map"
+               :sitemap-filename "site-map.org"
+               )
+              ("org-static"
+               :base-directory ,src-dir
+               :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf|otf\\|woff\\|woff2\\|ttf\\|svg"
+               :publishing-directory ,publish-dir
+               :recursive t
+               :publishing-function org-publish-attachment
+               )
+              ("org" :components ("org-notes" "org-static"))))
 #+END_SRC
 
 ** Utilitaria de suporte ao fluxo de trabalho
