@@ -9,13 +9,11 @@
 "Diretorio dos arquivos fonte org, imagens, css e ...")
 
 (defvar website-html-preamble "
-
 <div id=\"mySidenav\" class=\"sidenav\">
   <ul class=\"menu-principal\">
     <li><a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>
     <li><a href=\"index.html\"> Home </a></li>
     <li> <a href=\"articles.html\"> Articles </a></li>
-    <li> <a href=\"site-map.html\"> Site Map </a></li>
     <li><a href=\"about.html\"> About </a></li>
   </ul>
 
@@ -27,8 +25,8 @@
 
 <header class=\"barra\">
   <div class=\"cabecalho-barra\">
-    <span onclick=\"openNav()\" class=\"w3-button\" > 
-      <span class=\"fa fa-bars\"></span> 
+    <span onclick=\"openNav()\" class=\"w3-button\" >
+      <span class=\"fa fa-bars\"></span>
     </span>
     <p class=\"cabecalho-titulo\"> Pagina pessoal </p>
   </div>
@@ -40,10 +38,35 @@
 <link rel=\"stylesheet\" href=\"font-awesome-4.7.0/css/font-awesome.css\">
 <script src=\"js/main.js\"></script>")
 
-(defun website-generate-article-list ()
-  "Gera lista com dados de artigos do projeto. A lista retornada 
-possui o formato (filename (title desc link-img pub-date)) onde 
-link-img pode ser nil caso nao exista")
+(require 'org-element)
+(require 'dash)
+
+(defun website-extract-article-data (filename)
+  "Extrai dados do artigo.
+  Retorna plist keys title image description date"
+  (with-temp-buffer
+    (insert-file-contents filename)
+    (org-mode)
+    (let* ((ast (org-element-parse-buffer))
+           (kv (org-element-map ast 'keyword
+                 (lambda(key) (list (org-element-property :key key) (org-element-property :value key)) )))
+           (link (org-element-map ast 'link
+                   (lambda(lk) (when (string= (org-element-property :type lk) "fuzzy") lk))))
+           (kv-filtered (-filter (lambda (el) (-contains? '("TITLE" "DATE" "DESCRIPTION") (car el))) kv))
+           kv-plist)
+      (setq kv-plist (plist-put kv-plist 'image (org-element-interpret-data (car link))))
+      (dolist (k kv-filtered kv-plist)
+        (message (car k))
+        (setq kv-plist (plist-put kv-plist (intern (downcase (car k))) (car (cdr k))))))))
+
+(defun website-generate-article-alist ()
+  "Gera lista com dados de artigos do projeto.
+A lista retornada possui o formato
+'(filename (title desc link-img pub-date)) onde link-img pode ser nil caso nao
+exista. Description vai ser extraida de #+DESCRIPTION:"
+  (let ((files (directory-files-recursively src-dir "\.org$")))
+    (mapcar (lambda (fn) (list fn (website-extract-article-data fn)))
+            files)))
 
 (require 'ox-publish)
 (setq org-publish-project-alist
@@ -57,7 +80,8 @@ link-img pode ser nil caso nao exista")
          :headline-levels 4             ; Just the default for this project.
          :auto-preamble t
          :org-html-doctype html5
-         :exclude "\-.+"
+         :org-html-html5-fancy t
+         :exclude "^\-.+"
          :html-preamble ,website-html-preamble
          :html-postamble-format ""
          :html-head ,website-html-head
