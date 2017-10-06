@@ -33,6 +33,13 @@
     margin-left: 50px;
 }
 
+#postamble
+{
+    margin: 0 auto;
+    padding-left: 20px;
+    width: 60%;
+}
+
 #content {
     max-width: 89em;
     width: 60%;
