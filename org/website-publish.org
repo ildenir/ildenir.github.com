@@ -29,7 +29,7 @@
   abaixo. O diretorio =org= corresponde aos arquivos fontes de paginas
   escritas em org-mode, estilos em css e etc. O diretorio =website= eh
   gerado ao publicar o site. Seu conteudo eh resultado da compilacao dos
-  arquivos fonte, e portanto, totalmente descartavel.
+  arquivos fonte, e portanto, totalmente descartável.
 
 #+BEGIN_EXAMPLE
 ../
