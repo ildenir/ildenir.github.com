@@ -9,5 +9,10 @@
 
 * Bio
 * Interesses
-  
-* contato
+  - Emacs
+  - Desenvolvimento de jogos
+  - Computação científica
+  - Computação gráfica
+
+* Contato
+  Envie criticas, sugestões, elogios  email para <ildenir+esquilopirai@googlemail.com>.
