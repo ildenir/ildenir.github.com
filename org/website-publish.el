@@ -28,7 +28,6 @@
     <span onclick=\"openNav()\" class=\"w3-button\" >
       <span class=\"fa fa-bars\"></span>
     </span>
-    <p class=\"cabecalho-titulo\"> Pagina pessoal </p>
   </div>
 </header>
 
