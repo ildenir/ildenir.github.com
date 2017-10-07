@@ -97,7 +97,7 @@ exista. Description vai ser extraida de #+DESCRIPTION:"
          :auto-preamble t
          :org-html-doctype html5
          :org-html-html5-fancy t
-         :exclude "^\-.+"
+         :exclude "^ *\-.+"
          :html-preamble ,website-html-preamble
          :html-postamble-format ""
          :html-head ,website-html-head
