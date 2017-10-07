@@ -38,7 +38,21 @@
 <script src=\"js/main.js\"></script>")
 
 (require 'org-element)
-(require 'dash)
+(require 'cl-lib)
+
+(defun website--extrack-kv (ast)
+  (org-element-map ast 'keyword
+    (lambda(key) (list
+                  (org-element-property :key key)
+                  (org-element-property :value key)) )))
+
+(defun website--extract-link (ast)
+  (org-element-map ast 'link
+    (lambda(lk) (when (string= (org-element-property :type lk) "fuzzy")
+                  lk))))
+
+(defun website-filter-kv (kws)
+  (cl-remove-if-not (lambda (el) (string-match filterregex (car el))) kv))
 
 (defun website-extract-article-data (filename)
   "Extrai dados do artigo.
@@ -46,17 +60,20 @@
   (with-temp-buffer
     (insert-file-contents filename)
     (org-mode)
-    (let* ((ast (org-element-parse-buffer))
-           (kv (org-element-map ast 'keyword
-                 (lambda(key) (list (org-element-property :key key) (org-element-property :value key)) )))
-           (link (org-element-map ast 'link
-                   (lambda(lk) (when (string= (org-element-property :type lk) "fuzzy") lk))))
-           (kv-filtered (-filter (lambda (el) (-contains? '("TITLE" "DATE" "DESCRIPTION") (car el))) kv))
+    (let* ((filterregex "\\(TITLE\\|DATE\\|DESCRIPTION\\)")
+           (ast (org-element-parse-buffer))
+           (kv (website--extrack-kv ast))
+           (link (website--extract-link ast))
+           (kv-filtered (website-filter-kv kv))
            kv-plist)
-      (setq kv-plist (plist-put kv-plist 'image (org-element-interpret-data (car link))))
+      (setq kv-plist
+            (plist-put kv-plist
+                       'image (org-element-interpret-data (car link))))
       (dolist (k kv-filtered kv-plist)
         (message (car k))
-        (setq kv-plist (plist-put kv-plist (intern (downcase (car k))) (car (cdr k))))))))
+        (setq kv-plist
+              (plist-put kv-plist
+                         (intern (downcase (car k))) (car (cdr k))))))))
 
 (defun website-generate-article-alist ()
   "Gera lista com dados de artigos do projeto.

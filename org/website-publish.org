@@ -120,35 +120,52 @@
    link para primeira imagem se existir e data de publicacao.
 
 #+BEGIN_SRC emacs-lisp :tangle website-publish.el
-  (require 'org-element)
-  (require 'dash)
+   (require 'org-element)
+   (require 'cl-lib)
 
-  (defun website-extract-article-data (filename)
-    "Extrai dados do artigo.
-    Retorna plist keys title image description date"
-    (with-temp-buffer
-      (insert-file-contents filename)
-      (org-mode)
-      (let* ((ast (org-element-parse-buffer))
-             (kv (org-element-map ast 'keyword
-                   (lambda(key) (list (org-element-property :key key) (org-element-property :value key)) )))
-             (link (org-element-map ast 'link
-                     (lambda(lk) (when (string= (org-element-property :type lk) "fuzzy") lk))))
-             (kv-filtered (-filter (lambda (el) (-contains? '("TITLE" "DATE" "DESCRIPTION") (car el))) kv))
-             kv-plist)
-        (setq kv-plist (plist-put kv-plist 'image (org-element-interpret-data (car link))))
-        (dolist (k kv-filtered kv-plist)
-          (message (car k))
-          (setq kv-plist (plist-put kv-plist (intern (downcase (car k))) (car (cdr k))))))))
+   (defun website--extrack-kv (ast)
+     (org-element-map ast 'keyword
+       (lambda(key) (list
+                     (org-element-property :key key)
+                     (org-element-property :value key)) )))
 
-  (defun website-generate-article-alist ()
-    "Gera lista com dados de artigos do projeto.
-  A lista retornada possui o formato
-  '(filename (title desc link-img pub-date)) onde link-img pode ser nil caso nao
-  exista. Description vai ser extraida de #+DESCRIPTION:"
-    (let ((files (directory-files-recursively src-dir "\.org$")))
-      (mapcar (lambda (fn) (list fn (website-extract-article-data fn)))
-              files)))
+   (defun website--extract-link (ast)
+     (org-element-map ast 'link
+       (lambda(lk) (when (string= (org-element-property :type lk) "fuzzy")
+                     lk))))
+
+   (defun website-filter-kv (kws)
+     (cl-remove-if-not (lambda (el) (string-match filterregex (car el))) kv))
+
+   (defun website-extract-article-data (filename)
+     "Extrai dados do artigo.
+     Retorna plist keys title image description date"
+     (with-temp-buffer
+       (insert-file-contents filename)
+       (org-mode)
+       (let* ((filterregex "\\(TITLE\\|DATE\\|DESCRIPTION\\)")
+              (ast (org-element-parse-buffer))
+              (kv (website--extrack-kv ast))
+              (link (website--extract-link ast))
+              (kv-filtered (website-filter-kv kv))
+              kv-plist)
+         (setq kv-plist
+               (plist-put kv-plist
+                          'image (org-element-interpret-data (car link))))
+         (dolist (k kv-filtered kv-plist)
+           (message (car k))
+           (setq kv-plist
+                 (plist-put kv-plist
+                            (intern (downcase (car k))) (car (cdr k))))))))
+
+   (defun website-generate-article-alist ()
+     "Gera lista com dados de artigos do projeto.
+   A lista retornada possui o formato
+   '(filename (title desc link-img pub-date)) onde link-img pode ser nil caso nao
+   exista. Description vai ser extraida de #+DESCRIPTION:"
+     (let ((files (directory-files-recursively src-dir "\.org$")))
+       (mapcar (lambda (fn) (list fn (website-extract-article-data fn)))
+               files)))
 #+END_SRC
 
 ** Componentes do projeto
