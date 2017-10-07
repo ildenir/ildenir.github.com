@@ -40,6 +40,10 @@
     width: 60%;
 }
 
+#content p {
+    text-align: justify;
+}
+
 #content {
     max-width: 89em;
     width: 60%;
