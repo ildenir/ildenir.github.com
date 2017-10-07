@@ -5,7 +5,7 @@
 #+CREATOR: Emacs 25.2.1 (Org mode 8.2.10)
 #+KEYWORDS: bio
 #+LANGUAGE: pt_BR
-#+OPTIONS: toc:nil
+#+OPTIONS: toc:nil  html-postamble:nil
 
 * Bio
 * Interesses

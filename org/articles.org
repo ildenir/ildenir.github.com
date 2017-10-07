@@ -3,7 +3,7 @@
 #+AUTHOR: Ildenir Barbosa
 #+EMAIL: ildenir+github@googlegmail.com
 #+LANGUAGE: pt_BR
-#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline  html-postamble:nil
 #+OPTIONS: toc:nil num:nil
 
 

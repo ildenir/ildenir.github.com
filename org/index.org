@@ -4,7 +4,7 @@
 #+EMAIL: ildenir+github@googlemail
 #+LANGUAGE: pt_BR
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
-#+OPTIONS: toc:nil num:nil
+#+OPTIONS: toc:nil num:nil  html-postamble:nil
 #+KEYWORDS:
 
 *  Pagina principal
