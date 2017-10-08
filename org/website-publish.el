@@ -1,4 +1,18 @@
 
+;;; website-publish.el --- Configuracao publicar site com org-mode
+
+;; Copyright (C) 2017 Ildenir Barbosa
+
+;; Author: I. C. Barbosa <ildenir+github@googlemail.com>
+;; Version: 0.0
+;; Keywords: website
+;; URL: http://github.com/ildenir/ildenir.github.com
+
+;;; Commentary:
+
+;; Este pacote configura/customiza o exportador do org-mode para gerar
+;; o website casa esquilo de pirai.
+
 (defvar project-dir (expand-file-name (file-name-as-directory "~/ProjectsGitHub/ildenir.github.com/"))
 "Diretorio do projeto do website")
 
@@ -7,7 +21,6 @@
 
 (defvar src-dir (expand-file-name (concat project-dir "org"))
 "Diretorio dos arquivos fonte org, imagens, css e ...")
-
 (defvar website-html-preamble "
 <div id=\"mySidenav\" class=\"sidenav\">
   <ul class=\"menu-principal\">
@@ -36,6 +49,7 @@
 (defvar website-html-head "<link rel=\"stylesheet\" href=\"css/style.css\">
 <link rel=\"stylesheet\" href=\"font-awesome-4.7.0/css/font-awesome.css\">
 <script src=\"js/main.js\"></script>")
+
 
 (require 'org-element)
 (require 'cl-lib)
@@ -113,5 +127,7 @@ exista. Description vai ser extraida de #+DESCRIPTION:"
          :publishing-function org-publish-attachment
          )
         ("org" :components ("org-notes" "org-static"))))
+
+
 
 (provide 'website-publish)

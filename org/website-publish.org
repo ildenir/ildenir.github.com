@@ -57,7 +57,8 @@
 ** Variaveis utilitarias
    Essas variaveis definem a localizacao dos diretorios do projeto.
 
-#+BEGIN_SRC emacs-lisp :tangle website-publish.el
+#+NAME: variaveis-utilitarias
+#+BEGIN_SRC emacs-lisp
 (defvar project-dir (expand-file-name (file-name-as-directory "~/ProjectsGitHub/ildenir.github.com/"))
 "Diretorio do projeto do website")
 
@@ -75,7 +76,8 @@
    O conteudo do preambulo e *head* do html foram definidos em
    variaveis separadas para simplificar definicao dos componentes do projeto.
 
-#+BEGIN_SRC emacs-lisp :tangle website-publish.el
+#+NAME: header-footer-site
+#+BEGIN_SRC emacs-lisp
 (defvar website-html-preamble "
 <div id=\"mySidenav\" class=\"sidenav\">
   <ul class=\"menu-principal\">
@@ -119,7 +121,8 @@
    produzirah uma lista ~plist~ com titulo, primeiro paragrafo como breve descricao,
    link para primeira imagem se existir e data de publicacao.
 
-#+BEGIN_SRC emacs-lisp :tangle website-publish.el
+#+NAME: conteudo-dinamico
+#+BEGIN_SRC emacs-lisp
    (require 'org-element)
    (require 'cl-lib)
 
@@ -170,7 +173,8 @@
 
 ** Componentes do projeto
 
-#+BEGIN_SRC emacs-lisp :tangle website-publish.el
+#+NAME: componentes-projeto
+#+BEGIN_SRC emacs-lisp
       (require 'ox-publish)
       (setq org-publish-project-alist
             `(
@@ -245,9 +249,41 @@
 ** Exporta pacote website-publish
    Agora o script serah finalizado com a exportacao do pacote para emacs.
 
-   #+BEGIN_SRC emacs-lisp :tangle website-publish.el
+   #+NAME: exporta-modulo
+   #+BEGIN_SRC emacs-lisp
    (provide 'website-publish)
    #+END_SRC
+
+* Codigos
+
+#+BEGIN_SRC emacs-lisp :tangle website-publish.el :noweb yes
+  ;;; website-publish.el --- Configuracao publicar site com org-mode
+
+  ;; Copyright (C) 2017 Ildenir Barbosa
+
+  ;; Author: I. C. Barbosa <ildenir+github@googlemail.com>
+  ;; Version: 0.0
+  ;; Keywords: website
+  ;; URL: http://github.com/ildenir/ildenir.github.com
+
+  ;;; Commentary:
+
+  ;; Este pacote configura/customiza o exportador do org-mode para gerar
+  ;; o website casa esquilo de pirai.
+
+  <<variaveis-utilitarias>>
+  <<header-footer-site>>
+
+  <<conteudo-dinamico>>
+
+  <<componentes-projeto>>
+
+
+
+  <<exporta-modulo>>
+
+#+END_SRC
+
 
 * Referencia
   - [[http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing Org-mode files to html]]
