@@ -1,0 +1,34 @@
+#+TITLE: Livros
+#+DATE: <2017-10-12 qui>
+#+AUTHOR: Ildenir Barbosa
+#+EMAIL: ildenir+github@googlegmail.com
+#+LANGUAGE: pt_BR
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline  html-postamble:nil
+#+OPTIONS: toc:nil num:nil
+
+Relação de livros da minha biblioteca.
+
+#+BEGIN_SRC emacs-lisp :exports results :results raw
+   (require 'website-publish)
+
+   (defun website--ignore-file (filename)
+     (not (string-match "books" (directory-file-name (file-name-directory filename)))))
+
+
+   (defun article-entry-str (filename title desc date)
+     (string-join
+      (list
+       (format "\n* [[file:%s][%s]]" (file-name-nondirectory filename) title)
+       (format "\n - %s \n - %s\n" desc date))))
+
+   (defun article-entry (data)
+     (let ((fn (car data))
+           (pl (car (cdr data))))
+       (if (website--ignore-file fn) ""
+         (article-entry-str fn
+                            (plist-get pl 'title)
+                            (plist-get pl 'description)
+                            (plist-get pl 'date)))))
+
+   (princ (string-join (mapcar #'article-entry (website-generate-article)) "\n"))
+#+END_SRC

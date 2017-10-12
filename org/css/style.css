@@ -33,9 +33,22 @@
     margin-left: 50px;
 }
 
-#conteudo {
-    transition: margin-left 0.5s;
-    padding: 20px;
+#postamble
+{
+    margin: 0 auto;
+    padding-left: 20px;
+    width: 60%;
+}
+
+#content p {
+    text-align: justify;
+}
+
+#content {
+    max-width: 89em;
+    width: 60%;
+    padding-left: 20px;
+    margin: 0 auto;
 }
 
 .barra
@@ -74,7 +87,7 @@
 
 .menu-principal li
 {
-
+    list-style: none;
 }
 
 .rede-social
@@ -86,4 +99,3 @@
 {
     display: inline-block;
 }
-

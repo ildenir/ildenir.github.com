@@ -1,0 +1,6 @@
+#+TITLE: Tarefas futuras
+#+OPTIONS: toc:nil
+
+* Topicos futuros
+** TODO Composteira e tratamento lixo
+** TODO Artigo literate programming

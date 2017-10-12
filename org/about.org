@@ -1,0 +1,18 @@
+#+TITLE: Sobre
+#+DATE: <2017-09-07 Thu>
+#+AUTHOR:
+#+EMAIL: uilcoder@darkdice
+#+CREATOR: Emacs 25.2.1 (Org mode 8.2.10)
+#+KEYWORDS: bio
+#+LANGUAGE: pt_BR
+#+OPTIONS: toc:nil  html-postamble:nil
+
+* Bio
+* Interesses
+  - Emacs
+  - Desenvolvimento de jogos
+  - Computação científica
+  - Computação gráfica
+
+* Contato
+  Envie criticas, sugestões, elogios  email para <ildenir+esquilopirai@googlemail.com>.
