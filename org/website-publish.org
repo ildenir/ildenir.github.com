@@ -54,7 +54,7 @@
    - por que org-mode e nao html ou markdown?
    - por que emacs?
 
-** Variaveis utilitarias
+* Variaveis utilitarias
    Essas variaveis definem a localizacao dos diretorios do projeto.
 
 #+NAME: variaveis-utilitarias
@@ -69,7 +69,7 @@
 "Diretorio dos arquivos fonte org, imagens, css e ...")
 #+END_SRC
 
-** Header e footer do site
+* Header e footer do site
    Toda pagina possui uma barra de navegacao e um rodape com referencia
    ao emacs como gerenciador de conteudo, data da ultima atualizacao.
 
@@ -109,7 +109,7 @@
 
 #+END_SRC
 
-** Conteudo dinamico
+* Conteudo dinamico
    O conteudo da pagina *artigos* eh gerado dinamicamente com base nos
    dados dos outro artigos publicados. A tecnica usada eh equivalente
    a descrita em [jgkamat]. A ideia consiste em criar o arquivo
@@ -123,55 +123,55 @@
 
 #+NAME: conteudo-dinamico
 #+BEGIN_SRC emacs-lisp
-   (require 'org-element)
-   (require 'cl-lib)
+  (require 'org-element)
+  (require 'cl-lib)
 
-   (defun website--extrack-kv (ast)
-     (org-element-map ast 'keyword
-       (lambda(key) (list
-                     (org-element-property :key key)
-                     (org-element-property :value key)) )))
+  (defun website--extrack-kv (ast)
+    (org-element-map ast 'keyword
+      (lambda(key) (list
+                    (org-element-property :key key)
+                    (org-element-property :value key)) )))
 
-   (defun website--extract-link (ast)
-     (org-element-map ast 'link
-       (lambda(lk) (when (string= (org-element-property :type lk) "fuzzy")
-                     lk))))
+  (defun website--extract-link (ast)
+    (org-element-map ast 'link
+      (lambda(lk) (when (string= (org-element-property :type lk) "fuzzy")
+                    lk))))
 
-   (defun website-filter-kv (kws)
-     (cl-remove-if-not (lambda (el) (string-match filterregex (car el))) kv))
+  (defun website-filter-kv (kws)
+    (cl-remove-if-not (lambda (el) (string-match filterregex (car el))) kv))
 
-   (defun website-extract-article-data (filename)
-     "Extrai dados do artigo.
-     Retorna plist keys title image description date"
-     (with-temp-buffer
-       (insert-file-contents filename)
-       (org-mode)
-       (let* ((filterregex "\\(TITLE\\|DATE\\|DESCRIPTION\\)")
-              (ast (org-element-parse-buffer))
-              (kv (website--extrack-kv ast))
-              (link (website--extract-link ast))
-              (kv-filtered (website-filter-kv kv))
-              kv-plist)
-         (setq kv-plist
-               (plist-put kv-plist
-                          'image (org-element-interpret-data (car link))))
-         (dolist (k kv-filtered kv-plist)
-           (message (car k))
-           (setq kv-plist
-                 (plist-put kv-plist
-                            (intern (downcase (car k))) (car (cdr k))))))))
+  (defun website-extract-article-data (filename)
+    "Extrai dados do artigo.
+    Retorna plist keys title image description date"
+    (with-temp-buffer
+      (insert-file-contents filename)
+      (org-mode)
+      (let* ((filterregex "\\(TITLE\\|DATE\\|DESCRIPTION\\)")
+             (ast (org-element-parse-buffer))
+             (kv (website--extrack-kv ast))
+             (link (website--extract-link ast))
+             (kv-filtered (website-filter-kv kv))
+             kv-plist)
+        (setq kv-plist
+              (plist-put kv-plist
+                         'image (org-element-interpret-data (car link))))
+        (dolist (k kv-filtered kv-plist)
+          (message (car k))
+          (setq kv-plist
+                (plist-put kv-plist
+                           (intern (downcase (car k))) (car (cdr k))))))))
 
-   (defun website-generate-article-alist ()
-     "Gera lista com dados de artigos do projeto.
-   A lista retornada possui o formato
-   '(filename (title desc link-img pub-date)) onde link-img pode ser nil caso nao
-   exista. Description vai ser extraida de #+DESCRIPTION:"
-     (let ((files (directory-files-recursively src-dir "\.org$")))
-       (mapcar (lambda (fn) (list fn (website-extract-article-data fn)))
-               files)))
+  (defun website-generate-article ()
+    "Gera lista com dados de artigos do projeto.
+  A lista retornada possui o formato
+  '(filename (title desc link-img pub-date)) onde link-img pode ser nil caso nao
+  exista. Description vai ser extraida de #+DESCRIPTION:"
+    (let ((files (directory-files-recursively src-dir "\.org$")))
+      (mapcar (lambda (fn) (list fn (website-extract-article-data fn)))
+              files)))
 #+END_SRC
 
-** Componentes do projeto
+* Componentes do projeto
 
 #+NAME: componentes-projeto
 #+BEGIN_SRC emacs-lisp
@@ -206,47 +206,47 @@
               ("org" :components ("org-notes" "org-static"))))
 #+END_SRC
 
-** Utilitaria de suporte ao fluxo de trabalho
-   O fluxo de trabalho consiste em criar/editar os arquivos =org=,
-   =css=, =js= e etc com conteudo que pertencera ao site. Ao terminar
-   todas as edicoes, basta gerar o site com o comando
-   ~org-publish~ para publicar um projeto especifio ou
-   ~org-publish-all~ para publicar todos os projetos. Essa opcoes
-   tambem estao acessiveis pela combinacao de teclas =C-c C-e P x= ou
-   =C-c C-e P a=, respectivamente.
+* Utilitaria de suporte ao fluxo de trabalho
+  O fluxo de trabalho consiste em criar/editar os arquivos =org=,
+  =css=, =js= e etc com conteudo que pertencera ao site. Ao terminar
+  todas as edicoes, basta gerar o site com o comando
+  ~org-publish~ para publicar um projeto especifio ou
+  ~org-publish-all~ para publicar todos os projetos. Essa opcoes
+  tambem estao acessiveis pela combinacao de teclas =C-c C-e P x= ou
+  =C-c C-e P a=, respectivamente.
 
-   Ocasionamente, pode-se publicar o website via comando shell
-   =website-publish.sh=.
+  Ocasionamente, pode-se publicar o website via comando shell
+  =website-publish.sh=.
 
-   #+BEGIN_SRC sh :tangle website-publish.sh
-     #!/bin/bash
-     emacs --batch -l ./org/website-publish.el \
-           --eval="(require 'website-publish)"\
-           --eval="(org-publish-all)"
-   #+END_SRC
+  #+BEGIN_SRC sh :tangle website-publish.sh
+    #!/bin/bash
+    emacs --batch -l ./org/website-publish.el \
+	  --eval="(require 'website-publish)"\
+	  --eval="(org-publish-all)"
+  #+END_SRC
 
-   Os comando utilizados para publicar o site soh funcionara se quando
-   o arquivo =website-publish.el= for carregado. No inicio deste
-   documento, tem uma instruncao para carregar. Mas sempre sera
-   necessario abrir este documento e executar as intrucoes. Para
-   evitar esse trabalho extra, coloque as seguinte intrucao no seu
-   arquivo =.emacs=:
+  Os comando utilizados para publicar o site soh funcionara se quando
+  o arquivo =website-publish.el= for carregado. No inicio deste
+  documento, tem uma instruncao para carregar. Mas sempre sera
+  necessario abrir este documento e executar as intrucoes. Para
+  evitar esse trabalho extra, coloque as seguinte intrucao no seu
+  arquivo =.emacs=:
 
-   #+BEGIN_SRC emacs-lisp :results output silent
-     (add-to-list 'load-path
-                  (expand-file-name "~/ProjectsGitHub/ildenir.github.com/org"))
-     (require 'website-publish)
-   #+END_SRC
+  #+BEGIN_SRC emacs-lisp :results output silent
+    (add-to-list 'load-path
+		 (expand-file-name "~/ProjectsGitHub/ildenir.github.com/org"))
+    (require 'website-publish)
+  #+END_SRC
 
-   O fluxo tambem suporta a escrita de rascunho. O rascunho consistem
-   em um artigo quem nao sera publicado com as instrucoes acima. Para
-   criar um rascunho, basta inserir um =- (menos)= no inicio do nome
-   do arquivo, como =-Meu Artigo.org=.
+  O fluxo tambem suporta a escrita de rascunho. O rascunho consistem
+  em um artigo quem nao sera publicado com as instrucoes acima. Para
+  criar um rascunho, basta inserir um =- (menos)= no inicio do nome
+  do arquivo, como =-Meu Artigo.org=.
 
-   Para facilitar criacao de um artigo, foi criado o um template q eh
-   inserido com o comando =<b= no buffer e tecla =TAB=.
+  Para facilitar criacao de um artigo, foi criado o um template q eh
+  inserido com o comando =<b= no buffer e tecla =TAB=.
 
-** Exporta pacote website-publish
+* Exporta pacote website-publish
    Agora o script serah finalizado com a exportacao do pacote para emacs.
 
    #+NAME: exporta-modulo

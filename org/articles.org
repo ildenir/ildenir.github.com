@@ -29,5 +29,5 @@
                            (plist-get pl 'description)
                            (plist-get pl 'date)))))
 
-  (princ (string-join (mapcar #'article-entry (website-generate-article-alist)) "\n"))
+  (princ (string-join (mapcar #'article-entry (website-generate-article)) "\n"))
 #+END_SRC
