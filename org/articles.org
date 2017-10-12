@@ -11,8 +11,8 @@
   (require 'website-publish)
 
   (defun website--ignore-file (filename)
-    (string-match "\\(^articles$\\|^todo$\\|^index$\\|^site-map$\\|^about$\\|^\s*\-.+\\)"
-                  (file-name-base filename)))
+    (and (not (string-match "articles$" (directory-file-name (file-name-directory filename))))
+         (not (string= "website-publish" (file-name-base filename)))))
 
   (defun article-entry-str (filename title desc date)
     (string-join
