@@ -78,34 +78,35 @@
 
 #+NAME: header-footer-site
 #+BEGIN_SRC emacs-lisp
-(defvar website-html-preamble "
-<div id=\"mySidenav\" class=\"sidenav\">
-  <ul class=\"menu-principal\">
-    <li><a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>
-    <li><a href=\"index.html\"> Home </a></li>
-    <li> <a href=\"articles.html\"> Articles </a></li>
-    <li><a href=\"about.html\"> About </a></li>
-  </ul>
+  (defvar website-html-preamble "
+  <div id=\"mySidenav\" class=\"sidenav\">
+    <ul class=\"menu-principal\">
+      <li><a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>
+      <li><a href=\"index.html\"> Home </a></li>
+      <li> <a href=\"articles.html\"> Artigos </a></li>
+      <li> <a href=\"books.html\"> Livros </a></li>
+      <li><a href=\"about.html\"> Sobre </a></li>
+    </ul>
 
-  <ul class=\"rede-social\">
-    <li><a href=\"http://twitter.com/Uilcoder\"><span class=\"fa fa-twitter\"></span></a></li>
-    <li><a href=\"http://github.com/ildenir\"><span class=\"fa fa-github\"></span></a></li>
-  </ul>
-</div>
-
-<header class=\"barra\">
-  <div class=\"cabecalho-barra\">
-    <span onclick=\"openNav()\" class=\"w3-button\" >
-      <span class=\"fa fa-bars\"></span>
-    </span>
+    <ul class=\"rede-social\">
+      <li><a href=\"http://twitter.com/Uilcoder\"><span class=\"fa fa-twitter\"></span></a></li>
+      <li><a href=\"http://github.com/ildenir\"><span class=\"fa fa-github\"></span></a></li>
+    </ul>
   </div>
-</header>
 
-")
+  <header class=\"barra\">
+    <div class=\"cabecalho-barra\">
+      <span onclick=\"openNav()\" class=\"w3-button\" >
+        <span class=\"fa fa-bars\"></span>
+      </span>
+    </div>
+  </header>
 
-(defvar website-html-head "<link rel=\"stylesheet\" href=\"css/style.css\">
-<link rel=\"stylesheet\" href=\"font-awesome-4.7.0/css/font-awesome.css\">
-<script src=\"js/main.js\"></script>")
+  ")
+
+  (defvar website-html-head "<link rel=\"stylesheet\" href=\"css/style.css\">
+  <link rel=\"stylesheet\" href=\"font-awesome-4.7.0/css/font-awesome.css\">
+  <script src=\"js/main.js\"></script>")
 
 #+END_SRC
 

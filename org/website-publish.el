@@ -26,8 +26,9 @@
   <ul class=\"menu-principal\">
     <li><a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>
     <li><a href=\"index.html\"> Home </a></li>
-    <li> <a href=\"articles.html\"> Articles </a></li>
-    <li><a href=\"about.html\"> About </a></li>
+    <li> <a href=\"articles.html\"> Artigos </a></li>
+    <li> <a href=\"books.html\"> Livros </a></li>
+    <li><a href=\"about.html\"> Sobre </a></li>
   </ul>
 
   <ul class=\"rede-social\">
