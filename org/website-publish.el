@@ -89,7 +89,7 @@
               (plist-put kv-plist
                          (intern (downcase (car k))) (car (cdr k))))))))
 
-(defun website-generate-article-alist ()
+(defun website-generate-article ()
   "Gera lista com dados de artigos do projeto.
 A lista retornada possui o formato
 '(filename (title desc link-img pub-date)) onde link-img pode ser nil caso nao
