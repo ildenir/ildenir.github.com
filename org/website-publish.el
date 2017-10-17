@@ -72,9 +72,9 @@
     (lambda(lk) (when (string= (org-element-property :type lk) "fuzzy")
                   lk))))
 
-(defun website-filter-kv (kws)
-  "Filtra lista KWS com key match padrao filterregex."
-  (cl-remove-if-not (lambda (el) (string-match filterregex (car el))) kv))
+(defun website-filter-kv (kws filterregexp)
+  "Filtra lista KWS com key match padrao FILTERREGEXP."
+  (cl-remove-if-not (lambda (el) (string-match filterregexp (car el))) kws))
 
 (defun website-extract-article-data (filename)
   "Extrai dados do artigo com nome FILENAME.
@@ -86,7 +86,7 @@ Retorna plist keys title image description date"
            (ast (org-element-parse-buffer))
            (kv (website--extrack-kv ast))
            (link (website--extract-link ast))
-           (kv-filtered (website-filter-kv kv))
+           (kv-filtered (website-filter-kv kv filterregex))
            kv-plist)
       (setq kv-plist
             (plist-put kv-plist
