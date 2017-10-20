@@ -35,10 +35,10 @@
   <div id=\"mySidenav\" class=\"sidenav\">
     <ul class=\"menu-principal\">
       <li><a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>
-      <li><a href=\"index.html\"> Home </a></li>
-      <li> <a href=\"articles.html\"> Artigos </a></li>
-      <li> <a href=\"books.html\"> Livros </a></li>
-      <li><a href=\"about.html\"> Sobre </a></li>
+      <li><a href=\"/index.html\"> Home </a></li>
+      <li> <a href=\"/articles.html\"> Artigos </a></li>
+      <li> <a href=\"/books.html\"> Livros </a></li>
+      <li><a href=\"/about.html\"> Sobre </a></li>
     </ul>
 
     <ul class=\"rede-social\">
@@ -58,9 +58,9 @@
   "
   "Cabecalho inserido em toda pagina.")
 
-(defvar website-html-head "<link rel=\"stylesheet\" href=\"css/style.css\">
-  <link rel=\"stylesheet\" href=\"font-awesome-4.7.0/css/font-awesome.css\">
-  <script src=\"js/main.js\"></script>"
+(defvar website-html-head "<link rel=\"stylesheet\" href=\"/css/style.css\">
+  <link rel=\"stylesheet\" href=\"/font-awesome-4.7.0/css/font-awesome.css\">
+  <script src=\"/js/main.js\"></script>"
   "Referencia para estilo css e scripts.")
 
 
