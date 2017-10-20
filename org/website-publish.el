@@ -148,9 +148,10 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
   "Entrevista usuario e insera conteudo ao projeto"
   (interactive)
   (let* ((title (read-string "Title: "))
-         (description (read-string "Descricao:"))
+         (description (read-string "Descricao: "))
          (author (read-string "Author: "))
          (date (format-time-string "%d/%m/%Y"))
+         (email (read-string "Email: "))
          (keywords (read-string "Palavras-chave: "))
          (filename (string-join
                     (list (concat (file-name-as-directory src-dir)
@@ -161,6 +162,8 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
       (insert (format "#+DATE: %s\n" date))
       (insert (format "#+AUTHOR: %s\n" author))
       (insert (format "#+DESCRIPTION: %s\n" description))
+      (insert (format "#+KEYWORDS: %s\n" keywords))
+      (insert "#+OPTIONS: num:nil\n")
       (write-file filename))))
 
 
