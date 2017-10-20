@@ -23,6 +23,14 @@
 
 (defvar src-dir (expand-file-name (concat project-dir "org"))
   "Diretorio dos arquivos fonte org, imagens, css e ...")
+
+(defvar src-articles-dir (concat (file-name-as-directory src-dir)
+                                 (file-name-as-directory "articles"))
+  "Diretorio fonte dos artigos.")
+
+(defvar publish-articles-dir (concat (file-name-as-directory publish-dir)
+                                 (file-name-as-directory "articles"))
+  "Diretorio do artigos publicados.")
 (defvar website-html-preamble "
   <div id=\"mySidenav\" class=\"sidenav\">
     <ul class=\"menu-principal\">

@@ -17,7 +17,9 @@
   (defun article-entry-str (filename title desc date)
     (string-join
      (list
-      (format "\n* [[file:%s][%s]]" (file-name-nondirectory filename) title)
+      (format "\n* [[file:%s][%s]]" (concat publish-articles-dir
+                                            (file-name-nondirectory filename))
+                                            title)
       (format "\n - %s \n - %s\n" desc date))))
 
   (defun article-entry (data)
