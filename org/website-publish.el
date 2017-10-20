@@ -144,6 +144,24 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
          )
         ("org" :components ("org-notes" "org-static"))))
 
+(defun website-new-article ()
+  "Entrevista usuario e insera conteudo ao projeto"
+  (interactive)
+  (let* ((title (read-string "Title: "))
+         (description (read-string "Descricao:"))
+         (author (read-string "Author: "))
+         (date (format-time-string "%d/%m/%Y"))
+         (keywords (read-string "Palavras-chave: "))
+         (filename (string-join
+                    (list (concat (file-name-as-directory src-dir)
+                                  (file-name-as-directory "articles"))
+                     (format-time-string "%Y%m%d") "-" title ".org"))))
+    (with-current-buffer (get-buffer-create filename)
+      (insert (format "#+TITLE: %s\n" title))
+      (insert (format "#+DATE: %s\n" date))
+      (insert (format "#+AUTHOR: %s\n" author))
+      (insert (format "#+DESCRIPTION: %s\n" description))
+      (write-file filename))))
 
 
 (provide 'website-publish)

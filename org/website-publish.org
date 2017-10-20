@@ -53,6 +53,8 @@
      cms : blogspot, wordpress ...
    - por que org-mode e nao html ou markdown?
    - por que emacs?
+   - org-mode oferece um ambiente integrado para diversos midias
+com suporte facilitado para formulas matematica, codigo, image.
 
 * Variaveis utilitarias
    Essas variaveis definem a localizacao dos diretorios do projeto.
@@ -220,7 +222,7 @@
               ("org" :components ("org-notes" "org-static"))))
 #+END_SRC
 
-* Utilitaria de suporte ao fluxo de trabalho
+* Suporte ao fluxo de trabalho
   O fluxo de trabalho consiste em criar/editar os arquivos =org=,
   =css=, =js= e etc com conteudo que pertencera ao site. Ao terminar
   todas as edicoes, basta gerar o site com o comando
@@ -239,7 +241,7 @@
 	  --eval="(org-publish-all)"
   #+END_SRC
 
-  Os comando utilizados para publicar o site soh funcionara se quando
+  Os comando utilizados para publicar o site soh funcionara quando
   o arquivo =website-publish.el= for carregado. No inicio deste
   documento, tem uma instruncao para carregar. Mas sempre sera
   necessario abrir este documento e executar as intrucoes. Para
@@ -257,8 +259,37 @@
   criar um rascunho, basta inserir um =- (menos)= no inicio do nome
   do arquivo, como =-Meu Artigo.org=.
 
-  Para facilitar criacao de um artigo, foi criado o um template q eh
-  inserido com o comando =<b= no buffer e tecla =TAB=.
+** Producao de conteudo
+   A estrutura basica de um artigo pode ser composto rapidamente com o
+   comando ~website-new-article~. O comando pergunta por informacoes
+   como o titulo, descricao, palavra-chave e ao final do processo gera
+   o artigo na estrutura de diretorios do projeto.
+
+   #+NAME: content-generator
+   #+BEGIN_SRC emacs-lisp
+     (defun website-new-article ()
+       "Entrevista usuario e insera conteudo ao projeto"
+       (interactive)
+       (let* ((title (read-string "Title: "))
+              (description (read-string "Descricao:"))
+              (author (read-string "Author: "))
+              (date (format-time-string "%d/%m/%Y"))
+              (keywords (read-string "Palavras-chave: "))
+              (filename (string-join
+                         (list (concat (file-name-as-directory src-dir)
+                                       (file-name-as-directory "articles"))
+                          (format-time-string "%Y%m%d") "-" title ".org"))))
+         (with-current-buffer (get-buffer-create filename)
+           (insert (format "#+TITLE: %s\n" title))
+           (insert (format "#+DATE: %s\n" date))
+           (insert (format "#+AUTHOR: %s\n" author))
+           (insert (format "#+DESCRIPTION: %s\n" description))
+           (write-file filename))))
+   #+END_SRC
+
+
+
+
 
 * Exporta pacote website-publish
    Agora o script serah finalizado com a exportacao do pacote para emacs.
@@ -273,32 +304,33 @@
 * Codigos
 
 #+BEGIN_SRC emacs-lisp :tangle website-publish.el :noweb yes
-  ;;; website-publish.el --- Configuracao publicar site com org-mode
+    ;;; website-publish.el --- Configuracao publicar site com org-mode
 
-  ;; Copyright (C) 2017 Ildenir Barbosa
+    ;; Copyright (C) 2017 Ildenir Barbosa
 
-  ;; Author: I. C. Barbosa <ildenir+github@googlemail.com>
-  ;; Version: 0.0
-  ;; Keywords: website
-  ;; URL: http://github.com/ildenir/ildenir.github.com
+    ;; Author: I. C. Barbosa <ildenir+github@googlemail.com>
+    ;; Version: 0.0
+    ;; Keywords: website
+    ;; URL: http://github.com/ildenir/ildenir.github.com
 
-  ;;; Commentary:
+    ;;; Commentary:
 
-  ;; Este pacote configura/customiza o exportador do org-mode para gerar
-  ;; o website casa esquilo de pirai.
+    ;; Este pacote configura/customiza o exportador do org-mode para gerar
+    ;; o website casa esquilo de pirai.
 
-  ;;; Code:
+    ;;; Code:
 
-  <<variaveis-utilitarias>>
-  <<header-footer-site>>
+    <<variaveis-utilitarias>>
+    <<header-footer-site>>
 
-  <<conteudo-dinamico>>
+    <<conteudo-dinamico>>
 
-  <<componentes-projeto>>
+    <<componentes-projeto>>
+
+    <<content-generator>>
 
 
-
-  <<exporta-modulo>>
+    <<exporta-modulo>>
 
 #+END_SRC
 
