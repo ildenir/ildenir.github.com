@@ -1,13 +1,18 @@
 #+TITLE: Sobre
 #+DATE: <2017-09-07 Thu>
 #+AUTHOR:
-#+EMAIL: uilcoder@darkdice
+#+EMAIL: ildenir+esquilopirai@googlemail.com
 #+CREATOR: Emacs 25.2.1 (Org mode 8.2.10)
 #+KEYWORDS: bio
 #+LANGUAGE: pt_BR
 #+OPTIONS: toc:nil  html-postamble:nil
 
 * Bio
+
+Sou um entusiasta da computação formado em matemática pela Rural
+([[http://portal.ufrrj.br/][UFRRJ]]) e mestre em computação gráfica pela [[http://www.uff.br][UFF]]. Carioca atualmente residente no Rio de Janeiro do Brasil. No
+tempo vago, gosto de culinaria, agricultura, video game, artes graficas.
+
 * Interesses
   - Emacs
   - Desenvolvimento de jogos
