@@ -8,8 +8,8 @@
 #+KEYWORDS:
 
 A casa do esquilo de pirai é um site pessoal que tem como principal
-objetivo compartilhar projetos, ideias, opniões. O autor apresenta o
-conteúdo de modo informal, portanto, não dê muita importância para
+objetivo compartilhar projetos, ideias, opniões. O conteúdo é apresentado
+de modo informal, portanto, não dê muita importância para
 possíveis erros encontrados nos textos.
 
 A Lista de tarefas e ideias futuras para artigos e projetos está
