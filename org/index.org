@@ -1,7 +1,7 @@
 #+TITLE: Esquilo de Pirai
 #+DATE: <2017-09-07 Thu>
 #+AUTHOR: Ildenir Barbosa
-#+EMAIL: ildenir+github@googlemail
+#+EMAIL: ildenir+github@googlemail.com
 #+LANGUAGE: pt_BR
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: toc:nil num:nil  html-postamble:nil
