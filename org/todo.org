@@ -1,6 +1,10 @@
 #+TITLE: Tarefas futuras
+#+TAGS: Projeto(p) Artigo(a) Idioma(i) Estudo(e)
 #+OPTIONS: toc:nil
 
 * Topicos futuros
 ** TODO Composteira e tratamento lixo
-** TODO Artigo literate programming
+** TODO sistema ponto flutuante					     :Artigo:
+** TODO Artigo literate programming				     :Artigo:
+** TODO 100 sentence rsl					     :Idioma:
+** TODO Basico Scilab						     :Artigo:

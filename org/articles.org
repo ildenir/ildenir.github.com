@@ -12,7 +12,7 @@
 
   (defun website--ignore-file (filename)
     (and (not (string-match "articles$" (directory-file-name (file-name-directory filename))))
-         (not (string= "website-publish" (file-name-base filename)))))
+	 (not (string= "website-publish" (file-name-base filename)))))
 
   (defun article-entry-str (filename title desc date)
     (string-join
@@ -22,12 +22,12 @@
 
   (defun article-entry (data)
     (let ((fn (car data))
-          (pl (car (cdr data))))
+	  (pl (car (cdr data))))
       (if (website--ignore-file fn) ""
-        (article-entry-str fn
-                           (plist-get pl 'title)
-                           (plist-get pl 'description)
-                           (plist-get pl 'date)))))
+	(article-entry-str fn
+			   (plist-get pl 'title)
+			   (plist-get pl 'description)
+			   (plist-get pl 'date)))))
 
   (princ (string-join (mapcar #'article-entry (website-generate-article)) "\n"))
 #+END_SRC
