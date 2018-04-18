@@ -1,5 +1,5 @@
 #+TITLE: Geracao estatica website com emacs org-mode
-#+DATE: <2017-09-05 Tue>
+#+DATE: 05/09/2017
 #+AUTHOR: Ildenir Barbosa
 #+EMAIL: ildenir+github@googlemail.com
 #+LANGUAGE: pt_BR
