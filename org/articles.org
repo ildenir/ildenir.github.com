@@ -17,8 +17,8 @@
   (defun article-entry-str (filename title desc date)
     (string-join
      (list
-      (format "\n* [[file:%s][%s]]" (file-relative-name filename) title)
-      (format "\n - %s \n - %s\n" desc date))))
+      (format "\n* %s [[file:%s][%s]]" date (file-relative-name filename) title))))
+
 
   (defun article-entry (data)
     (let ((fn (car data))
