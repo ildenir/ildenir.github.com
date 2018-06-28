@@ -49,6 +49,7 @@
 
 ** COMMENT questoes
    - por que site estatico?
+     site statico o autor possui o conteudo em formato de arquivo
      github, dropbox, bitbucket ...
      cms : blogspot, wordpress ...
    - por que org-mode e nao html ou markdown?
