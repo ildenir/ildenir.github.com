@@ -32,19 +32,20 @@
   arquivos fonte, e portanto, totalmente descartável.
 
 #+BEGIN_EXAMPLE
-../
-├── index.html
-├── main.js
-├── note.org
-├── org
-│   ├── css
-│   │   └── style.css
-│   ├── image
-│   ├── index.org
-│   └── website-publish.org
-├── README.md
-├── style.css
-└── style.css~
+.
+├── about.org
+├── articles
+├── articles.org
+├── books.org
+├── css
+├── font-awesome-4.7.0
+├── index.org
+├── js
+├── site-map.org
+├── todo.org
+├── website-publish.el
+├── website-publish.org
+└── website-publish.sh
 #+END_EXAMPLE
 
 ** COMMENT questoes
