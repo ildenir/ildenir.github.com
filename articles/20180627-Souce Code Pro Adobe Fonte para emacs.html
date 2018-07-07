@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt_BR" xml:lang="pt_BR">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <!-- 2018-07-07 sáb 01:20 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Esquilo de Pirai</title>
+<title>Souce Code Pro Adobe Fonte para emacs</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Ildenir Barbosa" />
+<meta name="description" content="Como configurar emacs para usar fonte adobe Source Code Pro"
+ />
+<meta name="keywords" content="emacs, programming" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -257,16 +260,104 @@ for the JavaScript code in this tag.
   </header>
 </div>
 <div id="content">
-<h1 class="title">Esquilo de Pirai</h1>
+<h1 class="title">Souce Code Pro Adobe Fonte para emacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgbe22ae6">Instalando as fontes TTF no Linux</a></li>
+<li><a href="#org4775b45">Configuração do emacs</a></li>
+</ul>
+</div>
+</div>
 <p>
-A casa do esquilo de pirai é um site pessoal que tem como principal
-objetivo compartilhar projetos, ideias, opniões. O conteúdo é apresentado
-de modo informal com todo tipo de erro.
+O processo de desenvolvimento de software exige que o programador
+permaneça longo período em frente a tela do computador criando e
+editando código fonte. Com o tempo esse período em frente a tela
+começa a causar desconforto visual. Para amenizar o desconforto, eh
+comum os desenvolvedor customizarem fonte e esquema de cor no ambiente
+de produção. Este post descreve como customizar o emacs 23 e 24 para
+utilizar as fontes Source Code Pro.
+</p>
+
+
+<p>
+As fontes Source Code Pro foram desenvolvidas especificamente para ser
+usada em ambientes de desenvolvimento. Recentemente, a fabricante
+Adobe, gentilmente, liberou como open source o código fonte.
 </p>
 
 <p>
-Acesse todos as pagina do site em <a href="site-map.html">Site map</a>.
+Uma abordagem completa sobre família de fontes pode ser encontrada em
+<a href="http://blogs.adobe.com/typblography/2012/09/source-code-pro.html">Source Code Pro</a>.
 </p>
+
+
+<div id="outline-container-orgbe22ae6" class="outline-2">
+<h2 id="orgbe22ae6">Instalando as fontes TTF no Linux</h2>
+<div class="outline-text-2" id="text-orgbe22ae6">
+<p>
+Para instalar as fontes eh necessário baixar os binários disponível em
+Source Code Pro e descompactar em um diretório temporário. Em seguida
+copie o arquivos .ttf para o para o diretório $HOME/.fonts e execute o
+comando shell
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-sh">fc-cache -fv
+</pre>
+</div>
+
+
+<p>
+Agora as fontes jah estão instaladas, para verificar faça
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">fc-list | grep -i source
+</pre>
+</div>
+
+<p>
+A instalação das fontes TTF para todos os usuários do sistema exige
+permissão de acesso de root. O processo de instalação pode ser
+encontrado em Installing TrueType fonts under ubuntu.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4775b45" class="outline-2">
+<h2 id="org4775b45">Configuração do emacs</h2>
+<div class="outline-text-2" id="text-org4775b45">
+<p>
+Com as fontes disponíveis no sistema, basta configurar o emacs para
+usar a nova família de fontes. Para tanto, edite o arquivo de
+configuração $HOME/.emacs e insira a instrução elisp
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(set-face-attribute 'default nil
+		    <span style="color: #e5786d;">:family</span> <span style="color: #95e454;">"Source Code Pro"</span>
+		    <span style="color: #e5786d;">:weight</span> 'normal
+		    <span style="color: #e5786d;">:width</span> 'ultra-condensed
+		    <span style="color: #e5786d;">:height</span> 112)
+</pre>
+</div>
+
+<p>
+Esta configuração foi extraída do site
+<a href="http://emacswiki.org/emacs/SetFonts">http://emacswiki.org/emacs/SetFonts</a>. Os parâmetros foram determinados
+por tentativa e erro. Veja minha configuração pessoal em .emacs
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 12/03/2013</p>
+<p class="author">Author: Ildenir Barbosa</p>
+<p class="date">Created: 2018-07-07 sáb 01:20</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
