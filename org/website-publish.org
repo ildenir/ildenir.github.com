@@ -66,7 +66,7 @@ com suporte facilitado para formulas matematica, codigo, image.
   (defvar project-dir (expand-file-name (file-name-as-directory "~/ProjectsGitHub/ildenir.github.com/"))
     "Diretorio do projeto do website.")
 
-  (defvar publish-dir (expand-file-name (concat project-dir "website"))
+  (defvar publish-dir project-dir
     "Diretorio onde sera publicado o website.")
 
   (defvar src-dir (expand-file-name (concat project-dir "org"))
