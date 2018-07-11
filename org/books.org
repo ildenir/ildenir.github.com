@@ -1,5 +1,5 @@
 #+TITLE: Livros
-#+DATE: <2017-10-12 qui>
+#+DATE: 12/10/2017
 #+AUTHOR: Ildenir Barbosa
 #+EMAIL: ildenir+github@googlegmail.com
 #+LANGUAGE: pt_BR
