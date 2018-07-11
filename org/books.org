@@ -1,4 +1,4 @@
-#+TITLE: Livros
+#+TITLE: Resenhas
 #+DATE: 12/10/2017
 #+AUTHOR: Ildenir Barbosa
 #+EMAIL: ildenir+github@googlegmail.com
@@ -23,12 +23,12 @@ Relação de livros da minha biblioteca.
 
    (defun article-entry (data)
      (let ((fn (car data))
-           (pl (car (cdr data))))
+	   (pl (car (cdr data))))
        (if (website--ignore-file fn) ""
-         (article-entry-str fn
-                            (plist-get pl 'title)
-                            (plist-get pl 'description)
-                            (plist-get pl 'date)))))
+	 (article-entry-str fn
+			    (plist-get pl 'title)
+			    (plist-get pl 'description)
+			    (plist-get pl 'date)))))
 
    (princ (string-join (mapcar #'article-entry (website-generate-article)) "\n"))
 #+END_SRC
