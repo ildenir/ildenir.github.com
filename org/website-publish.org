@@ -27,9 +27,10 @@
 
   O projeto do site segue a estrutura de diretorios como mostrado
   abaixo. O diretorio =org= corresponde aos arquivos fontes de paginas
-  escritas em org-mode, estilos em css e etc. O diretorio =website= eh
-  gerado ao publicar o site. Seu conteudo eh resultado da compilacao dos
-  arquivos fonte, e portanto, totalmente descartável.
+  escritas em org-mode, estilos em css e etc. Os arquivos gerados ao
+  publicar o site eh escrito no diretorio raiz do projeto sendo o
+  conteudo eh resultado da compilacao dos arquivos fonte, e portanto,
+  totalmente descartável.
 
 #+BEGIN_EXAMPLE
 .
