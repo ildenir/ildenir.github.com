@@ -1,3 +1,24 @@
+#sidenav-checkbox:checked ~ .sidenav {
+    display: block;
+    width: 250px;
+ }
+
+#sidenav-checkbox:checked ~ #content {
+    margin-left:250px;
+    background: blue;
+}
+
+#sidenav-checkbox {
+    display: none;
+}
+
+.sidenav-toggle {
+    font-size: 2em;
+    cursor: pointer;
+    position: fixed;
+    right: 33px;
+}
+
 .sidenav {
     height: 100%;
     width: 0;
@@ -53,7 +74,9 @@
 
 .barra
 {
-    background-color: #111;
+    border-bottom-style:solid;
+    border-bottom-width: 1px;
+    border-bottom-color: lightgray;
     width:100%;
     height:50px;
 }
@@ -61,16 +84,9 @@
 .cabecalho-barra
 {
     color: #818181;
-    position: absolute;
-    left: 20%;
-}
-
-.cabecalho-titulo
-{
-    display: inline-block;
-    float: right;
-    padding-left: 10px;
-    font-size: 16pt;
+    position: relative;
+    font-size:2rem;
+    text-align: center;
 }
 
 .w3-button
@@ -98,4 +114,8 @@
 .rede-social li
 {
     display: inline-block;
+}
+
+.validation {
+    display: none;
 }
