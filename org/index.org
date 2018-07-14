@@ -4,7 +4,7 @@
 #+EMAIL: ildenir+github@googlemail.com
 #+LANGUAGE: pt_BR
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
-#+OPTIONS: toc:nil num:nil  html-postamble:nil
+#+OPTIONS: title:nil toc:nil num:nil  html-postamble:nil
 #+KEYWORDS:
 
 A casa do esquilo de pirai é um site pessoal que tem como principal

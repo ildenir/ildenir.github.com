@@ -92,9 +92,18 @@ com suporte facilitado para formulas matematica, codigo, image.
 #+NAME: header-footer-site
 #+BEGIN_SRC emacs-lisp
   (defvar website-html-preamble "
+
+    <div class=\"barra\">
+      <div class=\"cabecalho-barra\">
+      Esquilo de Pirai
+      </div>
+    </div>
+
+    <input id=\"sidenav-checkbox\" type=\"checkbox\"> </input>
+    <label class=\"sidenav-toggle\" for=\"sidenav-checkbox\"><span class=\"fa fa-bars\"></span></label>
+
     <div id=\"mySidenav\" class=\"sidenav\">
       <ul class=\"menu-principal\">
-	<li><a href=\"javascript:void(0)\" class=\"closebtn\" onclick=\"closeNav()\">&times;</a>
 	<li><a href=\"/index.html\"> Home </a></li>
 	<li> <a href=\"/articles.html\"> Artigos </a></li>
 	<li> <a href=\"/books.html\"> Resenhas </a></li>
@@ -106,21 +115,12 @@ com suporte facilitado para formulas matematica, codigo, image.
 	<li><a href=\"http://github.com/ildenir\"><span class=\"fa fa-github\"></span></a></li>
       </ul>
     </div>
-
-    <header class=\"barra\">
-      <div class=\"cabecalho-barra\">
-	<span onclick=\"openNav()\" class=\"w3-button\" >
-	  <span class=\"fa fa-bars\"></span>
-	</span>
-      </div>
-    </header>
-
     "
     "Cabecalho inserido em toda pagina.")
 
   (defvar website-html-head "<link rel=\"stylesheet\" href=\"/css/style.css\">
     <link rel=\"stylesheet\" href=\"/font-awesome-4.7.0/css/font-awesome.css\">
-    <script src=\"/js/main.js\"></script>"
+    "
     "Referencia para estilo css e scripts.")
 
 #+END_SRC
