@@ -155,7 +155,7 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
 	 (filename (string-join
 		    (list (concat (file-name-as-directory src-dir)
 				  (file-name-as-directory "articles"))
-		     (format-time-string "%Y%m%d") "-" title ".org"))))
+		     (format-time-string "%Y%m%d") "-" (string-join (split-string title) "_") ".org"))))
     (with-current-buffer (get-buffer-create filename)
       (insert (format "#+TITLE: %s\n" title))
       (insert (format "#+DATE: %s\n" date))
