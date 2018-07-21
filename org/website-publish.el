@@ -32,16 +32,18 @@
   "Diretorio do artigos publicados.")
 (defvar website-html-preamble "
 
+<header>
   <div class=\"barra\">
     <div class=\"cabecalho-barra\">
-    Esquilo de Pirai
+    <a href=\"/index.html\">Esquilo de Pirai</a>
     </div>
   </div>
 
   <input id=\"sidenav-checkbox\" type=\"checkbox\"> </input>
-  <label class=\"sidenav-toggle\" for=\"sidenav-checkbox\"><span class=\"fa fa-bars\"></span></label>
+  <label class=\"sidenav-toggle\" for=\"sidenav-checkbox\">
+	  <span class=\"fa fa-bars\"></span></label>
 
-  <div id=\"mySidenav\" class=\"sidenav\">
+  <nav id=\"mySidenav\" class=\"sidenav\">
     <ul class=\"menu-principal\">
       <li><a href=\"/index.html\"> Home </a></li>
       <li> <a href=\"/articles.html\"> Artigos </a></li>
@@ -50,14 +52,17 @@
     </ul>
 
     <ul class=\"rede-social\">
-      <li><a href=\"http://twitter.com/Uilcoder\"><span class=\"fa fa-twitter\"></span></a></li>
-      <li><a href=\"http://github.com/ildenir\"><span class=\"fa fa-github\"></span></a></li>
+      <li><a href=\"http://twitter.com/Uilcoder\">
+	   <span class=\"fa fa-twitter\"></span></a></li>
+      <li><a href=\"http://github.com/ildenir\">
+	  <span class=\"fa fa-github\"></span></a></li>
     </ul>
-  </div>
+  </nav>
+  </header>
   "
   "Cabecalho inserido em toda pagina.")
 
-(defvar website-html-head "<link rel=\"stylesheet\" href=\"/css/style.css\">
+(defvar website-html-head "<link rel=\"stylesheet\" href=\"/css/xtreme-simple.css\">
   <link rel=\"stylesheet\" href=\"/font-awesome-4.7.0/css/font-awesome.css\">
   "
   "Referencia para estilo css e scripts.")
