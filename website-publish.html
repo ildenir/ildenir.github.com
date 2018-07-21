@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt_BR" xml:lang="pt_BR">
 <head>
-<!-- 2018-07-13 sex 23:25 -->
+<!-- 2018-07-21 sáb 18:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Geracao estatica website com emacs org-mode</title>
@@ -182,7 +182,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/xtreme-simple.css">
   <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.css">
 <script type="text/javascript">
 /*
@@ -235,16 +235,18 @@ for the JavaScript code in this tag.
 <div id="preamble" class="status">
 
 
+<header>
   <div class="barra">
     <div class="cabecalho-barra">
-    Esquilo de Pirai
+    <a href="/index.html">Esquilo de Pirai</a>
     </div>
   </div>
 
   <input id="sidenav-checkbox" type="checkbox"> </input>
-  <label class="sidenav-toggle" for="sidenav-checkbox"><span class="fa fa-bars"></span></label>
+  <label class="sidenav-toggle" for="sidenav-checkbox">
+	  <span class="fa fa-bars"></span></label>
 
-  <div id="mySidenav" class="sidenav">
+  <nav id="mySidenav" class="sidenav">
     <ul class="menu-principal">
       <li><a href="/index.html"> Home </a></li>
       <li> <a href="/articles.html"> Artigos </a></li>
@@ -253,10 +255,13 @@ for the JavaScript code in this tag.
     </ul>
 
     <ul class="rede-social">
-      <li><a href="http://twitter.com/Uilcoder"><span class="fa fa-twitter"></span></a></li>
-      <li><a href="http://github.com/ildenir"><span class="fa fa-github"></span></a></li>
+      <li><a href="http://twitter.com/Uilcoder">
+	   <span class="fa fa-twitter"></span></a></li>
+      <li><a href="http://github.com/ildenir">
+	  <span class="fa fa-github"></span></a></li>
     </ul>
-  </div>
+  </nav>
+  </header>
 </div>
 <div id="content">
 <h1 class="title">Geracao estatica website com emacs org-mode</h1>
@@ -264,26 +269,26 @@ for the JavaScript code in this tag.
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge5c2c65">Overview</a></li>
-<li><a href="#orga5a66f1">Variaveis utilitarias</a></li>
-<li><a href="#org6e7b500">Header e footer do site</a></li>
-<li><a href="#org0a74f24">Conteudo dinamico</a></li>
-<li><a href="#org7802cbd">Componentes do projeto</a></li>
-<li><a href="#org015dcaa">Suporte ao fluxo de trabalho</a>
+<li><a href="#orgda31636">Overview</a></li>
+<li><a href="#orgc78e42c">Variaveis utilitarias</a></li>
+<li><a href="#org5561308">Header e footer do site</a></li>
+<li><a href="#orga57d2af">Conteudo dinamico</a></li>
+<li><a href="#org367cfa7">Componentes do projeto</a></li>
+<li><a href="#orgaf00200">Suporte ao fluxo de trabalho</a>
 <ul>
-<li><a href="#org3dfe79e">Producao de conteudo</a></li>
+<li><a href="#orgdd5e108">Producao de conteudo</a></li>
 </ul>
 </li>
-<li><a href="#orge9951af">Exporta pacote website-publish</a></li>
-<li><a href="#org7a2335c">Codigos</a></li>
-<li><a href="#org612019a">Referencia</a></li>
+<li><a href="#org646afb1">Exporta pacote website-publish</a></li>
+<li><a href="#org3e8a53b">Codigos</a></li>
+<li><a href="#org2a4c0be">Referencia</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orge5c2c65" class="outline-2">
-<h2 id="orge5c2c65">Overview</h2>
-<div class="outline-text-2" id="text-orge5c2c65">
+<div id="outline-container-orgda31636" class="outline-2">
+<h2 id="orgda31636">Overview</h2>
+<div class="outline-text-2" id="text-orgda31636">
 <p>
 Este documento descreve o processo de geracao estatica do site baseado no
 modulo org-mode do emacs.
@@ -335,15 +340,15 @@ totalmente descartável.
 </div>
 </div>
 
-<div id="outline-container-orga5a66f1" class="outline-2">
-<h2 id="orga5a66f1">Variaveis utilitarias</h2>
-<div class="outline-text-2" id="text-orga5a66f1">
+<div id="outline-container-orgc78e42c" class="outline-2">
+<h2 id="orgc78e42c">Variaveis utilitarias</h2>
+<div class="outline-text-2" id="text-orgc78e42c">
 <p>
 Essas variaveis definem a localizacao dos diretorios do projeto.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org677b936">(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">project-dir</span> (expand-file-name (file-name-as-directory <span style="color: #95e454;">"~/ProjectsGitHub/ildenir.github.com/"</span>))
+<pre class="src src-emacs-lisp" id="org5d0f25a">(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">project-dir</span> (expand-file-name (file-name-as-directory <span style="color: #95e454;">"~/ProjectsGitHub/ildenir.github.com/"</span>))
   <span style="color: #95e454;">"Diretorio do projeto do website."</span>)
 
 (<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">publish-dir</span> project-dir
@@ -364,9 +369,9 @@ Essas variaveis definem a localizacao dos diretorios do projeto.
 </div>
 </div>
 
-<div id="outline-container-org6e7b500" class="outline-2">
-<h2 id="org6e7b500">Header e footer do site</h2>
-<div class="outline-text-2" id="text-org6e7b500">
+<div id="outline-container-org5561308" class="outline-2">
+<h2 id="org5561308">Header e footer do site</h2>
+<div class="outline-text-2" id="text-org5561308">
 <p>
 Toda pagina possui uma barra de navegacao e um rodape com referencia
 ao emacs como gerenciador de conteudo, data da ultima atualizacao.
@@ -378,18 +383,20 @@ variaveis separadas para simplificar definicao dos componentes do projeto.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org22049c9">(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">website-html-preamble</span> <span style="color: #95e454;">"</span>
+<pre class="src src-emacs-lisp" id="orgc93f694">(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">website-html-preamble</span> <span style="color: #95e454;">"</span>
 
+<span style="color: #95e454;">&lt;header&gt;</span>
 <span style="color: #95e454;">  &lt;div class=\"barra\"&gt;</span>
 <span style="color: #95e454;">    &lt;div class=\"cabecalho-barra\"&gt;</span>
-<span style="color: #95e454;">    Esquilo de Pirai</span>
+<span style="color: #95e454;">    &lt;a href=\"/index.html\"&gt;Esquilo de Pirai&lt;/a&gt;</span>
 <span style="color: #95e454;">    &lt;/div&gt;</span>
 <span style="color: #95e454;">  &lt;/div&gt;</span>
 
 <span style="color: #95e454;">  &lt;input id=\"sidenav-checkbox\" type=\"checkbox\"&gt; &lt;/input&gt;</span>
-<span style="color: #95e454;">  &lt;label class=\"sidenav-toggle\" for=\"sidenav-checkbox\"&gt;&lt;span class=\"fa fa-bars\"&gt;&lt;/span&gt;&lt;/label&gt;</span>
+<span style="color: #95e454;">  &lt;label class=\"sidenav-toggle\" for=\"sidenav-checkbox\"&gt;</span>
+<span style="color: #95e454;">          &lt;span class=\"fa fa-bars\"&gt;&lt;/span&gt;&lt;/label&gt;</span>
 
-<span style="color: #95e454;">  &lt;div id=\"mySidenav\" class=\"sidenav\"&gt;</span>
+<span style="color: #95e454;">  &lt;nav id=\"mySidenav\" class=\"sidenav\"&gt;</span>
 <span style="color: #95e454;">    &lt;ul class=\"menu-principal\"&gt;</span>
 <span style="color: #95e454;">      &lt;li&gt;&lt;a href=\"/index.html\"&gt; Home &lt;/a&gt;&lt;/li&gt;</span>
 <span style="color: #95e454;">      &lt;li&gt; &lt;a href=\"/articles.html\"&gt; Artigos &lt;/a&gt;&lt;/li&gt;</span>
@@ -398,14 +405,17 @@ variaveis separadas para simplificar definicao dos componentes do projeto.
 <span style="color: #95e454;">    &lt;/ul&gt;</span>
 
 <span style="color: #95e454;">    &lt;ul class=\"rede-social\"&gt;</span>
-<span style="color: #95e454;">      &lt;li&gt;&lt;a href=\"http://twitter.com/Uilcoder\"&gt;&lt;span class=\"fa fa-twitter\"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
-<span style="color: #95e454;">      &lt;li&gt;&lt;a href=\"http://github.com/ildenir\"&gt;&lt;span class=\"fa fa-github\"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
+<span style="color: #95e454;">      &lt;li&gt;&lt;a href=\"http://twitter.com/Uilcoder\"&gt;</span>
+<span style="color: #95e454;">           &lt;span class=\"fa fa-twitter\"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
+<span style="color: #95e454;">      &lt;li&gt;&lt;a href=\"http://github.com/ildenir\"&gt;</span>
+<span style="color: #95e454;">          &lt;span class=\"fa fa-github\"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
 <span style="color: #95e454;">    &lt;/ul&gt;</span>
-<span style="color: #95e454;">  &lt;/div&gt;</span>
+<span style="color: #95e454;">  &lt;/nav&gt;</span>
+<span style="color: #95e454;">  &lt;/header&gt;</span>
 <span style="color: #95e454;">  "</span>
   <span style="color: #95e454;">"Cabecalho inserido em toda pagina."</span>)
 
-(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">website-html-head</span> <span style="color: #95e454;">"&lt;link rel=\"stylesheet\" href=\"/css/style.css\"&gt;</span>
+(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">website-html-head</span> <span style="color: #95e454;">"&lt;link rel=\"stylesheet\" href=\"/css/xtreme-simple.css\"&gt;</span>
 <span style="color: #95e454;">  &lt;link rel=\"stylesheet\" href=\"/font-awesome-4.7.0/css/font-awesome.css\"&gt;</span>
 <span style="color: #95e454;">  "</span>
   <span style="color: #95e454;">"Referencia para estilo css e scripts."</span>)
@@ -415,9 +425,9 @@ variaveis separadas para simplificar definicao dos componentes do projeto.
 </div>
 </div>
 
-<div id="outline-container-org0a74f24" class="outline-2">
-<h2 id="org0a74f24">Conteudo dinamico</h2>
-<div class="outline-text-2" id="text-org0a74f24">
+<div id="outline-container-orga57d2af" class="outline-2">
+<h2 id="orga57d2af">Conteudo dinamico</h2>
+<div class="outline-text-2" id="text-orga57d2af">
 <p>
 O conteudo da pagina <b>artigos</b> eh gerado dinamicamente com base nos
 dados dos outro artigos publicados. A tecnica usada eh equivalente
@@ -432,7 +442,7 @@ link para primeira imagem se existir e data de publicacao.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org53d3e90">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">org-element</span>)
+<pre class="src src-emacs-lisp" id="orgf7651aa">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">org-element</span>)
 (<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">cl-lib</span>)
 
 (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website--extrack-kv</span> (ast)
@@ -458,7 +468,7 @@ link para primeira imagem se existir e data de publicacao.
   (<span style="color: #8ac6f2; font-weight: bold;">with-temp-buffer</span>
     (insert-file-contents filename)
     (org-mode)
-    (<span style="color: #8ac6f2; font-weight: bold;">let*</span> ((filterregex <span style="color: #95e454;">"</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">(</span><span style="color: #95e454;">TITLE</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">DATE</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">DESCRIPTION</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">)</span><span style="color: #95e454;">"</span>)
+    (<span style="color: #8ac6f2; font-weight: bold;">let*</span> ((filterregex <span style="color: #95e454;">"</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">(</span><span style="color: #95e454;">TITLE</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">DATE</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">DESCRIPTION</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">EMAIL</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">KEYWORDS</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">AUTHOR</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">)</span><span style="color: #95e454;">"</span>)
 	   (ast (org-element-parse-buffer))
 	   (kv (website--extrack-kv ast))
 	   (link (website--extract-link ast))
@@ -486,11 +496,11 @@ link para primeira imagem se existir e data de publicacao.
 </div>
 </div>
 
-<div id="outline-container-org7802cbd" class="outline-2">
-<h2 id="org7802cbd">Componentes do projeto</h2>
-<div class="outline-text-2" id="text-org7802cbd">
+<div id="outline-container-org367cfa7" class="outline-2">
+<h2 id="org367cfa7">Componentes do projeto</h2>
+<div class="outline-text-2" id="text-org367cfa7">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orged87d66">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">ox-publish</span>)
+<pre class="src src-emacs-lisp" id="org1c8162a">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">ox-publish</span>)
 (<span style="color: #8ac6f2; font-weight: bold;">setq</span> org-publish-project-alist
       `(
 	(<span style="color: #95e454;">"org-notes"</span>
@@ -524,9 +534,9 @@ link para primeira imagem se existir e data de publicacao.
 </div>
 </div>
 
-<div id="outline-container-org015dcaa" class="outline-2">
-<h2 id="org015dcaa">Suporte ao fluxo de trabalho</h2>
-<div class="outline-text-2" id="text-org015dcaa">
+<div id="outline-container-orgaf00200" class="outline-2">
+<h2 id="orgaf00200">Suporte ao fluxo de trabalho</h2>
+<div class="outline-text-2" id="text-orgaf00200">
 <p>
 O fluxo de trabalho consiste em criar/editar os arquivos <code>org</code>,
 <code>css</code>, <code>js</code> e etc com conteudo que pertencera ao site. Ao terminar
@@ -574,9 +584,9 @@ do arquivo, como <code>-Meu Artigo.org</code>.
 </p>
 </div>
 
-<div id="outline-container-org3dfe79e" class="outline-3">
-<h3 id="org3dfe79e">Producao de conteudo</h3>
-<div class="outline-text-3" id="text-org3dfe79e">
+<div id="outline-container-orgdd5e108" class="outline-3">
+<h3 id="orgdd5e108">Producao de conteudo</h3>
+<div class="outline-text-3" id="text-orgdd5e108">
 <p>
 A estrutura basica de um artigo pode ser composto rapidamente com o
 comando <code>website-new-article</code>. O comando pergunta por informacoes
@@ -585,27 +595,53 @@ o artigo na estrutura de diretorios do projeto.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org1e3b777">(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website-new-article</span> ()
-  <span style="color: #95e454;">"Entrevista usuario e insera conteudo ao projeto"</span>
-  (<span style="color: #8ac6f2; font-weight: bold;">interactive</span>)
-  (<span style="color: #8ac6f2; font-weight: bold;">let*</span> ((title (read-string <span style="color: #95e454;">"Title: "</span>))
-	 (description (read-string <span style="color: #95e454;">"Descricao: "</span>))
-	 (author (read-string <span style="color: #95e454;">"Author: "</span>))
-	 (date (format-time-string <span style="color: #95e454;">"%d/%m/%Y"</span>))
-	 (email (read-string <span style="color: #95e454;">"Email: "</span>))
-	 (keywords (read-string <span style="color: #95e454;">"Palavras-chave: "</span>))
-	 (filename (string-join
-		    (list (concat (file-name-as-directory src-dir)
-				  (file-name-as-directory <span style="color: #95e454;">"articles"</span>))
-		     (format-time-string <span style="color: #95e454;">"%Y%m%d"</span>) <span style="color: #95e454;">"-"</span> title <span style="color: #95e454;">".org"</span>))))
-    (<span style="color: #8ac6f2; font-weight: bold;">with-current-buffer</span> (get-buffer-create filename)
-      (insert (format <span style="color: #95e454;">"#+TITLE: %s\n"</span> title))
-      (insert (format <span style="color: #95e454;">"#+DATE: %s\n"</span> date))
-      (insert (format <span style="color: #95e454;">"#+AUTHOR: %s\n"</span> author))
-      (insert (format <span style="color: #95e454;">"#+DESCRIPTION: %s\n"</span> description))
-      (insert (format <span style="color: #95e454;">"#+KEYWORDS: %s\n"</span> keywords))
-      (insert <span style="color: #95e454;">"#+OPTIONS: num:nil\n"</span>)
-      (write-file filename))))
+<pre class="src src-emacs-lisp" id="orgfbbb74a">
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website--extract-kw</span> (kw)
+  <span style="color: #95e454;">"Auxiliar cria funcao que extrai lista de KW de todos os artigos."</span>
+  (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> (data)
+    (<span style="color: #8ac6f2; font-weight: bold;">let</span> ((pl (car (cdr data))) )
+      (plist-get pl kw))))
+
+
+  (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website--list-all</span> (keyword)
+    <span style="color: #95e454;">"Extrai lista de keyword de todos os arquivos"</span>
+    (<span style="color: #8ac6f2; font-weight: bold;">let</span> ((articles (website-generate-article)))
+      (remove nil (mapcar (website--extract-kw keyword) articles))))
+
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website--keyword-list</span> ()
+  <span style="color: #95e454;">"Lista de todas opcoes KEYWORD dos artigos."</span>
+  (<span style="color: #8ac6f2; font-weight: bold;">let</span> ((articles-kw (website--list-all 'keywords))
+	(split-string-default-separators <span style="color: #95e454;">"[ \f\t\n\r\v,]+"</span>)
+	(kw-list (list)))
+    (<span style="color: #8ac6f2; font-weight: bold;">dolist</span> (l articles-kw kw-list)
+      (<span style="color: #8ac6f2; font-weight: bold;">setq</span> kw-list (append kw-list (split-string l))))
+    (remove <span style="color: #95e454;">"nil"</span> (delete-dups kw-list))))
+
+  (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website-new-article</span> ()
+    <span style="color: #95e454;">"Entrevista usuario e insera conteudo ao projeto"</span>
+    (<span style="color: #8ac6f2; font-weight: bold;">interactive</span>)
+    (<span style="color: #8ac6f2; font-weight: bold;">let*</span> ((title (read-string <span style="color: #95e454;">"Title: "</span> ))
+	   (description (read-string <span style="color: #95e454;">"Descricao: "</span>))
+	   (author (completing-read <span style="color: #95e454;">"Autor: "</span> (website--list-all 'author)))
+	   (date (format-time-string <span style="color: #95e454;">"%d/%m/%Y"</span>))
+	   (email (completing-read <span style="color: #95e454;">"Email: "</span> (website--list-all 'email)))
+	   (keywords (completing-read-multiple <span style="color: #95e454;">"Palavras-chave: "</span>
+				      (website--keyword-list)))
+	   (filename (string-join
+		      (list (concat (file-name-as-directory src-dir)
+				    (file-name-as-directory <span style="color: #95e454;">"articles"</span>))
+			    (format-time-string <span style="color: #95e454;">"%Y%m%d"</span>) <span style="color: #95e454;">"-"</span>
+			    (string-join (split-string title) <span style="color: #95e454;">"_"</span>) <span style="color: #95e454;">".org"</span>))))
+      (<span style="color: #8ac6f2; font-weight: bold;">with-current-buffer</span> (get-buffer-create filename)
+	(insert (format <span style="color: #95e454;">"#+TITLE: %s\n"</span> title))
+	(insert (format <span style="color: #95e454;">"#+DATE: %s\n"</span> date))
+	(insert (format <span style="color: #95e454;">"#+AUTHOR: %s\n"</span> author))
+	(insert (format <span style="color: #95e454;">"#+EMAIL: %s\n"</span> email))
+	(insert (format <span style="color: #95e454;">"#+DESCRIPTION: %s\n"</span> description))
+	(insert (format <span style="color: #95e454;">"#+KEYWORDS: %s\n"</span> keywords))
+	(insert <span style="color: #95e454;">"#+LANGUAGE: pt_BR\n"</span>)
+	(insert <span style="color: #95e454;">"#+OPTIONS: num:nil\n"</span>)
+	(write-file filename))))
 </pre>
 </div>
 </div>
@@ -616,15 +652,15 @@ o artigo na estrutura de diretorios do projeto.
 
 
 
-<div id="outline-container-orge9951af" class="outline-2">
-<h2 id="orge9951af">Exporta pacote website-publish</h2>
-<div class="outline-text-2" id="text-orge9951af">
+<div id="outline-container-org646afb1" class="outline-2">
+<h2 id="org646afb1">Exporta pacote website-publish</h2>
+<div class="outline-text-2" id="text-org646afb1">
 <p>
 Agora o script serah finalizado com a exportacao do pacote para emacs.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org2411b57">(<span style="color: #8ac6f2; font-weight: bold;">provide</span> '<span style="color: #e5786d;">website-publish</span>)
+<pre class="src src-emacs-lisp" id="org01e44fd">(<span style="color: #8ac6f2; font-weight: bold;">provide</span> '<span style="color: #e5786d;">website-publish</span>)
 <span style="color: #99968b;">;;; </span><span style="color: #99968b;">website-publish.el ends here</span>
 
 </pre>
@@ -632,11 +668,11 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 </div>
 </div>
 
-<div id="outline-container-org7a2335c" class="outline-2">
-<h2 id="org7a2335c">Codigos</h2>
-<div class="outline-text-2" id="text-org7a2335c">
+<div id="outline-container-org3e8a53b" class="outline-2">
+<h2 id="org3e8a53b">Codigos</h2>
+<div class="outline-text-2" id="text-org3e8a53b">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #99968b;">;;; </span><span style="color: #99968b;">website-publish.el --- Configuracao publicar site com org-mode</span>
+<pre class="src src-emacs-lisp"><span style="color: #99968b;">;;; </span><span style="color: #99968b;">website-publish.el --- Configuracao publicar site com org-mode -*- lexical-binding:t -*-</span>
 
 <span style="color: #99968b;">;; </span><span style="color: #99968b;">Copyright (C) 2017 Ildenir Barbosa</span>
 
@@ -670,16 +706,18 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
   <span style="color: #95e454;">"Diretorio do artigos publicados."</span>)
 (<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">website-html-preamble</span> <span style="color: #95e454;">"</span>
 
+<span style="color: #95e454;">&lt;header&gt;</span>
 <span style="color: #95e454;">  &lt;div class=\"barra\"&gt;</span>
 <span style="color: #95e454;">    &lt;div class=\"cabecalho-barra\"&gt;</span>
-<span style="color: #95e454;">    Esquilo de Pirai</span>
+<span style="color: #95e454;">    &lt;a href=\"/index.html\"&gt;Esquilo de Pirai&lt;/a&gt;</span>
 <span style="color: #95e454;">    &lt;/div&gt;</span>
 <span style="color: #95e454;">  &lt;/div&gt;</span>
 
 <span style="color: #95e454;">  &lt;input id=\"sidenav-checkbox\" type=\"checkbox\"&gt; &lt;/input&gt;</span>
-<span style="color: #95e454;">  &lt;label class=\"sidenav-toggle\" for=\"sidenav-checkbox\"&gt;&lt;span class=\"fa fa-bars\"&gt;&lt;/span&gt;&lt;/label&gt;</span>
+<span style="color: #95e454;">  &lt;label class=\"sidenav-toggle\" for=\"sidenav-checkbox\"&gt;</span>
+<span style="color: #95e454;">          &lt;span class=\"fa fa-bars\"&gt;&lt;/span&gt;&lt;/label&gt;</span>
 
-<span style="color: #95e454;">  &lt;div id=\"mySidenav\" class=\"sidenav\"&gt;</span>
+<span style="color: #95e454;">  &lt;nav id=\"mySidenav\" class=\"sidenav\"&gt;</span>
 <span style="color: #95e454;">    &lt;ul class=\"menu-principal\"&gt;</span>
 <span style="color: #95e454;">      &lt;li&gt;&lt;a href=\"/index.html\"&gt; Home &lt;/a&gt;&lt;/li&gt;</span>
 <span style="color: #95e454;">      &lt;li&gt; &lt;a href=\"/articles.html\"&gt; Artigos &lt;/a&gt;&lt;/li&gt;</span>
@@ -688,14 +726,17 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 <span style="color: #95e454;">    &lt;/ul&gt;</span>
 
 <span style="color: #95e454;">    &lt;ul class=\"rede-social\"&gt;</span>
-<span style="color: #95e454;">      &lt;li&gt;&lt;a href=\"http://twitter.com/Uilcoder\"&gt;&lt;span class=\"fa fa-twitter\"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
-<span style="color: #95e454;">      &lt;li&gt;&lt;a href=\"http://github.com/ildenir\"&gt;&lt;span class=\"fa fa-github\"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
+<span style="color: #95e454;">      &lt;li&gt;&lt;a href=\"http://twitter.com/Uilcoder\"&gt;</span>
+<span style="color: #95e454;">           &lt;span class=\"fa fa-twitter\"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
+<span style="color: #95e454;">      &lt;li&gt;&lt;a href=\"http://github.com/ildenir\"&gt;</span>
+<span style="color: #95e454;">          &lt;span class=\"fa fa-github\"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;</span>
 <span style="color: #95e454;">    &lt;/ul&gt;</span>
-<span style="color: #95e454;">  &lt;/div&gt;</span>
+<span style="color: #95e454;">  &lt;/nav&gt;</span>
+<span style="color: #95e454;">  &lt;/header&gt;</span>
 <span style="color: #95e454;">  "</span>
   <span style="color: #95e454;">"Cabecalho inserido em toda pagina."</span>)
 
-(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">website-html-head</span> <span style="color: #95e454;">"&lt;link rel=\"stylesheet\" href=\"/css/style.css\"&gt;</span>
+(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">website-html-head</span> <span style="color: #95e454;">"&lt;link rel=\"stylesheet\" href=\"/css/xtreme-simple.css\"&gt;</span>
 <span style="color: #95e454;">  &lt;link rel=\"stylesheet\" href=\"/font-awesome-4.7.0/css/font-awesome.css\"&gt;</span>
 <span style="color: #95e454;">  "</span>
   <span style="color: #95e454;">"Referencia para estilo css e scripts."</span>)
@@ -727,7 +768,7 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
   (<span style="color: #8ac6f2; font-weight: bold;">with-temp-buffer</span>
     (insert-file-contents filename)
     (org-mode)
-    (<span style="color: #8ac6f2; font-weight: bold;">let*</span> ((filterregex <span style="color: #95e454;">"</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">(</span><span style="color: #95e454;">TITLE</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">DATE</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">DESCRIPTION</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">)</span><span style="color: #95e454;">"</span>)
+    (<span style="color: #8ac6f2; font-weight: bold;">let*</span> ((filterregex <span style="color: #95e454;">"</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">(</span><span style="color: #95e454;">TITLE</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">DATE</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">DESCRIPTION</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">EMAIL</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">KEYWORDS</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">|</span><span style="color: #95e454;">AUTHOR</span><span style="color: #95e454; font-weight: bold;">\\</span><span style="color: #95e454; font-weight: bold;">)</span><span style="color: #95e454;">"</span>)
 	   (ast (org-element-parse-buffer))
 	   (kv (website--extrack-kv ast))
 	   (link (website--extract-link ast))
@@ -781,27 +822,53 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 	 )
 	(<span style="color: #95e454;">"org"</span> <span style="color: #e5786d;">:components</span> (<span style="color: #95e454;">"org-notes"</span> <span style="color: #95e454;">"org-static"</span>))))
 
-(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website-new-article</span> ()
-  <span style="color: #95e454;">"Entrevista usuario e insera conteudo ao projeto"</span>
-  (<span style="color: #8ac6f2; font-weight: bold;">interactive</span>)
-  (<span style="color: #8ac6f2; font-weight: bold;">let*</span> ((title (read-string <span style="color: #95e454;">"Title: "</span>))
-	 (description (read-string <span style="color: #95e454;">"Descricao: "</span>))
-	 (author (read-string <span style="color: #95e454;">"Author: "</span>))
-	 (date (format-time-string <span style="color: #95e454;">"%d/%m/%Y"</span>))
-	 (email (read-string <span style="color: #95e454;">"Email: "</span>))
-	 (keywords (read-string <span style="color: #95e454;">"Palavras-chave: "</span>))
-	 (filename (string-join
-		    (list (concat (file-name-as-directory src-dir)
-				  (file-name-as-directory <span style="color: #95e454;">"articles"</span>))
-		     (format-time-string <span style="color: #95e454;">"%Y%m%d"</span>) <span style="color: #95e454;">"-"</span> title <span style="color: #95e454;">".org"</span>))))
-    (<span style="color: #8ac6f2; font-weight: bold;">with-current-buffer</span> (get-buffer-create filename)
-      (insert (format <span style="color: #95e454;">"#+TITLE: %s\n"</span> title))
-      (insert (format <span style="color: #95e454;">"#+DATE: %s\n"</span> date))
-      (insert (format <span style="color: #95e454;">"#+AUTHOR: %s\n"</span> author))
-      (insert (format <span style="color: #95e454;">"#+DESCRIPTION: %s\n"</span> description))
-      (insert (format <span style="color: #95e454;">"#+KEYWORDS: %s\n"</span> keywords))
-      (insert <span style="color: #95e454;">"#+OPTIONS: num:nil\n"</span>)
-      (write-file filename))))
+
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website--extract-kw</span> (kw)
+  <span style="color: #95e454;">"Auxiliar cria funcao que extrai lista de KW de todos os artigos."</span>
+  (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> (data)
+    (<span style="color: #8ac6f2; font-weight: bold;">let</span> ((pl (car (cdr data))) )
+      (plist-get pl kw))))
+
+
+  (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website--list-all</span> (keyword)
+    <span style="color: #95e454;">"Extrai lista de keyword de todos os arquivos"</span>
+    (<span style="color: #8ac6f2; font-weight: bold;">let</span> ((articles (website-generate-article)))
+      (remove nil (mapcar (website--extract-kw keyword) articles))))
+
+(<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website--keyword-list</span> ()
+  <span style="color: #95e454;">"Lista de todas opcoes KEYWORD dos artigos."</span>
+  (<span style="color: #8ac6f2; font-weight: bold;">let</span> ((articles-kw (website--list-all 'keywords))
+	(split-string-default-separators <span style="color: #95e454;">"[ \f\t\n\r\v,]+"</span>)
+	(kw-list (list)))
+    (<span style="color: #8ac6f2; font-weight: bold;">dolist</span> (l articles-kw kw-list)
+      (<span style="color: #8ac6f2; font-weight: bold;">setq</span> kw-list (append kw-list (split-string l))))
+    (remove <span style="color: #95e454;">"nil"</span> (delete-dups kw-list))))
+
+  (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website-new-article</span> ()
+    <span style="color: #95e454;">"Entrevista usuario e insera conteudo ao projeto"</span>
+    (<span style="color: #8ac6f2; font-weight: bold;">interactive</span>)
+    (<span style="color: #8ac6f2; font-weight: bold;">let*</span> ((title (read-string <span style="color: #95e454;">"Title: "</span> ))
+	   (description (read-string <span style="color: #95e454;">"Descricao: "</span>))
+	   (author (completing-read <span style="color: #95e454;">"Autor: "</span> (website--list-all 'author)))
+	   (date (format-time-string <span style="color: #95e454;">"%d/%m/%Y"</span>))
+	   (email (completing-read <span style="color: #95e454;">"Email: "</span> (website--list-all 'email)))
+	   (keywords (completing-read-multiple <span style="color: #95e454;">"Palavras-chave: "</span>
+				      (website--keyword-list)))
+	   (filename (string-join
+		      (list (concat (file-name-as-directory src-dir)
+				    (file-name-as-directory <span style="color: #95e454;">"articles"</span>))
+			    (format-time-string <span style="color: #95e454;">"%Y%m%d"</span>) <span style="color: #95e454;">"-"</span>
+			    (string-join (split-string title) <span style="color: #95e454;">"_"</span>) <span style="color: #95e454;">".org"</span>))))
+      (<span style="color: #8ac6f2; font-weight: bold;">with-current-buffer</span> (get-buffer-create filename)
+	(insert (format <span style="color: #95e454;">"#+TITLE: %s\n"</span> title))
+	(insert (format <span style="color: #95e454;">"#+DATE: %s\n"</span> date))
+	(insert (format <span style="color: #95e454;">"#+AUTHOR: %s\n"</span> author))
+	(insert (format <span style="color: #95e454;">"#+EMAIL: %s\n"</span> email))
+	(insert (format <span style="color: #95e454;">"#+DESCRIPTION: %s\n"</span> description))
+	(insert (format <span style="color: #95e454;">"#+KEYWORDS: %s\n"</span> keywords))
+	(insert <span style="color: #95e454;">"#+LANGUAGE: pt_BR\n"</span>)
+	(insert <span style="color: #95e454;">"#+OPTIONS: num:nil\n"</span>)
+	(write-file filename))))
 
 
 (<span style="color: #8ac6f2; font-weight: bold;">provide</span> '<span style="color: #e5786d;">website-publish</span>)
@@ -814,9 +881,9 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 </div>
 
 
-<div id="outline-container-org612019a" class="outline-2">
-<h2 id="org612019a">Referencia</h2>
-<div class="outline-text-2" id="text-org612019a">
+<div id="outline-container-org2a4c0be" class="outline-2">
+<h2 id="org2a4c0be">Referencia</h2>
+<div class="outline-text-2" id="text-org2a4c0be">
 <ul class="org-ul">
 <li><a href="http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html">Publishing Org-mode files to html</a></li>
 <li>[Dale]    <a href="http://dale.io/blog/automated-org-publishing.html">Automated Publishing Pipeline with Org Mode</a></li>
@@ -829,7 +896,7 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 <div id="postamble" class="status">
 <p class="date">Data: 05/09/2017</p>
 <p class="author">Autor: Ildenir Barbosa</p>
-<p class="date">Created: 2018-07-13 sex 23:25</p>
+<p class="date">Created: 2018-07-21 sáb 18:42</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
