@@ -1,4 +1,4 @@
-;;; website-publish.el --- Configuracao publicar site com org-mode
+;;; website-publish.el --- Configuracao publicar site com org-mode -*- lexical-binding:t -*-
 
 ;; Copyright (C) 2017 Ildenir Barbosa
 
@@ -94,7 +94,7 @@ Retorna plist keys title image description date"
   (with-temp-buffer
     (insert-file-contents filename)
     (org-mode)
-    (let* ((filterregex "\\(TITLE\\|DATE\\|DESCRIPTION\\)")
+    (let* ((filterregex "\\(TITLE\\|DATE\\|DESCRIPTION\\|EMAIL\\|KEYWORDS\\|AUTHOR\\)")
 	   (ast (org-element-parse-buffer))
 	   (kv (website--extrack-kv ast))
 	   (link (website--extract-link ast))
@@ -148,27 +148,53 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
 	 )
 	("org" :components ("org-notes" "org-static"))))
 
-(defun website-new-article ()
-  "Entrevista usuario e insera conteudo ao projeto"
-  (interactive)
-  (let* ((title (read-string "Title: "))
-	 (description (read-string "Descricao: "))
-	 (author (read-string "Author: "))
-	 (date (format-time-string "%d/%m/%Y"))
-	 (email (read-string "Email: "))
-	 (keywords (read-string "Palavras-chave: "))
-	 (filename (string-join
-		    (list (concat (file-name-as-directory src-dir)
-				  (file-name-as-directory "articles"))
-		     (format-time-string "%Y%m%d") "-" (string-join (split-string title) "_") ".org"))))
-    (with-current-buffer (get-buffer-create filename)
-      (insert (format "#+TITLE: %s\n" title))
-      (insert (format "#+DATE: %s\n" date))
-      (insert (format "#+AUTHOR: %s\n" author))
-      (insert (format "#+DESCRIPTION: %s\n" description))
-      (insert (format "#+KEYWORDS: %s\n" keywords))
-      (insert "#+OPTIONS: num:nil\n")
-      (write-file filename))))
+
+(defun website--extract-kw (kw)
+  "Auxiliar cria funcao que extrai lista de KW de todos os artigos."
+  (lambda (data)
+    (let ((pl (car (cdr data))) )
+      (plist-get pl kw))))
+
+
+  (defun website--list-all (keyword)
+    "Extrai lista de keyword de todos os arquivos"
+    (let ((articles (website-generate-article)))
+      (remove nil (mapcar (website--extract-kw keyword) articles))))
+
+(defun website--keyword-list ()
+  "Lista de todas opcoes KEYWORD dos artigos."
+  (let ((articles-kw (website--list-all 'keywords))
+	(split-string-default-separators "[ \f\t\n\r\v,]+")
+	(kw-list (list)))
+    (dolist (l articles-kw kw-list)
+      (setq kw-list (append kw-list (split-string l))))
+    (remove "nil" (delete-dups kw-list))))
+
+  (defun website-new-article ()
+    "Entrevista usuario e insera conteudo ao projeto"
+    (interactive)
+    (let* ((title (read-string "Title: " ))
+	   (description (read-string "Descricao: "))
+	   (author (completing-read "Autor: " (website--list-all 'author)))
+	   (date (format-time-string "%d/%m/%Y"))
+	   (email (completing-read "Email: " (website--list-all 'email)))
+	   (keywords (completing-read-multiple "Palavras-chave: "
+				      (website--keyword-list)))
+	   (filename (string-join
+		      (list (concat (file-name-as-directory src-dir)
+				    (file-name-as-directory "articles"))
+			    (format-time-string "%Y%m%d") "-"
+			    (string-join (split-string title) "_") ".org"))))
+      (with-current-buffer (get-buffer-create filename)
+	(insert (format "#+TITLE: %s\n" title))
+	(insert (format "#+DATE: %s\n" date))
+	(insert (format "#+AUTHOR: %s\n" author))
+	(insert (format "#+EMAIL: %s\n" email))
+	(insert (format "#+DESCRIPTION: %s\n" description))
+	(insert (format "#+KEYWORDS: %s\n" keywords))
+	(insert "#+LANGUAGE: pt_BR\n")
+	(insert "#+OPTIONS: num:nil\n")
+	(write-file filename))))
 
 
 (provide 'website-publish)
