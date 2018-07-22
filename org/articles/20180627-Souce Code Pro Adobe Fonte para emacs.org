@@ -14,6 +14,7 @@ comum os desenvolvedor customizarem fonte e esquema de cor no ambiente
 de produção. Este post descreve como customizar o emacs 23 e 24 para
 utilizar as fontes Source Code Pro.
 
+[[../images/sourcepro_screen.jpg]]
 
 As fontes Source Code Pro foram desenvolvidas especificamente para ser
 usada em ambientes de desenvolvimento. Recentemente, a fabricante
