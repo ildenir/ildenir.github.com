@@ -10,6 +10,12 @@ a {
     text-decoration: none;
 }
 
+.example {
+    border-left-style: solid;
+    border-left-width: 1.0em;
+    border-color: darkgray;
+}
+
 #postamble
 {
     margin: 0 auto;
