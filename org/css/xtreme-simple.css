@@ -6,10 +6,6 @@ html {
     font-size: 62.5%;
 }
 
-body {
-    font-size: 1.4rem;
-}
-
 a {
     text-decoration: none;
 }
@@ -25,10 +21,22 @@ a {
     text-align: justify;
 }
 
+#content h1 {
+    font-size: 2.5rem;
+}
+
+#content h2 {
+    font-size: 2.0rem;
+}
+
+#content p {
+    font-size: 1.6rem;
+}
+
 #content {
     max-width: 89em;
     width: 60%;
-    padding-left: 20px;
+    padding-left: 2.0em;
     margin: 0 auto;
     font-family: Helvetica, Verdana, Arial, sans-serif;
 }
@@ -36,6 +44,7 @@ a {
 #text-table-of-contents ul {
     list-style: none;
     padding-left: 0.5em;
+    font-size: 1.6rem;
 }
 
 #sidenav-checkbox,
