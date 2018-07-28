@@ -44,7 +44,6 @@ a {
 }
 
 .sidenav a {
-    padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 1.6rem;
     color: #818181;
@@ -79,6 +78,10 @@ a {
 {
     list-style: none;
     display: inline-block;
+}
+
+ul.menu-principal li a::before {
+    content: '//';
 }
 
 .rede-social
