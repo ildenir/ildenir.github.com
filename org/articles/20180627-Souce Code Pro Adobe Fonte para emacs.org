@@ -2,6 +2,7 @@
 #+DATE: 12/03/2013
 #+AUTHOR: Ildenir Barbosa
 #+DESCRIPTION: Como configurar emacs para usar fonte adobe Source Code Pro
+#+LANGUAGE: pt_BR
 #+KEYWORDS: emacs, programming
 #+OPTIONS: num:nil
 
