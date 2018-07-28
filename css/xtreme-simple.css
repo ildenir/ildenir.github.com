@@ -6,18 +6,20 @@ html {
     font-size: 62.5%;
 }
 
-body {
-    font-size: 1.4rem;
-}
-
 a {
     text-decoration: none;
+}
+
+.example {
+    border-left-style: solid;
+    border-left-width: 1.0em;
+    border-color: darkgray;
 }
 
 #postamble
 {
     margin: 0 auto;
-    padding-left: 20px;
+    padding-left: 2.0em;
     width: 60%;
 }
 
@@ -25,16 +27,30 @@ a {
     text-align: justify;
 }
 
+#content h1 {
+    font-size: 2.5rem;
+}
+
+#content h2 {
+    font-size: 2.0rem;
+}
+
+#content p {
+    font-size: 1.6rem;
+}
+
 #content {
     max-width: 89em;
     width: 60%;
-    padding-left: 20px;
+    padding-left: 2.0em;
     margin: 0 auto;
+    font-family: Helvetica, Verdana, Arial, sans-serif;
 }
 
 #text-table-of-contents ul {
     list-style: none;
     padding-left: 0.5em;
+    font-size: 1.6rem;
 }
 
 #sidenav-checkbox,
@@ -43,7 +59,6 @@ a {
 }
 
 .sidenav a {
-    padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 1.6rem;
     color: #818181;
@@ -80,6 +95,10 @@ a {
     display: inline-block;
 }
 
+ul.menu-principal li a::before {
+    content: '//';
+}
+
 .rede-social
 {
     display: block;
@@ -101,6 +120,10 @@ pre.src {
 }
 
 @media screen and (max-width: 400px) {
+    html {
+	font-size: 8px;
+    }
+
     #content {
 	width: 100%;
 	padding: 0;
