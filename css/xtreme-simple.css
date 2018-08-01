@@ -60,7 +60,7 @@ a {
 
 .sidenav a {
     text-decoration: none;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #818181;
 
 }
@@ -72,8 +72,8 @@ a {
 
 .barra
 {
-    border-bottom-style:solid;
-    border-bottom-width: 1px;
+    border-bottom-style: double;
+    border-bottom-width: 3px;
     border-bottom-color: lightgray;
 }
 
@@ -108,6 +108,13 @@ ul.menu-principal li a::before {
 .rede-social li
 {
     display: inline-block;
+    font-size: 3rem;
+
+}
+
+ul.rede-social li a {
+    font-size: 3rem;
+    padding-right: 1em;
 }
 
 .validation {
@@ -139,18 +146,17 @@ pre.src {
     .sidenav-toggle {
 	display: block;
 	position: absolute;
-	float: left;
 	color: #3c3c3c;
-	font-size: 2em;
+	font-size: 2.8em;
 	cursor: pointer;
-	left: 0.5em;
-	top: 0.5em;
+	left: 1.5em;
+	top: 0.8em;
     }
 
     .sidenav {
 	display: none;
-	border-bottom-style: solid;
-	border-bottom-width: 1px;
+	border-bottom-style: double;
+	border-bottom-width: 3px;
 	border-bottom-color: lightgray;
     }
 
