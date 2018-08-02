@@ -6,8 +6,10 @@ html {
     font-size: 62.5%;
 }
 
-a {
+a,
+a:visited {
     text-decoration: none;
+    color: blue;
 }
 
 .example {
@@ -21,10 +23,16 @@ a {
     margin: 0 auto;
     padding-left: 2.0em;
     width: 60%;
+    font-size: 1.6rem;
 }
 
-#content p {
-    text-align: justify;
+#content {
+    max-width: 89em;
+    width: 60%;
+    padding-left: 2.0em;
+    margin: 0 auto;
+    font-family: Helvetica, Verdana, Arial, sans-serif;
+    font-size: 1.6rem;
 }
 
 #content h1 {
@@ -36,15 +44,7 @@ a {
 }
 
 #content p {
-    font-size: 1.6rem;
-}
-
-#content {
-    max-width: 89em;
-    width: 60%;
-    padding-left: 2.0em;
-    margin: 0 auto;
-    font-family: Helvetica, Verdana, Arial, sans-serif;
+    text-align: justify;
 }
 
 #text-table-of-contents ul {
@@ -124,6 +124,7 @@ ul.rede-social li a {
 pre,
 pre.src {
     overflow: auto;
+    font-size: 1.4rem;
 }
 
 @media screen and (max-width: 400px) {
