@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt_BR" xml:lang="pt_BR">
 <head>
 <!-- 2018-08-02 qui 21:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Site map</title>
+<title>Ferramentas desenvolvimento com lisdl</title>
 <meta name="generator" content="Org mode" />
+<meta name="author" content="Ildenir Barbosa" />
+<meta name="description" content="como utilizar libsdl portavel"
+ />
+<meta name="keywords" content="gamedev libsdl" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -263,22 +267,254 @@ for the JavaScript code in this tag.
   </header>
 </div>
 <div id="content">
-<h1 class="title">Site map</h1>
-<ul class="org-ul">
-<li><a href="articles.html">Artigos</a></li>
-<li><a href="index.html">Esquilo de Pirai</a></li>
-<li><a href="website-publish.html">Geracao estatica website com emacs org-mode</a></li>
-<li><a href="books.html">Resenhas</a></li>
-<li><a href="about.html">Sobre</a></li>
-<li><a href="todo.html">Tarefas futuras</a></li>
-<li>articles
-<ul class="org-ul">
-<li><a href="articles/20180702-ferramentas_desenvolvimento_com_lisdl.html">Ferramentas desenvolvimento com lisdl</a></li>
-<li><a href="articles/20180627-Souce Code Pro Adobe Fonte para emacs.html">Souce Code Pro Adobe Fonte para emacs</a></li>
-</ul></li>
+<h1 class="title">Ferramentas desenvolvimento com lisdl</h1>
+<div id="table-of-contents">
+<h2>&Iacute;ndice</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgeab8359">Desenvolvimento com autotools</a></li>
+<li><a href="#org7736657">Projetos SDL com AutoTools</a></li>
+<li><a href="#org6eb731a">Referencia</a></li>
 </ul>
 </div>
+</div>
+
+
+<div id="outline-container-orgeab8359" class="outline-2">
+<h2 id="orgeab8359">Desenvolvimento com autotools</h2>
+<div class="outline-text-2" id="text-orgeab8359">
+<p>
+As ferramentas <code>automake</code> e <code>autoconf</code> oferecem uma infraestrutura de
+compilacao automatizada que facilita em muito a vida do desenvolvedor
+ao gerar makefile portaveis. O uso eh simples basta um pouco de
+pratica e <b>code snippets</b> para facilitar.
+</p>
+
+<p>
+Inicialmente, cria-se o codigo fonte do aplicativo. Em seguida, a
+regra de compilacao deve ser descrita em um arquivo <code>Makefile.am</code> que
+serah processado para gerar um arquivo de entrada <code>configure.in</code> para
+o script <code>configure</code>. O arquivo <code>configure</code> eh gerado pelo <code>autoconf</code>. Daih,
+a compilacao da aplicacao segue o padrao <code>configure &amp;&amp; make &amp;&amp; make
+install</code>.
+</p>
+
+<p>
+Supondo que foi desenvolvido o codigo fonte <code>main.cpp</code>. Para criar um
+makefile para o fonte, escrevemos o arquivo <code>Makefile.am</code> como segue:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-makefile-automake"><span style="color: #cae682;">bin_PROGRAMS</span> = teste
+<span style="color: #cae682;">teste_SOURCES</span> = main.cpp
+</pre>
+</div>
+
+
+<p>
+Agora, execute o programa autoscan para gerar um template do arquivo
+de configuracao.
+</p>
+
+
+<p>
+Execute <code>cat configure.scan &gt; configure.ac</code>
+</p>
+
+<p>
+Edite <code>configure.ac</code> como segue:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-autoconf">
+-*- Autoconf -*-
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Process this file with autoconf to produce a configure script.</span>
+
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_PREREQ</span>(2.61)
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_INIT</span>([teste], [0.0], [ildenir+github@googlemail.com])
+
+<span style="color: #8ac6f2; font-weight: bold;">AM_INIT_AUTOMAKE</span>
+
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_CONFIG_SRCDIR</span>([main.cpp])
+
+<span style="color: #99968b;">#AC_CONFIG_HEADER([config.h])</span>
+
+
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Checks for programs.</span>
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_PROG_CXX</span>
+
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Checks for libraries.</span>
+
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Checks for header files.</span>
+
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Checks for typedefs, structures, and compiler characteristics.</span>
+
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Checks for library functions.</span>
+
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_CONFIG_FILES</span>([Makefile])
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_OUTPUT</span>
+</pre>
+</div>
+
+
+<p>
+Execute <code>aclocal; touch README, NEWS ; automake</code>. Caso esteja faltando
+algum arquivo execute <code>automake --add-missing</code>
+</p>
+
+<p>
+Execute <code>autoconf</code> e pronto.
+</p>
+
+<p>
+Para finalizar, compile a aplicacao com a sequencia de comandos
+<code>configure &amp;&amp; make &amp;&amp; make install</code>
+</p>
+
+<p>
+Para utilizar SDL escreva o makefile como segue:
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-makefile-automake"><span style="color: #cae682;">SDL_LIBS</span>= <span style="color: #95e454;">`sdl-config --libs`</span>
+
+<span style="color: #cae682;">SDL_INC</span> = <span style="color: #95e454;">`sdl-config --cflags`</span>
+
+<span style="color: #cae682;">INCLUDES</span> = $(<span style="color: #cae682;">SDL_INC</span>)
+
+<span style="color: #cae682;">bin_PROGRAMS</span> = teste
+
+<span style="color: #cae682;">teste_SOURCES</span> = main.cpp
+
+<span style="color: #cae682;">teste_LDFLAGS</span> = $(<span style="color: #cae682;">SDL_LIBS</span>)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7736657" class="outline-2">
+<h2 id="org7736657">Projetos SDL com AutoTools</h2>
+<div class="outline-text-2" id="text-org7736657">
+<p>
+Existe uma maneira mais simples de configurar as ferramentas autotool
+para projetos sdl. A tecnica consiste em empregar o script m4 que vem
+na instalacao da libsdl. Suponha que temos um arquivo fontes main.c a
+ser linkado com a biblioteca sdl. Escreva o <code>Makefile.am</code> como segue:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-makefile-automake"><span style="color: #cae682;">AUTOMAKE_OPTIONS</span> = foreign
+
+
+<span style="color: #cae682;">bin_PROGRAMS</span> = sdldemo
+
+<span style="color: #cae682;">sdldemo_SOURCES</span> = main.c
+</pre>
+</div>
+
+
+<p>
+o arquivo <code>configure.ac</code> como:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-autoconf"><span style="color: #99968b;"># </span><span style="color: #99968b;">-*- Autoconf -*-</span>
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Process this file with autoconf to produce a configure script.</span>
+
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_PREREQ</span>(2.57)
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_INIT</span>([sdldemo], [0.0.0],[ildenir+github@googlemail.com])
+
+<span style="color: #8ac6f2; font-weight: bold;">AM_INIT_AUTOMAKE</span>
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_CONFIG_SRCDIR</span>([main.c])
+
+<span style="color: #99968b;">#AC_CONFIG_HEADER([config.h])</span>
+
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Checks for programs.</span>
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_PROG_CC</span>
+
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Checks for libraries.</span>
+
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Verifica SDL</span>
+
+SDL_VERSION=1.2.5
+
+<span style="color: #8ac6f2; font-weight: bold;">AM_PATH_SDL</span>($SDL_VERSION,:, <span style="color: #8ac6f2; font-weight: bold;">AC_MSG_ERROR</span>([*** SDL version $SDL_VERSION not
+
+found!]))
+
+
+CFLAGS=" $CFLAGS $SDL_CFLAGS"
+
+LIBS=" $LIBS $SDL_LIBS "
+
+<span style="color: #99968b;">#AC_SUBST(CFLAGS)</span>
+
+<span style="color: #99968b;">#AC_SUBST(LDFLAGS)</span>
+
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Checks for header files.</span>
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_HEADER_STDC</span>
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_CHECK_HEADERS</span>([stdlib.h])
+
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Checks for typedefs, structures, and compiler characteristics.</span>
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_HEADER_STDBOOL</span>
+
+
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Checks for library functions.</span>
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_CHECK_FUNCS</span>([atexit])
+
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_CONFIG_FILES</span>([Makefile])
+
+<span style="color: #8ac6f2; font-weight: bold;">AC_OUTPUT</span>
+
+</pre>
+</div>
+
+
+
+<p>
+Observe que a intrucao <code>AM_PATH_SDL</code> faz todo o trabalho de
+configuracao do ambiente.
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org6eb731a" class="outline-2">
+<h2 id="org6eb731a">Referencia</h2>
+</div>
+</div>
 <div id="postamble" class="status">
+<p class="date">Data: 18/08/2009</p>
+<p class="author">Autor: Ildenir Barbosa</p>
 <p class="date">Created: 2018-08-02 qui 21:04</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
