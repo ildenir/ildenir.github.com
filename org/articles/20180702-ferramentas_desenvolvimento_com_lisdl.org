@@ -1,0 +1,214 @@
+#+TITLE: Ferramentas desenvolvimento com lisdl
+#+DATE: 18/08/2009
+#+AUTHOR: Ildenir Barbosa
+#+EMAIL: ildenir+github@googlemail.com
+#+DESCRIPTION: como utilizar libsdl portavel
+#+LANGUAGE: pt_BR
+#+KEYWORDS: gamedev libsdl
+#+OPTIONS: num:nil
+
+
+* Desenvolvimento com autotools
+
+As ferramentas ~automake~ e ~autoconf~ oferecem uma infraestrutura de
+compilacao automatizada que facilita em muito a vida do desenvolvedor
+ao gerar makefile portaveis. O uso eh simples basta um pouco de
+pratica e *code snippets* para facilitar.
+
+Inicialmente, cria-se o codigo fonte do aplicativo. Em seguida, a
+regra de compilacao deve ser descrita em um arquivo ~Makefile.am~ que
+serah processado para gerar um arquivo de entrada ~configure.in~ para
+o script ~configure~. O arquivo ~configure~ eh gerado pelo ~autoconf~. Daih,
+a compilacao da aplicacao segue o padrao ~configure && make && make
+install~.
+
+Supondo que foi desenvolvido o codigo fonte ~main.cpp~. Para criar um
+makefile para o fonte, escrevemos o arquivo ~Makefile.am~ como segue:
+
+#+BEGIN_SRC makefile-automake
+    bin_PROGRAMS = teste
+    teste_SOURCES = main.cpp
+#+END_SRC
+
+
+Agora, execute o programa autoscan para gerar um template do arquivo
+de configuracao.
+
+
+Execute ~cat configure.scan > configure.ac~
+
+Edite ~configure.ac~ como segue:
+
+#+BEGIN_SRC autoconf
+
+    -*- Autoconf -*-
+
+    # Process this file with autoconf to produce a configure script.
+
+
+    AC_PREREQ(2.61)
+
+    AC_INIT([teste], [0.0], [ildenir+github@googlemail.com])
+
+    AM_INIT_AUTOMAKE
+
+
+    AC_CONFIG_SRCDIR([main.cpp])
+
+    #AC_CONFIG_HEADER([config.h])
+
+
+
+    # Checks for programs.
+
+    AC_PROG_CXX
+
+
+    # Checks for libraries.
+
+
+    # Checks for header files.
+
+
+    # Checks for typedefs, structures, and compiler characteristics.
+
+
+    # Checks for library functions.
+
+
+    AC_CONFIG_FILES([Makefile])
+
+    AC_OUTPUT
+#+END_SRC
+
+
+Execute ~aclocal; touch README, NEWS ; automake~. Caso esteja faltando
+algum arquivo execute ~automake --add-missing~
+
+Execute ~autoconf~ e pronto.
+
+Para finalizar, compile a aplicacao com a sequencia de comandos
+~configure && make && make install~
+
+Para utilizar SDL escreva o makefile como segue:
+
+
+#+BEGIN_SRC makefile-automake
+    SDL_LIBS= `sdl-config --libs`
+
+    SDL_INC = `sdl-config --cflags`
+
+    INCLUDES = $(SDL_INC)
+
+    bin_PROGRAMS = teste
+
+    teste_SOURCES = main.cpp
+
+    teste_LDFLAGS = $(SDL_LIBS)
+#+END_SRC
+
+* Projetos SDL com AutoTools
+
+Existe uma maneira mais simples de configurar as ferramentas autotool
+para projetos sdl. A tecnica consiste em empregar o script m4 que vem
+na instalacao da libsdl. Suponha que temos um arquivo fontes main.c a
+ser linkado com a biblioteca sdl. Escreva o ~Makefile.am~ como segue:
+
+#+BEGIN_SRC makefile-automake
+    AUTOMAKE_OPTIONS = foreign
+
+
+    bin_PROGRAMS = sdldemo
+
+    sdldemo_SOURCES = main.c
+#+END_SRC
+
+
+o arquivo ~configure.ac~ como:
+
+#+BEGIN_SRC autoconf
+    # -*- Autoconf -*-
+
+    # Process this file with autoconf to produce a configure script.
+
+
+    AC_PREREQ(2.57)
+
+    AC_INIT([sdldemo], [0.0.0],[ildenir+github@googlemail.com])
+
+    AM_INIT_AUTOMAKE
+
+    AC_CONFIG_SRCDIR([main.c])
+
+    #AC_CONFIG_HEADER([config.h])
+
+
+    # Checks for programs.
+
+    AC_PROG_CC
+
+
+    # Checks for libraries.
+
+
+    # Verifica SDL
+
+    SDL_VERSION=1.2.5
+
+    AM_PATH_SDL($SDL_VERSION,:, AC_MSG_ERROR([*** SDL version $SDL_VERSION not
+
+    found!]))
+
+
+    CFLAGS=" $CFLAGS $SDL_CFLAGS"
+
+    LIBS=" $LIBS $SDL_LIBS "
+
+    #AC_SUBST(CFLAGS)
+
+    #AC_SUBST(LDFLAGS)
+
+
+    # Checks for header files.
+
+    AC_HEADER_STDC
+
+    AC_CHECK_HEADERS([stdlib.h])
+
+
+    # Checks for typedefs, structures, and compiler characteristics.
+
+    AC_HEADER_STDBOOL
+
+
+    # Checks for library functions.
+
+    AC_CHECK_FUNCS([atexit])
+
+
+    AC_CONFIG_FILES([Makefile])
+
+    AC_OUTPUT
+
+#+END_SRC
+
+
+
+Observe que a intrucao ~AM_PATH_SDL~ faz todo o trabalho de
+configuracao do ambiente.
+
+
+
+* Referencia
+
+
+* COMMENT Arquivos implementacao
+
+
+#+BEGIN_SRC autoconf
+
+#+END_SRC
+
+
+#+BEGIN_SRC makefile-automake
+#+END_SRC
