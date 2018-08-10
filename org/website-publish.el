@@ -132,6 +132,7 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
 	 :headline-levels 4             ; Just the default for this project.
 	 :auto-preamble t
 	 :org-html-doctype html5
+	 :html-doctype "html5"
 	 :org-html-html5-fancy t
 	 :exclude "^ *\-.+"
 	 :html-preamble ,website-html-preamble
