@@ -127,6 +127,10 @@ pre.src {
     font-size: 1.4rem;
 }
 
+.article-entry ul li {
+    display: inline-block;
+}
+
 @media screen and (max-width: 400px) {
     html {
 	font-size: 8px;

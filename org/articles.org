@@ -17,7 +17,10 @@
   (defun article-entry-str (filename title desc date)
     (string-join
      (list
-      (format "\n* %s [[file:%s][%s]]" date (file-relative-name filename) title))))
+      (format "\n* \n    :PROPERTIES:\n :HTML_CONTAINER_CLASS: article-entry\n:END:
+	       \n - %s
+	       \n - [[file:%s][%s]]
+	       " date (file-relative-name filename) title))))
 
 
   (defun article-entry (data)
