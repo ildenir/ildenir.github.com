@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
 <head>
-<!-- 2018-08-14 ter 21:10 -->
+<!-- 2018-12-22 sáb 19:41 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Geracao estatica website com emacs org-mode</title>
@@ -269,26 +269,26 @@ for the JavaScript code in this tag.
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgefa13c0">Overview</a></li>
-<li><a href="#orgbcb45e9">Variaveis utilitarias</a></li>
-<li><a href="#orga249754">Header e footer do site</a></li>
-<li><a href="#org46da64d">Conteudo dinamico</a></li>
-<li><a href="#orgbfc76b6">Componentes do projeto</a></li>
-<li><a href="#orgd9ccdf0">Suporte ao fluxo de trabalho</a>
+<li><a href="#orgb914e20">Overview</a></li>
+<li><a href="#orga6edc98">Variaveis utilitarias</a></li>
+<li><a href="#orga63dce1">Header e footer do site</a></li>
+<li><a href="#org1afd506">Conteudo dinamico</a></li>
+<li><a href="#orgcf95de3">Componentes do projeto</a></li>
+<li><a href="#orgfb7e0d9">Suporte ao fluxo de trabalho</a>
 <ul>
-<li><a href="#org7186c5e">Producao de conteudo</a></li>
+<li><a href="#orgf142e68">Producao de conteudo</a></li>
 </ul>
 </li>
-<li><a href="#org2d56395">Exporta pacote website-publish</a></li>
-<li><a href="#org03d3a11">Codigos</a></li>
-<li><a href="#org8b301ea">Referencia</a></li>
+<li><a href="#orgc8fbc13">Exporta pacote website-publish</a></li>
+<li><a href="#org7bb3340">Codigos</a></li>
+<li><a href="#orgab17eed">Referencia</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgefa13c0" class="outline-2">
-<h2 id="orgefa13c0">Overview</h2>
-<div class="outline-text-2" id="text-orgefa13c0">
+<div id="outline-container-orgb914e20" class="outline-2">
+<h2 id="orgb914e20">Overview</h2>
+<div class="outline-text-2" id="text-orgb914e20">
 <p>
 Este documento descreve o processo de geracao estatica do site baseado no
 modulo org-mode do emacs.
@@ -340,15 +340,15 @@ totalmente descartável.
 </div>
 </div>
 
-<div id="outline-container-orgbcb45e9" class="outline-2">
-<h2 id="orgbcb45e9">Variaveis utilitarias</h2>
-<div class="outline-text-2" id="text-orgbcb45e9">
+<div id="outline-container-orga6edc98" class="outline-2">
+<h2 id="orga6edc98">Variaveis utilitarias</h2>
+<div class="outline-text-2" id="text-orga6edc98">
 <p>
 Essas variaveis definem a localizacao dos diretorios do projeto.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgf9be0e7">(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">project-dir</span> (expand-file-name (file-name-as-directory <span style="color: #95e454;">"~/ProjectsGitHub/ildenir.github.com/"</span>))
+<pre class="src src-emacs-lisp" id="orgbcd5ab4">(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">project-dir</span> (expand-file-name (file-name-as-directory <span style="color: #95e454;">"~/ProjectsGitHub/ildenir.github.com/"</span>))
   <span style="color: #95e454;">"Diretorio do projeto do website."</span>)
 
 (<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">publish-dir</span> project-dir
@@ -369,9 +369,9 @@ Essas variaveis definem a localizacao dos diretorios do projeto.
 </div>
 </div>
 
-<div id="outline-container-orga249754" class="outline-2">
-<h2 id="orga249754">Header e footer do site</h2>
-<div class="outline-text-2" id="text-orga249754">
+<div id="outline-container-orga63dce1" class="outline-2">
+<h2 id="orga63dce1">Header e footer do site</h2>
+<div class="outline-text-2" id="text-orga63dce1">
 <p>
 Toda pagina possui uma barra de navegacao e um rodape com referencia
 ao emacs como gerenciador de conteudo, data da ultima atualizacao.
@@ -383,7 +383,7 @@ variaveis separadas para simplificar definicao dos componentes do projeto.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org9999cf6">(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">website-html-preamble</span> <span style="color: #95e454;">"</span>
+<pre class="src src-emacs-lisp" id="orgd5d8381">(<span style="color: #8ac6f2; font-weight: bold;">defvar</span> <span style="color: #cae682;">website-html-preamble</span> <span style="color: #95e454;">"</span>
 
 <span style="color: #95e454;">&lt;header&gt;</span>
 <span style="color: #95e454;">  &lt;div class=\"barra\"&gt;</span>
@@ -427,9 +427,9 @@ variaveis separadas para simplificar definicao dos componentes do projeto.
 </div>
 </div>
 
-<div id="outline-container-org46da64d" class="outline-2">
-<h2 id="org46da64d">Conteudo dinamico</h2>
-<div class="outline-text-2" id="text-org46da64d">
+<div id="outline-container-org1afd506" class="outline-2">
+<h2 id="org1afd506">Conteudo dinamico</h2>
+<div class="outline-text-2" id="text-org1afd506">
 <p>
 O conteudo da pagina <b>artigos</b> eh gerado dinamicamente com base nos
 dados dos outro artigos publicados. A tecnica usada eh equivalente
@@ -444,7 +444,7 @@ link para primeira imagem se existir e data de publicacao.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org05c999e">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">org-element</span>)
+<pre class="src src-emacs-lisp" id="org009a338">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">org-element</span>)
 (<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">cl-lib</span>)
 
 (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website--extrack-kv</span> (ast)
@@ -498,11 +498,11 @@ link para primeira imagem se existir e data de publicacao.
 </div>
 </div>
 
-<div id="outline-container-orgbfc76b6" class="outline-2">
-<h2 id="orgbfc76b6">Componentes do projeto</h2>
-<div class="outline-text-2" id="text-orgbfc76b6">
+<div id="outline-container-orgcf95de3" class="outline-2">
+<h2 id="orgcf95de3">Componentes do projeto</h2>
+<div class="outline-text-2" id="text-orgcf95de3">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgc81b084">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">ox-publish</span>)
+<pre class="src src-emacs-lisp" id="orgc912e7b">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">ox-publish</span>)
 (<span style="color: #8ac6f2; font-weight: bold;">setq</span> org-publish-project-alist
       `(
 	(<span style="color: #95e454;">"org-notes"</span>
@@ -516,7 +516,7 @@ link para primeira imagem se existir e data de publicacao.
 	 <span style="color: #e5786d;">:org-html-doctype</span> html5
 	 <span style="color: #e5786d;">:html-doctype</span> <span style="color: #95e454;">"html5"</span>
 	 <span style="color: #e5786d;">:org-html-html5-fancy</span> t
-	 <span style="color: #e5786d;">:exclude</span> <span style="color: #95e454;">"^ *</span><span style="color: #ccaa8f;">\</span><span style="color: #95e454;">-.+"</span>
+	 <span style="color: #e5786d;">:exclude</span> <span style="color: #95e454;">".*--ig--.*"</span>
 	 <span style="color: #e5786d;">:html-preamble</span> ,website-html-preamble
 	 <span style="color: #e5786d;">:html-postamble-format</span> <span style="color: #95e454;">""</span>
 	 <span style="color: #e5786d;">:html-head</span> ,website-html-head
@@ -537,9 +537,9 @@ link para primeira imagem se existir e data de publicacao.
 </div>
 </div>
 
-<div id="outline-container-orgd9ccdf0" class="outline-2">
-<h2 id="orgd9ccdf0">Suporte ao fluxo de trabalho</h2>
-<div class="outline-text-2" id="text-orgd9ccdf0">
+<div id="outline-container-orgfb7e0d9" class="outline-2">
+<h2 id="orgfb7e0d9">Suporte ao fluxo de trabalho</h2>
+<div class="outline-text-2" id="text-orgfb7e0d9">
 <p>
 O fluxo de trabalho consiste em criar/editar os arquivos <code>org</code>,
 <code>css</code>, <code>js</code> e etc com conteudo que pertencera ao site. Ao terminar
@@ -587,9 +587,9 @@ do arquivo, como <code>-Meu Artigo.org</code>.
 </p>
 </div>
 
-<div id="outline-container-org7186c5e" class="outline-3">
-<h3 id="org7186c5e">Producao de conteudo</h3>
-<div class="outline-text-3" id="text-org7186c5e">
+<div id="outline-container-orgf142e68" class="outline-3">
+<h3 id="orgf142e68">Producao de conteudo</h3>
+<div class="outline-text-3" id="text-orgf142e68">
 <p>
 A estrutura basica de um artigo pode ser composto rapidamente com o
 comando <code>website-new-article</code>. O comando pergunta por informacoes
@@ -598,7 +598,7 @@ o artigo na estrutura de diretorios do projeto.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org125f14a">
+<pre class="src src-emacs-lisp" id="orgf519f13">
 (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website--extract-kw</span> (kw)
   <span style="color: #95e454;">"Auxiliar cria funcao que extrai lista de KW de todos os artigos."</span>
   (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> (data)
@@ -655,15 +655,15 @@ o artigo na estrutura de diretorios do projeto.
 
 
 
-<div id="outline-container-org2d56395" class="outline-2">
-<h2 id="org2d56395">Exporta pacote website-publish</h2>
-<div class="outline-text-2" id="text-org2d56395">
+<div id="outline-container-orgc8fbc13" class="outline-2">
+<h2 id="orgc8fbc13">Exporta pacote website-publish</h2>
+<div class="outline-text-2" id="text-orgc8fbc13">
 <p>
 Agora o script serah finalizado com a exportacao do pacote para emacs.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org0c9fa49">(<span style="color: #8ac6f2; font-weight: bold;">provide</span> '<span style="color: #e5786d;">website-publish</span>)
+<pre class="src src-emacs-lisp" id="org158907e">(<span style="color: #8ac6f2; font-weight: bold;">provide</span> '<span style="color: #e5786d;">website-publish</span>)
 <span style="color: #99968b;">;;; </span><span style="color: #99968b;">website-publish.el ends here</span>
 
 </pre>
@@ -671,9 +671,9 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 </div>
 </div>
 
-<div id="outline-container-org03d3a11" class="outline-2">
-<h2 id="org03d3a11">Codigos</h2>
-<div class="outline-text-2" id="text-org03d3a11">
+<div id="outline-container-org7bb3340" class="outline-2">
+<h2 id="org7bb3340">Codigos</h2>
+<div class="outline-text-2" id="text-org7bb3340">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #99968b;">;;; </span><span style="color: #99968b;">website-publish.el --- Configuracao publicar site com org-mode -*- lexical-binding:t -*-</span>
 
@@ -811,7 +811,7 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 	 <span style="color: #e5786d;">:org-html-doctype</span> html5
 	 <span style="color: #e5786d;">:html-doctype</span> <span style="color: #95e454;">"html5"</span>
 	 <span style="color: #e5786d;">:org-html-html5-fancy</span> t
-	 <span style="color: #e5786d;">:exclude</span> <span style="color: #95e454;">"^ *</span><span style="color: #ccaa8f;">\</span><span style="color: #95e454;">-.+"</span>
+	 <span style="color: #e5786d;">:exclude</span> <span style="color: #95e454;">".*--ig--.*"</span>
 	 <span style="color: #e5786d;">:html-preamble</span> ,website-html-preamble
 	 <span style="color: #e5786d;">:html-postamble-format</span> <span style="color: #95e454;">""</span>
 	 <span style="color: #e5786d;">:html-head</span> ,website-html-head
@@ -887,9 +887,9 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 </div>
 
 
-<div id="outline-container-org8b301ea" class="outline-2">
-<h2 id="org8b301ea">Referencia</h2>
-<div class="outline-text-2" id="text-org8b301ea">
+<div id="outline-container-orgab17eed" class="outline-2">
+<h2 id="orgab17eed">Referencia</h2>
+<div class="outline-text-2" id="text-orgab17eed">
 <ul class="org-ul">
 <li><a href="http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html">Publishing Org-mode files to html</a></li>
 <li>[Dale]    <a href="http://dale.io/blog/automated-org-publishing.html">Automated Publishing Pipeline with Org Mode</a></li>
@@ -902,7 +902,7 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 <div id="postamble" class="status">
 <p class="date">Data: 05/09/2017</p>
 <p class="author">Autor: Ildenir Barbosa</p>
-<p class="date">Created: 2018-08-14 ter 21:10</p>
+<p class="date">Created: 2018-12-22 sáb 19:41</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
