@@ -7,7 +7,7 @@
 #+OPTIONS: title:nil toc:nil num:nil  html-postamble:nil
 #+KEYWORDS:
 
-A casa do esquilo de pirai é um site pessoal que tem como principal
+Esquilo de pirai é um site pessoal que tem como principal
 objetivo compartilhar projetos, ideias, opniões.
 
 Acesse todos as pagina do site em [[file:site-map.org][Site map]].
