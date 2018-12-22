@@ -134,7 +134,7 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
 	 :org-html-doctype html5
 	 :html-doctype "html5"
 	 :org-html-html5-fancy t
-	 :exclude "^ *\-.+"
+	 :exclude ".*--ig--.*"
 	 :html-preamble ,website-html-preamble
 	 :html-postamble-format ""
 	 :html-head ,website-html-head
