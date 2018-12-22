@@ -1,0 +1,26 @@
+#+TITLE: Torus e outras formas primitivas
+#+DATE: 24/10/2018
+#+AUTHOR: Ildenir Barbosa
+#+EMAIL: ildenir+github@googlemail.com
+#+DESCRIPTION: Apresenta formulacoes e algoritmos para gerar o torus e outro objetos primitivos.
+#+KEYWORDS: (programming cg)
+#+LANGUAGE: pt_BR
+#+OPTIONS: num:nil
+
+
+* COMMENT
+** Brainstorm
+** Outline
+
+* Introducao
+  - hook : fase inicial importante ter objetos simples para criar cenas sem precisar
+    recorrer a arquivos com dados
+  - implementacao em scilab e javascript
+
+
+- torus
+-- formulacoes para vertices, normais, tangente e binormais
+
+
+
+* Referencia
