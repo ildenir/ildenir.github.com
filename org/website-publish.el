@@ -35,7 +35,7 @@
 <header>
   <div class=\"barra\">
     <div class=\"cabecalho-barra\">
-    <a href=\"/index.html\">Esquilo de Pirai</a>
+    <a href=\"/index.html\">Esquilo Inix</a>
     </div>
   </div>
 
