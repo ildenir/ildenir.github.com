@@ -17,8 +17,7 @@ falhas de memoria podem impactar significativamente a produtividade
 nos estudos, seja de um idioma, uma determinada _API_ de programacao
 ou um fato matematico. Por essa razao, manter um extenso conteudo na
 memoria torna-se um desafio jah que com o tempo a retencao do conteudo
-naturalmente declina. Por isso acoes devem ser tomadas para evitar
-esse mau.
+naturalmente declina. No entanto, exite metodos para tratar esse mau.
 
 Deste modo uma metodologia sistematica de revisao deve ser
 empregada para evitar as constantes falhas de memoria. Os metodos de
@@ -45,6 +44,9 @@ por tamanha flexibilidade e confianca uma vez que os cartoes podem ser
 armazenados em hd/pendrive ou servidores como Google Drive, Dropbox,
 GMail, etc.
 
+#+CAPTION: O grafico ilustra como o conteudo estudado decai ao longo do tempo.
+[[../images/curva-esquecimento.png]]
+
 Com tantas vantagem em ter os decks de cartas em meio eletronico, como
 gerar todas as cartas de maneira pratica? O metodo consiste em
 representar um deck de cartas como uma apresentacao no libreoffice
@@ -57,19 +59,75 @@ etapa eh concluida ao exportar os slides como imagens png onde cada
 imagem deve estar em uma ordem tal que o slide frente segue
 imediatamento o slide verso.
 
+
 
+* Ferramenta para gerar os decks
 
+#+NAME: script-fun
+#+BEGIN_SRC bash
 
+    help()
+    {
+	echo "Uso: $0 <nome-apresentacao>"
+	echo "Nota: O programa anki deve estar instalado."
+	exit 1
+    }
 
+    create-csv-file()
+    {
+	local images=$(ls ${DECK_DIR}/*.png | sort)
+	local count=0
+	local fout="${name}.csv"
+	local out=""
+	for im in ${images}; do
+	    image=$(basename $im)
+	    if (($count % 2)); then
+		out="${out} <img src=\"${image}\">\n"
+	    else
+		out="${out} <img src=\"${image}\"> ,"
+	    fi
+	    count=$(expr $count + 1)
+	done
+	echo -e ${out} > ${fout}
+    }
+#+END_SRC
+
+#+NAME: main
+#+BEGIN_SRC bash
+  LO=libreoffice
+
+  [[ -e "$1" && "${1: -4}" == ".odp" ]] || help
+
+  DECK_DIR="/tmp/decks-$$"
+  [[ -d ${DECK_DIR} ]] || mkdir -p ${DECK_DIR}
+  name=$(basename -s ".odp" $1)
+  ${LO} --headless --convert-to pdf --outdir "${DECK_DIR}" $1 > /dev/null 2>&1
+  gs -sDEVICE=pngalpha -o ${DECK_DIR}/${name}-%03d.png -r144 ${DECK_DIR}/${name}.pdf > /dev/null 2>&1
+  ANKI_COLLECTION_DIR=${HOME}/.local/share/Anki2/'User 1'/collection.media
+
+  [[ -d ${ANKI_COLLECTION_DIR} ]] || help
+  cp   ${DECK_DIR}/*.png "${ANKI_COLLECTION_DIR}"
+
+  # Gera arquivo csv a ser importado pelo anki
+  create-csv-file
+#+END_SRC
+
+#+BEGIN_SRC bash :tangle export-deck.bash :noweb yes :shebang #!/bin/bash
+  <<script-fun>>
+  <<main>>
+#+END_SRC
+
+* Conclusão
 
 
 * Referencia
-  - https://lifehacker.com/learn-chinese-faster-with-this-anki-add-on-1828938649
-  - 8 ways to create better flashcards http://blog.fluent-forever.com/create-better-flashcards
-  - [3] https://en.wikipedia.org/wiki/Forgetting_curve
+  - [1] [[https://lifehacker.com/learn-chinese-faster-with-this-anki-add-on-1828938649][Learn chinese faster with this anki add on]]
+  - [2] [[http://blog.fluent-forever.com/create-better-flashcards/][8 ways to create better flashcards]]
+  - [3] [[https://en.wikipedia.org/wiki/Forgetting_curve][Wikipedia: Forgeting Curve]]
   - [4] https://blog.wranx.com/ebbinghaus-forgetting-curve
 
 
+
 * COMMENT
 ** Brainstorm
    impress + anki (ferramentas totalmente opensource)
