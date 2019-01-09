@@ -35,7 +35,7 @@
 <header>
   <div class=\"barra\">
     <div class=\"cabecalho-barra\">
-    <a href=\"/index.html\">Esquilo Inix</a>
+    <a href=\"/index.html\">Pagina pessoal de Ildenir Barbosa</a>
     </div>
   </div>
 
