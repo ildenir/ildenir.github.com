@@ -102,7 +102,7 @@ imediatamento o slide verso.
   [[ -d ${DECK_DIR} ]] || mkdir -p ${DECK_DIR}
   name=$(basename -s ".odp" $1)
   ${LO} --headless --convert-to pdf --outdir "${DECK_DIR}" $1 > /dev/null 2>&1
-  gs -sDEVICE=pngalpha -o ${DECK_DIR}/${name}-%03d.png -r144 ${DECK_DIR}/${name}.pdf > /dev/null 2>&1
+  gs -sDEVICE=pngalpha -o ${DECK_DIR}/${name}-%03d.png -r32 ${DECK_DIR}/${name}.pdf > /dev/null 2>&1
   ANKI_COLLECTION_DIR=${HOME}/.local/share/Anki2/'User 1'/collection.media
 
   [[ -d ${ANKI_COLLECTION_DIR} ]] || help
@@ -119,6 +119,7 @@ imediatamento o slide verso.
 
 * Conclusão
 
+- possivel empregar tecnica com outro pacotes que geram .png como gimp, photoshop, excel,...
 
 * Referencia
   - [1] [[https://lifehacker.com/learn-chinese-faster-with-this-anki-add-on-1828938649][Learn chinese faster with this anki add on]]
