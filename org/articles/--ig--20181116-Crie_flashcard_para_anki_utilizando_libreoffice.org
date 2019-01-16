@@ -63,6 +63,37 @@ imediatamento o slide verso.
 
 * Ferramenta para gerar os decks
 
+O shell script descrito nesta secao executa os passos necessarios para
+gerar os arquivo *csv* e *png*. Durante a execucao, a apresentacao no
+formato do libreoffice eh convertido em um documento no formato
+pdf usando o software _libreoffice_. Em seguida, o programa
+_ghostscript_ converte o arquivo pdf em uma sequencia de arquivos
+png, onde a resolucao da imagem eh dada pela opcao ~-r32~. A etapa
+final consiste em gerar o arquivo csv que serah importado no anki.
+
+
+#+NAME: main
+#+BEGIN_SRC bash
+  LO=libreoffice
+
+  [[ -e "$1" && "${1: -4}" == ".odp" ]] || help
+
+  DECK_DIR="/tmp/decks-$$"
+  [[ -d ${DECK_DIR} ]] || mkdir -p ${DECK_DIR}
+  name=$(basename -s ".odp" $1)
+  ${LO} --headless --convert-to pdf --outdir "${DECK_DIR}" $1 > /dev/null 2>&1
+  gs -sDEVICE=pngalpha -o ${DECK_DIR}/${name}-%03d.png -r32 ${DECK_DIR}/${name}.pdf > /dev/null 2>&1
+  ANKI_COLLECTION_DIR=${HOME}/.local/share/Anki2/'User 1'/collection.media
+
+  [[ -d ${ANKI_COLLECTION_DIR} ]] || help
+  cp   ${DECK_DIR}/*.png "${ANKI_COLLECTION_DIR}"
+
+  # Gera arquivo csv a ser importado pelo anki
+  create-csv-file
+#+END_SRC
+
+
+
 #+NAME: script-fun
 #+BEGIN_SRC bash
 
@@ -92,25 +123,6 @@ imediatamento o slide verso.
     }
 #+END_SRC
 
-#+NAME: main
-#+BEGIN_SRC bash
-  LO=libreoffice
-
-  [[ -e "$1" && "${1: -4}" == ".odp" ]] || help
-
-  DECK_DIR="/tmp/decks-$$"
-  [[ -d ${DECK_DIR} ]] || mkdir -p ${DECK_DIR}
-  name=$(basename -s ".odp" $1)
-  ${LO} --headless --convert-to pdf --outdir "${DECK_DIR}" $1 > /dev/null 2>&1
-  gs -sDEVICE=pngalpha -o ${DECK_DIR}/${name}-%03d.png -r32 ${DECK_DIR}/${name}.pdf > /dev/null 2>&1
-  ANKI_COLLECTION_DIR=${HOME}/.local/share/Anki2/'User 1'/collection.media
-
-  [[ -d ${ANKI_COLLECTION_DIR} ]] || help
-  cp   ${DECK_DIR}/*.png "${ANKI_COLLECTION_DIR}"
-
-  # Gera arquivo csv a ser importado pelo anki
-  create-csv-file
-#+END_SRC
 
 #+BEGIN_SRC bash :tangle export-deck.bash :noweb yes :shebang #!/bin/bash
   <<script-fun>>
@@ -119,12 +131,35 @@ imediatamento o slide verso.
 
 * Conclusão
 
-- possivel empregar tecnica com outro pacotes que geram .png como gimp, photoshop, excel,...
+Foi apresentado uma maneira pratica de gerar cartoes para anki. As
+etapas apresentadas nao ficam restritas aos pacotes de software
+utilizados, portanto, pode-se empregar tecnica com outro pacotes que
+geram .png como gimp, photoshop, excel, etc.
+
+A grande vantagem do metodo apresentado estah na portabilidade e
+riqueza visual dos cartoes. A portabilidade devido aos cartoes serem
+armazenados em um formato de arquivo aberto/nao-proprietario (open
+source) acessivel a qualquer sistema que suporta o formato. Para se
+ter uma ideia, eh possivel exportar no formato odp por meio do editor
+emacs. A riqueza visual estah relacionado a possibilidade de uso de
+todos os recursos de desenho, expressoes matematicas, tipografia,
+alinhamento dos sistemas de apresentacao.
+
+No entando, perde-se espaco consideravel de armazenamento ao
+substituir um texto por uma imagem. Neste caso vale ponderar, se o
+deck consiste em apenas texto, entao eh melhor realizar a importacao
+diretamente no anki.
+
+Outra desvantagem estah na impossibilidade de incluir sons e videos
+nos decks usando essa abordagem. Uma solucao para esse problema seria
+escrever scripts vba do libreoffice para gerar os arquivos necessarios
+de audio/video e inclui-lo no arquivo de importacao csv. Mas isso
+complica por demais :).
 
 * Referencia
   - [1] [[https://lifehacker.com/learn-chinese-faster-with-this-anki-add-on-1828938649][Learn chinese faster with this anki add on]]
   - [2] [[http://blog.fluent-forever.com/create-better-flashcards/][8 ways to create better flashcards]]
-  - [3] [[https://en.wikipedia.org/wiki/Forgetting_curve][Wikipedia: Forgeting Curve]]
+  - [3] [[https://en.wikipedia.org/wiki/Forgetting_curve][Wikipedia: Forgetting Curve]]
   - [4] https://blog.wranx.com/ebbinghaus-forgetting-curve
 
 
