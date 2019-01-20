@@ -18,6 +18,11 @@ a:visited {
     border-color: darkgray;
 }
 
+.figure p img {
+    width: 100%;
+    height: auto;
+}
+
 #postamble
 {
     margin: 0 auto;
