@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
 <head>
-<!-- 2019-01-19 sáb 22:33 -->
+<!-- 2019-01-19 sáb 23:44 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Crie flashcard para anki utilizando libreoffice</title>
@@ -182,7 +182,7 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" href="/css/xtreme-simple.css">
-  <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.css">
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -232,22 +232,20 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="preamble" class="status">
-
-
 <header>
   <div class="barra">
     <div class="cabecalho-barra">
-    <a href="/index.html">Pagina pessoal de Ildenir Barbosa</a>
+      <a href="./index.html">Minha Pagina pessoal de Ildenir Barbosa</a>
     </div>
   </div>
 
   <input id="sidenav-checkbox" type="checkbox"> </input>
   <label class="sidenav-toggle" for="sidenav-checkbox">
-	  <span class="fa fa-bars"></span></label>
+    <span class="fa fa-bars"></span></label>
 
   <nav id="mySidenav" class="sidenav">
     <ul class="menu-principal">
-      <li><a href="/index.html"> Home </a></li>
+      <li><a href="/index.html\"> Home </a></li>
       <li> <a href="/articles.html"> Artigos </a></li>
       <li> <a href="/books.html"> Resenhas </a></li>
       <li><a href="/about.html"> Sobre </a></li>
@@ -255,22 +253,22 @@ for the JavaScript code in this tag.
 
     <ul class="rede-social">
       <li><a href="http://twitter.com/Uilcoder">
-	   <span class="fa fa-twitter"></span></a></li>
+	  <span class="fa fa-twitter"></span></a></li>
       <li><a href="http://github.com/ildenir">
 	  <span class="fa fa-github"></span></a></li>
       <li><a href="https://bitbucket.org/UilCoder">
 	  <span class="fa fa-bitbucket"></span></a></li>
     </ul>
   </nav>
-  </header>
+</header>
 </div>
 <div id="content">
 <h1 class="title">Crie flashcard para anki utilizando libreoffice</h1>
 
 
-<div id="outline-container-org1492fd1" class="outline-2">
-<h2 id="org1492fd1">Introducao</h2>
-<div class="outline-text-2" id="text-org1492fd1">
+<div id="outline-container-org1b420e9" class="outline-2">
+<h2 id="org1b420e9">Introducao</h2>
+<div class="outline-text-2" id="text-org1b420e9">
 <p>
 Quem nunca se frustrou ao passar horas estudando um determinado topico
 por hora para em poucos minutos esquecer grande parte do que estudou?
@@ -338,9 +336,9 @@ imediatamento o slide verso.
 </div>
 </div>
 
-<div id="outline-container-org2d0b3d3" class="outline-2">
-<h2 id="org2d0b3d3">Ferramenta para gerar os decks</h2>
-<div class="outline-text-2" id="text-org2d0b3d3">
+<div id="outline-container-orge315cb7" class="outline-2">
+<h2 id="orge315cb7">Ferramenta para gerar os decks</h2>
+<div class="outline-text-2" id="text-orge315cb7">
 <p>
 O shell script descrito nesta secao executa os passos necessarios para
 gerar os arquivo <b>csv</b> e <b>png</b>. Durante a execucao, a apresentacao no
@@ -353,7 +351,7 @@ final consiste em gerar o arquivo csv que serah importado no anki.
 
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orgfd13d99"><span style="color: #cae682;">LO</span>=libreoffice
+<pre class="src src-bash" id="org26a2a45"><span style="color: #cae682;">LO</span>=libreoffice
 
 [[ -e <span style="color: #95e454;">"$1"</span> &amp;&amp; <span style="color: #95e454;">"${1: -4}"</span> == <span style="color: #95e454;">".odp"</span> ]] || <span style="color: #e5786d;">help</span>
 
@@ -375,7 +373,7 @@ create-csv-file
 
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org0fd22c7">
+<pre class="src src-bash" id="org04e5519">
 <span style="color: #e5786d;">help</span>()
 {
     <span style="color: #e5786d;">echo</span> <span style="color: #95e454;">"Uso: $0 &lt;nome-apresentacao&gt;"</span>
@@ -451,9 +449,9 @@ create-csv-file
 </div>
 </div>
 
-<div id="outline-container-orgfce06f6" class="outline-2">
-<h2 id="orgfce06f6">Conclusão</h2>
-<div class="outline-text-2" id="text-orgfce06f6">
+<div id="outline-container-org80da820" class="outline-2">
+<h2 id="org80da820">Conclusão</h2>
+<div class="outline-text-2" id="text-org80da820">
 <p>
 Foi apresentado uma maneira pratica de gerar cartoes para anki. As
 etapas apresentadas nao ficam restritas aos pacotes de software
@@ -489,9 +487,9 @@ complica por demais :).
 </div>
 </div>
 
-<div id="outline-container-org58c0d7d" class="outline-2">
-<h2 id="org58c0d7d">Referencia</h2>
-<div class="outline-text-2" id="text-org58c0d7d">
+<div id="outline-container-org748391f" class="outline-2">
+<h2 id="org748391f">Referencia</h2>
+<div class="outline-text-2" id="text-org748391f">
 <ul class="org-ul">
 <li>[1] <a href="https://lifehacker.com/learn-chinese-faster-with-this-anki-add-on-1828938649">Learn chinese faster with this anki add on</a></li>
 <li>[2] <a href="http://blog.fluent-forever.com/create-better-flashcards/">8 ways to create better flashcards</a></li>
@@ -509,7 +507,7 @@ complica por demais :).
 <div id="postamble" class="status">
 <p class="date">Data: 16/11/2018</p>
 <p class="author">Autor: Ildenir Barbosa</p>
-<p class="date">Created: 2019-01-19 sáb 22:33</p>
+<p class="date">Created: 2019-01-19 sáb 23:44</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
