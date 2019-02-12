@@ -71,6 +71,7 @@ _ghostscript_ converte o arquivo pdf em uma sequencia de arquivos
 png, onde a resolucao da imagem eh dada pela opcao ~-r32~. A etapa
 final consiste em gerar o arquivo csv que serah importado no anki.
 
+- Programa principal
 
 #+NAME: main
 #+BEGIN_SRC bash
@@ -92,7 +93,7 @@ final consiste em gerar o arquivo csv que serah importado no anki.
   create-csv-file
 #+END_SRC
 
-
+- Funcoes auxiliares
 
 #+NAME: script-fun
 #+BEGIN_SRC bash
@@ -123,6 +124,9 @@ final consiste em gerar o arquivo csv que serah importado no anki.
     }
 #+END_SRC
 
+
+
+* Código completo
 
 #+BEGIN_SRC bash :tangle export-deck.bash :noweb yes :shebang #!/bin/bash
   <<script-fun>>
