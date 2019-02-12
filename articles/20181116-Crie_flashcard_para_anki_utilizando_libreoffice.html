@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
 <head>
-<!-- 2019-01-20 dom 16:15 -->
+<!-- 2019-02-12 ter 19:30 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Crie flashcard para anki utilizando libreoffice</title>
@@ -266,9 +266,9 @@ for the JavaScript code in this tag.
 <h1 class="title">Crie flashcard para anki utilizando libreoffice</h1>
 
 
-<div id="outline-container-orge6d2482" class="outline-2">
-<h2 id="orge6d2482">Introducao</h2>
-<div class="outline-text-2" id="text-orge6d2482">
+<div id="outline-container-orgcfff6a2" class="outline-2">
+<h2 id="orgcfff6a2">Introducao</h2>
+<div class="outline-text-2" id="text-orgcfff6a2">
 <p>
 Quem nunca se frustrou ao passar horas estudando um determinado topico
 por hora para em poucos minutos esquecer grande parte do que estudou?
@@ -336,9 +336,9 @@ imediatamento o slide verso.
 </div>
 </div>
 
-<div id="outline-container-org231b70e" class="outline-2">
-<h2 id="org231b70e">Ferramenta para gerar os decks</h2>
-<div class="outline-text-2" id="text-org231b70e">
+<div id="outline-container-org6161845" class="outline-2">
+<h2 id="org6161845">Ferramenta para gerar os decks</h2>
+<div class="outline-text-2" id="text-org6161845">
 <p>
 O shell script descrito nesta secao executa os passos necessarios para
 gerar os arquivo <b>csv</b> e <b>png</b>. Durante a execucao, a apresentacao no
@@ -349,9 +349,12 @@ png, onde a resolucao da imagem eh dada pela opcao <code>-r32</code>. A etapa
 final consiste em gerar o arquivo csv que serah importado no anki.
 </p>
 
+<ul class="org-ul">
+<li>Programa principal</li>
+</ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org8b22586"><span style="color: #cae682;">LO</span>=libreoffice
+<pre class="src src-bash" id="org1fc14df"><span style="color: #cae682;">LO</span>=libreoffice
 
 [[ -e <span style="color: #95e454;">"$1"</span> &amp;&amp; <span style="color: #95e454;">"${1: -4}"</span> == <span style="color: #95e454;">".odp"</span> ]] || <span style="color: #e5786d;">help</span>
 
@@ -370,10 +373,12 @@ create-csv-file
 </pre>
 </div>
 
-
+<ul class="org-ul">
+<li>Funcoes auxiliares</li>
+</ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orgbab209f">
+<pre class="src src-bash" id="orgecaf1fe">
 <span style="color: #e5786d;">help</span>()
 {
     <span style="color: #e5786d;">echo</span> <span style="color: #95e454;">"Uso: $0 &lt;nome-apresentacao&gt;"</span>
@@ -400,8 +405,14 @@ create-csv-file
 }
 </pre>
 </div>
+</div>
+</div>
 
 
+
+<div id="outline-container-org6843ef1" class="outline-2">
+<h2 id="org6843ef1">Código completo</h2>
+<div class="outline-text-2" id="text-org6843ef1">
 <div class="org-src-container">
 <pre class="src src-bash">
 <span style="color: #e5786d;">help</span>()
@@ -449,9 +460,9 @@ create-csv-file
 </div>
 </div>
 
-<div id="outline-container-orgdfedb42" class="outline-2">
-<h2 id="orgdfedb42">Conclusão</h2>
-<div class="outline-text-2" id="text-orgdfedb42">
+<div id="outline-container-org61f84e3" class="outline-2">
+<h2 id="org61f84e3">Conclusão</h2>
+<div class="outline-text-2" id="text-org61f84e3">
 <p>
 Foi apresentado uma maneira pratica de gerar cartoes para anki. As
 etapas apresentadas nao ficam restritas aos pacotes de software
@@ -487,9 +498,9 @@ complica por demais :).
 </div>
 </div>
 
-<div id="outline-container-org4e8f722" class="outline-2">
-<h2 id="org4e8f722">Referencia</h2>
-<div class="outline-text-2" id="text-org4e8f722">
+<div id="outline-container-org8ba242e" class="outline-2">
+<h2 id="org8ba242e">Referencia</h2>
+<div class="outline-text-2" id="text-org8ba242e">
 <ul class="org-ul">
 <li>[1] <a href="https://lifehacker.com/learn-chinese-faster-with-this-anki-add-on-1828938649">Learn chinese faster with this anki add on</a></li>
 <li>[2] <a href="http://blog.fluent-forever.com/create-better-flashcards/">8 ways to create better flashcards</a></li>
@@ -507,7 +518,7 @@ complica por demais :).
 <div id="postamble" class="status">
 <p class="date">Data: 16/11/2018</p>
 <p class="author">Autor: Ildenir Barbosa</p>
-<p class="date">Created: 2019-01-20 dom 16:15</p>
+<p class="date">Created: 2019-02-12 ter 19:30</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
