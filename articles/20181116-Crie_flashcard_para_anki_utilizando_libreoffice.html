@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
 <head>
-<!-- 2019-02-23 sáb 13:16 -->
+<!-- 2019-03-16 sáb 20:43 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Crie flashcard para anki utilizando libreoffice</title>
@@ -181,6 +181,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
+<!-- -*- org -*- -->
 <link rel="stylesheet" href="/css/xtreme-simple.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript">
@@ -250,15 +251,6 @@ for the JavaScript code in this tag.
       <li> <a href="/books.html"> Resenhas </a></li>
       <li><a href="/about.html"> Sobre </a></li>
     </ul>
-
-    <ul class="rede-social">
-      <li><a href="http://twitter.com/Uilcoder">
-	  <span class="fa fa-twitter"></span></a></li>
-      <li><a href="http://github.com/ildenir">
-	  <span class="fa fa-github"></span></a></li>
-      <li><a href="https://bitbucket.org/UilCoder">
-	  <span class="fa fa-bitbucket"></span></a></li>
-    </ul>
   </nav>
 </header>
 </div>
@@ -266,9 +258,9 @@ for the JavaScript code in this tag.
 <h1 class="title">Crie flashcard para anki utilizando libreoffice</h1>
 
 
-<div id="outline-container-org30f58fa" class="outline-2">
-<h2 id="org30f58fa">Introducao</h2>
-<div class="outline-text-2" id="text-org30f58fa">
+<div id="outline-container-org91ce2ef" class="outline-2">
+<h2 id="org91ce2ef">Introducao</h2>
+<div class="outline-text-2" id="text-org91ce2ef">
 <p>
 Quem nunca se frustrou ao passar horas estudando um determinado topico
 por hora para em poucos minutos esquecer grande parte do que estudou?
@@ -336,9 +328,9 @@ imediatamento o slide verso.
 </div>
 </div>
 
-<div id="outline-container-org5657221" class="outline-2">
-<h2 id="org5657221">Ferramenta para gerar os decks</h2>
-<div class="outline-text-2" id="text-org5657221">
+<div id="outline-container-orgf7438bf" class="outline-2">
+<h2 id="orgf7438bf">Ferramenta para gerar os decks</h2>
+<div class="outline-text-2" id="text-orgf7438bf">
 <p>
 O shell script descrito nesta secao executa os passos necessarios para
 gerar os arquivo <b>csv</b> e <b>png</b>. Durante a execucao, a apresentacao no
@@ -354,7 +346,7 @@ final consiste em gerar o arquivo csv que serah importado no anki.
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org6238898"><span style="color: #cae682;">LO</span>=libreoffice
+<pre class="src src-bash" id="orga8e87bb"><span style="color: #cae682;">LO</span>=libreoffice
 
 [[ -e <span style="color: #95e454;">"$1"</span> &amp;&amp; <span style="color: #95e454;">"${1: -4}"</span> == <span style="color: #95e454;">".odp"</span> ]] || <span style="color: #e5786d;">help</span>
 
@@ -378,7 +370,7 @@ create-csv-file
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orge4aa28d">
+<pre class="src src-bash" id="orgb7fda00">
 <span style="color: #e5786d;">help</span>()
 {
     <span style="color: #e5786d;">echo</span> <span style="color: #95e454;">"Uso: $0 &lt;nome-apresentacao&gt;"</span>
@@ -410,9 +402,9 @@ create-csv-file
 
 
 
-<div id="outline-container-orgf4596b5" class="outline-2">
-<h2 id="orgf4596b5">Código completo</h2>
-<div class="outline-text-2" id="text-orgf4596b5">
+<div id="outline-container-org57806c6" class="outline-2">
+<h2 id="org57806c6">Código completo</h2>
+<div class="outline-text-2" id="text-org57806c6">
 <div class="org-src-container">
 <pre class="src src-bash">
 <span style="color: #e5786d;">help</span>()
@@ -460,9 +452,9 @@ create-csv-file
 </div>
 </div>
 
-<div id="outline-container-org3389929" class="outline-2">
-<h2 id="org3389929">Conclusão</h2>
-<div class="outline-text-2" id="text-org3389929">
+<div id="outline-container-org2240563" class="outline-2">
+<h2 id="org2240563">Conclusão</h2>
+<div class="outline-text-2" id="text-org2240563">
 <p>
 Foi apresentado uma maneira pratica de gerar cartoes para anki. As
 etapas apresentadas nao ficam restritas aos pacotes de software
@@ -498,9 +490,9 @@ complica por demais :).
 </div>
 </div>
 
-<div id="outline-container-org52bd670" class="outline-2">
-<h2 id="org52bd670">Referencia</h2>
-<div class="outline-text-2" id="text-org52bd670">
+<div id="outline-container-org301d659" class="outline-2">
+<h2 id="org301d659">Referencia</h2>
+<div class="outline-text-2" id="text-org301d659">
 <ul class="org-ul">
 <li>[1] <a href="https://lifehacker.com/learn-chinese-faster-with-this-anki-add-on-1828938649">Learn chinese faster with this anki add on</a></li>
 <li>[2] <a href="http://blog.fluent-forever.com/create-better-flashcards/">8 ways to create better flashcards</a></li>
@@ -518,7 +510,7 @@ complica por demais :).
 <div id="postamble" class="status">
 <p class="date">Data: 16/11/2018</p>
 <p class="author">Autor: Ildenir Barbosa</p>
-<p class="date">Created: 2019-02-23 sáb 13:16</p>
+<p class="date">Created: 2019-03-16 sáb 20:43</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
