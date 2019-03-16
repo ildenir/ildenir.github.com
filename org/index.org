@@ -7,6 +7,19 @@
 #+OPTIONS: title:nil toc:nil num:nil  html-postamble:nil
 #+KEYWORDS:
 
+
+#+BEGIN_EXPORT html
+<ul class="sidenav rede-social">
+  <li><a href="http://twitter.com/Uilcoder">
+  <span class="fa fa-twitter"></span></a></li>
+  <li><a href="http://github.com/ildenir">
+  <span class="fa fa-github"></span></a></li>
+  <li><a href="https://bitbucket.org/UilCoder">
+  <span class="fa fa-bitbucket"></span></a></li>
+</ul>
+#+END_EXPORT
+
+
 Este site pessoal tem como principal objetivo compartilhar projetos,
 ideias, opniões.
 

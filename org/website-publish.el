@@ -38,14 +38,8 @@
 (defun website-preamble-loader (val)
  (website-load-file (concat (file-name-as-directory src-dir) "preamble.html")))
 
-(defun website-head-loader (val)
- (website-load-file (concat (file-name-as-directory src-dir) "head.html")))
-
     (defvar website-html-preamble 'website-preamble-loader
       "Cabecalho inserido em toda pagina.")
-
-    (defvar website-html-head (website-head-loader t)
-      "Referencia para estilo css e scripts.")
 
 
 (require 'org-element)
@@ -115,7 +109,6 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
 	 :exclude ".*--ig--.*"
 	 :html-preamble ,website-html-preamble
 	 :html-postamble-format ""
-	 :html-head ,website-html-head
 	 :auto-sitemap t
 	 :sitemap-title "Site map"
 	 :sitemap-filename "site-map.org"
@@ -167,6 +160,7 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
 			    (format-time-string "%Y%m%d") "-"
 			    (string-join (split-string title) "_") ".org"))))
       (with-current-buffer (get-buffer-create filename)
+	(insert "#+SETUPFILE: ../setup/xtreme-simple-theme")
 	(insert (format "#+TITLE: %s\n" title))
 	(insert (format "#+DATE: %s\n" date))
 	(insert (format "#+AUTHOR: %s\n" author))

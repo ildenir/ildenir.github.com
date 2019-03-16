@@ -1,3 +1,4 @@
+#+SETUPFILE: ../setup/xtreme-simple-theme
 #+TITLE: Souce Code Pro Adobe Fonte para emacs
 #+DATE: 12/03/2013
 #+AUTHOR: Ildenir Barbosa

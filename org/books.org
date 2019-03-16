@@ -1,3 +1,4 @@
+#+SETUPFILE: setup/xtreme-simple-theme
 #+TITLE: Resenhas
 #+DATE: 12/10/2017
 #+AUTHOR: Ildenir Barbosa

@@ -1,3 +1,4 @@
+#+SETUPFILE: ../setup/xtreme-simple-theme
 #+TITLE: Ferramentas desenvolvimento com lisdl
 #+DATE: 18/08/2009
 #+AUTHOR: Ildenir Barbosa

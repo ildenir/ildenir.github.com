@@ -1,3 +1,4 @@
+#+SETUPFILE: ../setup/xtreme-simple-theme
 #+TITLE: Torus e outras formas primitivas
 #+DATE: 24/10/2018
 #+AUTHOR: Ildenir Barbosa
