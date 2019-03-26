@@ -1,3 +1,4 @@
+#+SETUPFILE: setup/xtreme-simple-theme
 #+TITLE: Geracao estatica website com emacs org-mode
 #+DATE: 05/09/2017
 #+AUTHOR: Ildenir Barbosa
