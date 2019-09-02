@@ -1,0 +1,38 @@
+#+SETUPFILE: setup/xtreme-simple-theme
+#+TITLE: Artigos
+#+DATE: 07/09/2017
+#+AUTHOR: Ildenir Barbosa
+#+EMAIL: ildenir+github@googlegmail.com
+#+LANGUAGE: pt_BR
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline  html-postamble:nil
+#+OPTIONS: toc:nil num:nil
+
+
+#+BEGIN_SRC emacs-lisp :exports results :results raw
+  (require 'website-publish)
+
+  (defun website--ignore-file (filename)
+    (or (string-match "--ig--" (file-name-base filename))
+	(and (not (string-match "articles$" (directory-file-name (file-name-directory filename))))
+	     (not (string= "website-publish" (file-name-base filename))))))
+
+  (defun article-entry-str (filename title desc date)
+    (string-join
+     (list
+      (format "\n* \n    :PROPERTIES:\n :HTML_CONTAINER_CLASS: article-entry\n:END:
+	       \n - %s
+	       \n - [[file:%s][%s]]
+	       " date (file-relative-name filename) title))))
+
+
+  (defun article-entry (data)
+    (let ((fn (car data))
+	  (pl (car (cdr data))))
+      (if (website--ignore-file fn) ""
+	(article-entry-str fn
+			   (plist-get pl 'title)
+			   (plist-get pl 'description)
+			   (plist-get pl 'date)))))
+
+  (princ (string-join (mapcar #'article-entry (website-generate-article)) "\n"))
+#+END_SRC
