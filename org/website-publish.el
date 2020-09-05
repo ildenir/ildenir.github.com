@@ -14,29 +14,36 @@
 
 ;;; Code:
 
-(defvar project-dir (expand-file-name (file-name-as-directory "~/ProjectsGitHub/ildenir.github.com/"))
-  "Diretorio do projeto do website.")
+(defcustom website-project-dir
+  (expand-file-name
+   (file-name-as-directory "~/ProjectsGitHub/ildenir.github.com/"))
+  "Diretorio do projeto do website."
+  :type 'directory)
 
-(defvar publish-dir project-dir
-  "Diretorio onde sera publicado o website.")
+(defsubst publish-dir ()
+  "Diretorio onde sera publicado o website."
+  website-project-dir)
 
-(defvar src-dir (expand-file-name (concat project-dir "org"))
-  "Diretorio dos arquivos fonte org, imagens, css e ...")
+(defsubst src-dir ()
+  "Diretorio dos arquivos fonte org, imagens, css e ..."
+  (expand-file-name "org"  website-project-dir))
 
-(defvar src-articles-dir (concat (file-name-as-directory src-dir)
-				 (file-name-as-directory "articles"))
-  "Diretorio fonte dos artigos.")
+(defsubst src-articles-dir ()
+  "Diretorio fonte dos artigos."
+  (concat (file-name-as-directory (src-dir))
+	  (file-name-as-directory "articles")))
 
-(defvar publish-articles-dir (concat (file-name-as-directory publish-dir)
-				 (file-name-as-directory "articles"))
-  "Diretorio do artigos publicados.")
+(defsubst publish-articles-dir ()
+  "Diretorio do artigos publicados."
+  (concat (file-name-as-directory (publish-dir))
+	  (file-name-as-directory "articles")))
   (defun website-load-file (filename)
   "Carrega arquivo apartir de FILENAME e retorna string com conteudo."
   (with-temp-buffer (insert-file-contents filename)
 		    (buffer-substring (point-min) (point-max))))
 
 (defun website-preamble-loader (val)
- (website-load-file (concat (file-name-as-directory src-dir) "preamble.html")))
+ (website-load-file (concat (file-name-as-directory (src-dir)) "preamble.html")))
 
     (defvar website-html-preamble 'website-preamble-loader
       "Cabecalho inserido em toda pagina.")
@@ -88,7 +95,7 @@ Retorna plist keys title image description date"
 A lista retornada possui o formato
 '(filename (title desc link-img pub-date)) onde link-img pode ser nil caso nao
 exista.  Description vai ser extraida de #+DESCRIPTION:"
-  (let ((files (directory-files-recursively src-dir "\.org$")))
+  (let ((files (directory-files-recursively (src-dir) "\.org$")))
     (mapcar (lambda (fn) (list fn (website-extract-article-data fn)))
 	    files)))
 
@@ -96,9 +103,9 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
 (setq org-publish-project-alist
       `(
 	("org-notes"
-	 :base-directory ,src-dir
+	 :base-directory ,(src-dir)
 	 :base-extension "org"
-	 :publishing-directory ,publish-dir
+	 :publishing-directory ,(publish-dir)
 	 :recursive t
 	 :publishing-function org-html-publish-to-html
 	 :headline-levels 4             ; Just the default for this project.
@@ -114,9 +121,9 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
 	 :sitemap-filename "site-map.org"
 	 )
 	("org-static"
-	 :base-directory ,src-dir
+	 :base-directory ,(src-dir)
 	 :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf|otf\\|woff\\|woff2\\|ttf\\|svg"
-	 :publishing-directory ,publish-dir
+	 :publishing-directory ,(publish-dir)
 	 :recursive t
 	 :publishing-function org-publish-attachment
 	 )
@@ -155,7 +162,7 @@ exista.  Description vai ser extraida de #+DESCRIPTION:"
 	   (keywords (completing-read-multiple "Palavras-chave: "
 				      (website--keyword-list)))
 	   (filename (string-join
-		      (list (concat (file-name-as-directory src-dir)
+		      (list (concat (file-name-as-directory (src-dir))
 				    (file-name-as-directory "articles"))
 			    (format-time-string "%Y%m%d") "-"
 			    (string-join (split-string title) "_") ".org"))))
