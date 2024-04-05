@@ -11,8 +11,6 @@
 
 #+BEGIN_EXPORT html
 <ul class="sidenav rede-social">
-  <li><a href="http://twitter.com/Uilcoder">
-  <span class="fa fa-twitter"></span></a></li>
   <li><a href="http://github.com/ildenir">
   <span class="fa fa-github"></span></a></li>
   <li><a href="https://bitbucket.org/UilCoder">
