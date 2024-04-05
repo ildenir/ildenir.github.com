@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
 <head>
-<!-- 2019-04-04 qui 21:12 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 2024-04-05 sex 20:40 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Crie flashcard para anki utilizando libreoffice</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Ildenir Barbosa">
-<meta name="description" content="Orientacoes de como criar cartoes flashcard para anki empregando a ferramenta de apresentacao impress do libreoffice"
->
-<meta name="keywords" content="(estudo, esl)">
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
+<meta name="author" content="Ildenir Barbosa" />
+<meta name="description" content="Orientacoes de como criar cartoes flashcard para anki empregando a ferramenta de apresentacao impress do libreoffice" />
+<meta name="keywords" content="(estudo, esl)" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
-	     margin-bottom: .2em; }
+             margin-bottom: .2em; }
   .subtitle { text-align: center;
-	      font-size: medium;
-	      font-weight: bold;
-	      margin-top:0; }
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
   .todo   { font-family: monospace; color: red; }
   .done   { font-family: monospace; color: green; }
   .priority { font-family: monospace; color: orange; }
   .tag    { background-color: #eee; font-family: monospace;
-	    padding: 2px; font-size: 80%; font-weight: normal; }
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
   .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
@@ -32,8 +31,9 @@
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
   pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
     padding: 8pt;
     font-family: monospace;
     overflow: auto;
@@ -41,22 +41,22 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
+    overflow: auto;
   }
   pre.src:before {
     display: none;
     position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
+    top: -8px;
+    right: 12px;
     padding: 3px;
-    border: 1px solid black;
+    color: #555;
+    background-color: #f2f2f299;
   }
-  pre.src:hover:before { display: inline;}
+  pre.src:hover:before { display: inline; margin-top: 14px;}
   /* Languages per Org manual */
   pre.src-asymptote:before { content: 'Asymptote'; }
   pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
   pre.src-C:before { content: 'C'; }
   /* pre.src-C++ doesn't work in CSS */
   pre.src-clojure:before { content: 'Clojure'; }
@@ -162,6 +162,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -178,58 +191,11 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-  /*]]>*/-->
+  .org-svg { }
 </style>
 <!-- -*- org -*- -->
 <link rel="stylesheet" href="/css/xtreme-simple.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2018 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
-</script>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -254,13 +220,13 @@ for the JavaScript code in this tag.
   </nav>
 </header>
 </div>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">Crie flashcard para anki utilizando libreoffice</h1>
 
 
-<div id="outline-container-org84d18a4" class="outline-2">
-<h2 id="org84d18a4">Introducao</h2>
-<div class="outline-text-2" id="text-org84d18a4">
+<div id="outline-container-org39da54d" class="outline-2">
+<h2 id="org39da54d">Introducao</h2>
+<div class="outline-text-2" id="text-org39da54d">
 <p>
 Quem nunca se frustrou ao passar horas estudando um determinado topico
 por hora para em poucos minutos esquecer grande parte do que estudou?
@@ -302,7 +268,7 @@ GMail, etc.
 </p>
 
 
-<div class="figure">
+<div id="org21a53a0" class="figure">
 <p><img src="../images/curva-esquecimento.png" alt="curva-esquecimento.png">
 </p>
 <p><span class="figure-number">Figura 1: </span>O grafico ilustra como o conteudo estudado decai ao longo do tempo.</p>
@@ -328,9 +294,9 @@ imediatamento o slide verso.
 </div>
 </div>
 
-<div id="outline-container-orge881a56" class="outline-2">
-<h2 id="orge881a56">Ferramenta para gerar os decks</h2>
-<div class="outline-text-2" id="text-orge881a56">
+<div id="outline-container-orgba1b756" class="outline-2">
+<h2 id="orgba1b756">Ferramenta para gerar os decks</h2>
+<div class="outline-text-2" id="text-orgba1b756">
 <p>
 O shell script descrito nesta secao executa os passos necessarios para
 gerar os arquivo <b>csv</b> e <b>png</b>. Durante a execucao, a apresentacao no
@@ -346,13 +312,13 @@ final consiste em gerar o arquivo csv que serah importado no anki.
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org29a511d"><span style="color: #cae682;">LO</span>=libreoffice
+<pre class="src src-bash" id="org6f4ab90"><span style="color: #cae682;">LO</span>=libreoffice
 
 [[ -e <span style="color: #95e454;">"$1"</span> &amp;&amp; <span style="color: #95e454;">"${1: -4}"</span> == <span style="color: #95e454;">".odp"</span> ]] || <span style="color: #e5786d;">help</span>
 
 <span style="color: #cae682;">DECK_DIR</span>=<span style="color: #95e454;">"/tmp/decks-$$"</span>
 [[ -d ${<span style="color: #cae682;">DECK_DIR</span>} ]] || mkdir -p ${<span style="color: #cae682;">DECK_DIR</span>}
-<span style="color: #cae682;">name</span>=$(<span style="color: #fa8072;">basename</span> -s <span style="color: #95e454;">".odp"</span> $<span style="color: #cae682;">1</span>)
+<span style="color: #cae682;">name</span>=$(<span style="color: #fa8072;">basename -s ".odp" $1</span>)
 ${<span style="color: #cae682;">LO</span>} --headless --convert-to pdf --outdir <span style="color: #95e454;">"${DECK_DIR}"</span> $<span style="color: #cae682;">1</span> &gt; /dev/null 2&gt;&amp;1
 gs -sDEVICE=pngalpha -o ${<span style="color: #cae682;">DECK_DIR</span>}/${<span style="color: #cae682;">name</span>}-%03d.png -r32 ${<span style="color: #cae682;">DECK_DIR</span>}/${<span style="color: #cae682;">name</span>}.pdf &gt; /dev/null 2&gt;&amp;1
 <span style="color: #cae682;">ANKI_COLLECTION_DIR</span>=${<span style="color: #cae682;">HOME</span>}/.local/share/Anki2/<span style="color: #95e454;">'User 1'</span>/collection.media
@@ -370,7 +336,7 @@ create-csv-file
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orgfb27a34">
+<pre class="src src-bash" id="org579703c">
 <span style="color: #e5786d;">help</span>()
 {
     <span style="color: #e5786d;">echo</span> <span style="color: #95e454;">"Uso: $0 &lt;nome-apresentacao&gt;"</span>
@@ -380,18 +346,18 @@ create-csv-file
 
 <span style="color: #cae682;">create-csv-file</span>()
 {
-    <span style="color: #e5786d;">local</span> <span style="color: #cae682;">images</span>=$(<span style="color: #fa8072;">ls</span> ${<span style="color: #cae682;">DECK_DIR</span>}/*.png | sort)
+    <span style="color: #e5786d;">local</span> <span style="color: #cae682;">images</span>=$(<span style="color: #fa8072;">ls ${DECK_DIR}/*.png | sort</span>)
     <span style="color: #e5786d;">local</span> <span style="color: #cae682;">count</span>=0
     <span style="color: #e5786d;">local</span> <span style="color: #cae682;">fout</span>=<span style="color: #95e454;">"${name}.csv"</span>
     <span style="color: #e5786d;">local</span> <span style="color: #cae682;">out</span>=<span style="color: #95e454;">""</span>
     <span style="color: #8ac6f2; font-weight: bold;">for</span> im<span style="color: #8ac6f2; font-weight: bold;"> in</span> ${<span style="color: #cae682;">images</span>}; <span style="color: #8ac6f2; font-weight: bold;">do</span>
-	<span style="color: #cae682;">image</span>=$(<span style="color: #fa8072;">basename</span> $<span style="color: #cae682;">im</span>)
-	<span style="color: #8ac6f2; font-weight: bold;">if</span> (($<span style="color: #cae682;">count</span> % 2)); <span style="color: #8ac6f2; font-weight: bold;">then</span>
-	    <span style="color: #cae682;">out</span>=<span style="color: #95e454;">"${out} &lt;img src=\"${image}\"&gt;\n"</span>
-	<span style="color: #8ac6f2; font-weight: bold;">else</span>
-	    <span style="color: #cae682;">out</span>=<span style="color: #95e454;">"${out} &lt;img src=\"${image}\"&gt; ,"</span>
-	<span style="color: #8ac6f2; font-weight: bold;">fi</span>
-	<span style="color: #cae682;">count</span>=$(<span style="color: #fa8072;">expr</span> $<span style="color: #cae682;">count</span> + 1)
+        <span style="color: #cae682;">image</span>=$(<span style="color: #fa8072;">basename $im</span>)
+        <span style="color: #8ac6f2; font-weight: bold;">if</span> (($<span style="color: #cae682;">count</span> % 2)); <span style="color: #8ac6f2; font-weight: bold;">then</span>
+            <span style="color: #cae682;">out</span>=<span style="color: #95e454;">"${out} &lt;img src=\"${image}\"&gt;\n"</span>
+        <span style="color: #8ac6f2; font-weight: bold;">else</span>
+            <span style="color: #cae682;">out</span>=<span style="color: #95e454;">"${out} &lt;img src=\"${image}\"&gt; ,"</span>
+        <span style="color: #8ac6f2; font-weight: bold;">fi</span>
+        <span style="color: #cae682;">count</span>=$(<span style="color: #fa8072;">expr $count + 1</span>)
     <span style="color: #8ac6f2; font-weight: bold;">done</span>
     <span style="color: #e5786d;">echo</span> -e ${<span style="color: #cae682;">out</span>} &gt; ${<span style="color: #cae682;">fout</span>}
 }
@@ -402,9 +368,9 @@ create-csv-file
 
 
 
-<div id="outline-container-org893934d" class="outline-2">
-<h2 id="org893934d">Código completo</h2>
-<div class="outline-text-2" id="text-org893934d">
+<div id="outline-container-orge10e843" class="outline-2">
+<h2 id="orge10e843">Código completo</h2>
+<div class="outline-text-2" id="text-orge10e843">
 <div class="org-src-container">
 <pre class="src src-bash">
 <span style="color: #e5786d;">help</span>()
@@ -416,18 +382,18 @@ create-csv-file
 
 <span style="color: #cae682;">create-csv-file</span>()
 {
-    <span style="color: #e5786d;">local</span> <span style="color: #cae682;">images</span>=$(<span style="color: #fa8072;">ls</span> ${<span style="color: #cae682;">DECK_DIR</span>}/*.png | sort)
+    <span style="color: #e5786d;">local</span> <span style="color: #cae682;">images</span>=$(<span style="color: #fa8072;">ls ${DECK_DIR}/*.png | sort</span>)
     <span style="color: #e5786d;">local</span> <span style="color: #cae682;">count</span>=0
     <span style="color: #e5786d;">local</span> <span style="color: #cae682;">fout</span>=<span style="color: #95e454;">"${name}.csv"</span>
     <span style="color: #e5786d;">local</span> <span style="color: #cae682;">out</span>=<span style="color: #95e454;">""</span>
     <span style="color: #8ac6f2; font-weight: bold;">for</span> im<span style="color: #8ac6f2; font-weight: bold;"> in</span> ${<span style="color: #cae682;">images</span>}; <span style="color: #8ac6f2; font-weight: bold;">do</span>
-	<span style="color: #cae682;">image</span>=$(<span style="color: #fa8072;">basename</span> $<span style="color: #cae682;">im</span>)
-	<span style="color: #8ac6f2; font-weight: bold;">if</span> (($<span style="color: #cae682;">count</span> % 2)); <span style="color: #8ac6f2; font-weight: bold;">then</span>
-	    <span style="color: #cae682;">out</span>=<span style="color: #95e454;">"${out} &lt;img src=\"${image}\"&gt;\n"</span>
-	<span style="color: #8ac6f2; font-weight: bold;">else</span>
-	    <span style="color: #cae682;">out</span>=<span style="color: #95e454;">"${out} &lt;img src=\"${image}\"&gt; ,"</span>
-	<span style="color: #8ac6f2; font-weight: bold;">fi</span>
-	<span style="color: #cae682;">count</span>=$(<span style="color: #fa8072;">expr</span> $<span style="color: #cae682;">count</span> + 1)
+        <span style="color: #cae682;">image</span>=$(<span style="color: #fa8072;">basename $im</span>)
+        <span style="color: #8ac6f2; font-weight: bold;">if</span> (($<span style="color: #cae682;">count</span> % 2)); <span style="color: #8ac6f2; font-weight: bold;">then</span>
+            <span style="color: #cae682;">out</span>=<span style="color: #95e454;">"${out} &lt;img src=\"${image}\"&gt;\n"</span>
+        <span style="color: #8ac6f2; font-weight: bold;">else</span>
+            <span style="color: #cae682;">out</span>=<span style="color: #95e454;">"${out} &lt;img src=\"${image}\"&gt; ,"</span>
+        <span style="color: #8ac6f2; font-weight: bold;">fi</span>
+        <span style="color: #cae682;">count</span>=$(<span style="color: #fa8072;">expr $count + 1</span>)
     <span style="color: #8ac6f2; font-weight: bold;">done</span>
     <span style="color: #e5786d;">echo</span> -e ${<span style="color: #cae682;">out</span>} &gt; ${<span style="color: #cae682;">fout</span>}
 }
@@ -437,7 +403,7 @@ create-csv-file
 
 <span style="color: #cae682;">DECK_DIR</span>=<span style="color: #95e454;">"/tmp/decks-$$"</span>
 [[ -d ${<span style="color: #cae682;">DECK_DIR</span>} ]] || mkdir -p ${<span style="color: #cae682;">DECK_DIR</span>}
-<span style="color: #cae682;">name</span>=$(<span style="color: #fa8072;">basename</span> -s <span style="color: #95e454;">".odp"</span> $<span style="color: #cae682;">1</span>)
+<span style="color: #cae682;">name</span>=$(<span style="color: #fa8072;">basename -s ".odp" $1</span>)
 ${<span style="color: #cae682;">LO</span>} --headless --convert-to pdf --outdir <span style="color: #95e454;">"${DECK_DIR}"</span> $<span style="color: #cae682;">1</span> &gt; /dev/null 2&gt;&amp;1
 gs -sDEVICE=pngalpha -o ${<span style="color: #cae682;">DECK_DIR</span>}/${<span style="color: #cae682;">name</span>}-%03d.png -r32 ${<span style="color: #cae682;">DECK_DIR</span>}/${<span style="color: #cae682;">name</span>}.pdf &gt; /dev/null 2&gt;&amp;1
 <span style="color: #cae682;">ANKI_COLLECTION_DIR</span>=${<span style="color: #cae682;">HOME</span>}/.local/share/Anki2/<span style="color: #95e454;">'User 1'</span>/collection.media
@@ -452,9 +418,9 @@ create-csv-file
 </div>
 </div>
 
-<div id="outline-container-orgfc88128" class="outline-2">
-<h2 id="orgfc88128">Conclusão</h2>
-<div class="outline-text-2" id="text-orgfc88128">
+<div id="outline-container-orgb2506e7" class="outline-2">
+<h2 id="orgb2506e7">Conclusão</h2>
+<div class="outline-text-2" id="text-orgb2506e7">
 <p>
 Foi apresentado uma maneira pratica de gerar cartoes para anki. As
 etapas apresentadas nao ficam restritas aos pacotes de software
@@ -490,9 +456,9 @@ complica por demais :).
 </div>
 </div>
 
-<div id="outline-container-org9ebe8e5" class="outline-2">
-<h2 id="org9ebe8e5">Referencia</h2>
-<div class="outline-text-2" id="text-org9ebe8e5">
+<div id="outline-container-org090a0bd" class="outline-2">
+<h2 id="org090a0bd">Referencia</h2>
+<div class="outline-text-2" id="text-org090a0bd">
 <ul class="org-ul">
 <li>[1] <a href="https://lifehacker.com/learn-chinese-faster-with-this-anki-add-on-1828938649">Learn chinese faster with this anki add on</a></li>
 <li>[2] <a href="http://blog.fluent-forever.com/create-better-flashcards/">8 ways to create better flashcards</a></li>
@@ -510,8 +476,8 @@ complica por demais :).
 <div id="postamble" class="status">
 <p class="date">Data: 16/11/2018</p>
 <p class="author">Autor: Ildenir Barbosa</p>
-<p class="date">Created: 2019-04-04 qui 21:12</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Criado em: 2024-04-05 sex 20:40</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

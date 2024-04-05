@@ -77,7 +77,7 @@ com suporte facilitado para formulas matematica, codigo, image.
 
   (defsubst src-dir ()
     "Diretorio dos arquivos fonte org, imagens, css e ..."
-    (expand-file-name "org"  website-project-dir))
+    website-project-dir)
 
   (defsubst src-articles-dir ()
     "Diretorio fonte dos artigos."
@@ -226,7 +226,7 @@ com suporte facilitado para formulas matematica, codigo, image.
 
   #+BEGIN_SRC sh :tangle website-publish.sh
     #!/bin/bash
-    emacs --batch -l ./org/website-publish.el \
+    emacs --batch -l ./website-publish.el \
 	  --eval="(require 'website-publish)"\
 	  --eval="(org-publish-all)"
   #+END_SRC

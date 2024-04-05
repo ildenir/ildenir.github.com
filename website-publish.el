@@ -26,7 +26,7 @@
 
 (defsubst src-dir ()
   "Diretorio dos arquivos fonte org, imagens, css e ..."
-  (expand-file-name "org"  website-project-dir))
+  website-project-dir)
 
 (defsubst src-articles-dir ()
   "Diretorio fonte dos artigos."
