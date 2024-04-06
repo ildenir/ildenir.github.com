@@ -32,10 +32,11 @@ a:visited {
 }
 
 #content {
-    max-width: 89em;
-    width: 60%;
-    padding-left: 2.0em;
-    margin: 0 auto;
+    /* FONT-WEIGHT: 200; */
+    /* max-width: 89em; */
+    /* width: 89%; */
+    /* padding-left: 2em; */
+    margin: 0.5em;
     font-family: Helvetica, Verdana, Arial, sans-serif;
     font-size: 1.6rem;
 }
@@ -63,16 +64,25 @@ a:visited {
     display: none;
 }
 
+.sidenav {
+    background-color: #1d1616;
+    padding: 10px 0;
+    box-shadow: rgb(145 136 136 / 25%) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
 .sidenav a {
     text-decoration: none;
-    font-size: 1.8rem;
-    color: #818181;
+    font-size: 2.4rem;
+    color: #999999;
 
+}
+.sidenav ul li {
+    padding: 15px 0px;
+    margin: 1.0em;
 }
 
 .sidenav a:hover
 {
-    color: #3c3c3c;
+    color: #ebe76e;
 }
 
 .barra
@@ -84,14 +94,19 @@ a:visited {
 
 .cabecalho-barra
 {
-    color: #818181;
+    color: #cc7b7b;
     font-size:2rem;
     text-align: center;
     padding: 0.9em;
 }
 
+.cabecalho-barra a {
+    color: black;
+    font-size: 3.6em;
+}
 .menu-principal {
     text-align: center;
+    box-shadow: 0 2 120px rgb(201 123 123 / 10%);
 }
 
 .menu-principal li
@@ -101,7 +116,7 @@ a:visited {
 }
 
 ul.menu-principal li a::before {
-    content: '//';
+    // content: '//';
 }
 
 .rede-social
