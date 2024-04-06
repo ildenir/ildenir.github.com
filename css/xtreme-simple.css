@@ -9,7 +9,7 @@ html {
 a,
 a:visited {
     text-decoration: none;
-    color: blue;
+    color:#999999;
 }
 
 .example {
@@ -66,12 +66,11 @@ a:visited {
 
 .sidenav {
     background-color: #1d1616;
-    padding: 10px 0;
     box-shadow: rgb(145 136 136 / 25%) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 .sidenav a {
     text-decoration: none;
-    font-size: 2.4rem;
+    font-size: 1.6rem;
     color: #999999;
 
 }
@@ -85,38 +84,27 @@ a:visited {
     color: #ebe76e;
 }
 
-.barra
-{
-    border-bottom-style: double;
-    border-bottom-width: 3px;
-    border-bottom-color: lightgray;
-}
-
 .cabecalho-barra
 {
     color: #cc7b7b;
-    font-size:2rem;
+    font-size:2.0rem;
     text-align: center;
     padding: 0.9em;
 }
 
 .cabecalho-barra a {
     color: black;
-    font-size: 3.6em;
+    font-size: 2.4em;
 }
 .menu-principal {
     text-align: center;
-    box-shadow: 0 2 120px rgb(201 123 123 / 10%);
+    //box-shadow: 0 2 120px rgb(201 123 123 / 10%);
 }
 
 .menu-principal li
 {
     list-style: none;
     display: inline-block;
-}
-
-ul.menu-principal li a::before {
-    // content: '//';
 }
 
 .rede-social
@@ -149,47 +137,4 @@ pre.src {
 
 .article-entry ul li {
     display: inline-block;
-}
-
-@media screen and (max-width: 400px) {
-    html {
-	font-size: 8px;
-    }
-
-    #content {
-	width: 100%;
-	padding: 0;
-    }
-
-    #postamble
-    {
-	margin: 0 auto;
-	padding-left: 0;
-	width: 100%;
-    }
-
-    .sidenav-toggle {
-	display: block;
-	position: absolute;
-	color: #3c3c3c;
-	font-size: 2.8em;
-	cursor: pointer;
-	left: 1.5em;
-	top: 0.8em;
-    }
-
-    .sidenav {
-	display: none;
-	border-bottom-style: double;
-	border-bottom-width: 3px;
-	border-bottom-color: lightgray;
-    }
-
-    #sidenav-checkbox:checked ~ .sidenav-toggle {
-	transform: rotate(90deg);
-    }
-
-    #sidenav-checkbox:checked ~ .sidenav {
-	display: block;
-    }
 }
