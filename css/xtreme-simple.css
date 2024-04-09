@@ -3,7 +3,10 @@
  */
 
 html {
+    font-family: "Roboto", Helvetica, Verdana, Arial, sans-serif;
     font-size: 62.5%;
+    font-style: normal;
+    background-color: #f2f2f2;
 }
 
 a,
@@ -37,7 +40,7 @@ a:visited {
     /* width: 89%; */
     /* padding-left: 2em; */
     margin: 0.5em;
-    font-family: Helvetica, Verdana, Arial, sans-serif;
+    font-weight: 400;
     font-size: 1.6rem;
 }
 
@@ -98,7 +101,8 @@ a:visited {
 }
 .menu-principal {
     text-align: center;
-    //box-shadow: 0 2 120px rgb(201 123 123 / 10%);
+    font-style: normal;
+    font-weight: 700;
 }
 
 .menu-principal li
