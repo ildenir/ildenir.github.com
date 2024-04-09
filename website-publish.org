@@ -336,7 +336,7 @@ com suporte facilitado para formulas matematica, codigo, image.
     ;;; Commentary:
 
     ;; Este pacote configura/customiza o exportador do org-mode para gerar
-    ;; o website casa esquilo de pirai.
+    ;; o website.
 
     ;;; Code:
 
