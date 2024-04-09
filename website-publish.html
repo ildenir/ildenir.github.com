@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
 <head>
-<!-- 2024-04-06 sáb 12:58 -->
+<!-- 2024-04-08 seg 20:48 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Geracao estatica website com emacs org-mode</title>
@@ -195,6 +195,10 @@
 <!-- -*- org -*- -->
 <link rel="stylesheet" href="/css/xtreme-simple.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Roboto font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
 <div id="preamble" class="status">
@@ -219,26 +223,26 @@
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgcfab9c8">Overview</a></li>
-<li><a href="#orge59f9d9">Variaveis utilitarias</a></li>
-<li><a href="#org6fea6aa">Header e footer do site</a></li>
-<li><a href="#org8dab68d">Conteudo dinamico</a></li>
-<li><a href="#orgd419075">Componentes do projeto</a></li>
-<li><a href="#orgce4dd9f">Suporte ao fluxo de trabalho</a>
+<li><a href="#org87f9081">Overview</a></li>
+<li><a href="#org90ad153">Variaveis utilitarias</a></li>
+<li><a href="#orgb2b310d">Header e footer do site</a></li>
+<li><a href="#org1a09451">Conteudo dinamico</a></li>
+<li><a href="#orgd281d98">Componentes do projeto</a></li>
+<li><a href="#org8c6c2aa">Suporte ao fluxo de trabalho</a>
 <ul>
-<li><a href="#orgdaaf1ef">Producao de conteudo</a></li>
+<li><a href="#org748cbf4">Producao de conteudo</a></li>
 </ul>
 </li>
-<li><a href="#org7a7df39">Exporta pacote website-publish</a></li>
-<li><a href="#org5cd793a">Codigos</a></li>
-<li><a href="#orgd2f0f82">Referencia</a></li>
+<li><a href="#org242244e">Exporta pacote website-publish</a></li>
+<li><a href="#orge03cfcb">Codigos</a></li>
+<li><a href="#org49cf853">Referencia</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgcfab9c8" class="outline-2">
-<h2 id="orgcfab9c8">Overview</h2>
-<div class="outline-text-2" id="text-orgcfab9c8">
+<div id="outline-container-org87f9081" class="outline-2">
+<h2 id="org87f9081">Overview</h2>
+<div class="outline-text-2" id="text-org87f9081">
 <p>
 Este documento descreve o processo de geracao estatica do site baseado no
 modulo org-mode do emacs.
@@ -271,7 +275,7 @@ conteudo eh resultado da compilacao dos arquivos fonte, e portanto,
 totalmente descartável.
 </p>
 
-<pre class="example" id="org593eb89">
+<pre class="example" id="orge3d84e9">
 .
 ├── about.org
 ├── articles
@@ -290,15 +294,15 @@ totalmente descartável.
 </div>
 </div>
 
-<div id="outline-container-orge59f9d9" class="outline-2">
-<h2 id="orge59f9d9">Variaveis utilitarias</h2>
-<div class="outline-text-2" id="text-orge59f9d9">
+<div id="outline-container-org90ad153" class="outline-2">
+<h2 id="org90ad153">Variaveis utilitarias</h2>
+<div class="outline-text-2" id="text-org90ad153">
 <p>
 Essas variaveis definem a localizacao dos diretorios do projeto.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org8ee5544">(<span style="color: #8ac6f2; font-weight: bold;">defcustom</span> <span style="color: #cae682;">website-project-dir</span>
+<pre class="src src-emacs-lisp" id="org25c68e7">(<span style="color: #8ac6f2; font-weight: bold;">defcustom</span> <span style="color: #cae682;">website-project-dir</span>
   (expand-file-name
    (file-name-as-directory <span style="color: #95e454;">"~/ProjectsGitHub/ildenir.github.com/"</span>))
   <span style="color: #95e454;">"Diretorio do projeto do website."</span>
@@ -326,9 +330,9 @@ Essas variaveis definem a localizacao dos diretorios do projeto.
 </div>
 </div>
 
-<div id="outline-container-org6fea6aa" class="outline-2">
-<h2 id="org6fea6aa">Header e footer do site</h2>
-<div class="outline-text-2" id="text-org6fea6aa">
+<div id="outline-container-orgb2b310d" class="outline-2">
+<h2 id="orgb2b310d">Header e footer do site</h2>
+<div class="outline-text-2" id="text-orgb2b310d">
 <p>
 Toda pagina possui uma barra de navegacao e um rodape com referencia
 ao emacs como gerenciador de conteudo, data da ultima atualizacao.
@@ -340,7 +344,7 @@ variaveis separadas para simplificar definicao dos componentes do projeto.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgd85a44f">  (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website-load-file</span> (filename)
+<pre class="src src-emacs-lisp" id="org37007f7">  (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website-load-file</span> (filename)
   <span style="color: #95e454;">"Carrega arquivo apartir de FILENAME e retorna string com conteudo."</span>
   (<span style="color: #8ac6f2; font-weight: bold;">with-temp-buffer</span> (insert-file-contents filename)
                     (buffer-substring (point-min) (point-max))))
@@ -356,9 +360,9 @@ variaveis separadas para simplificar definicao dos componentes do projeto.
 </div>
 </div>
 
-<div id="outline-container-org8dab68d" class="outline-2">
-<h2 id="org8dab68d">Conteudo dinamico</h2>
-<div class="outline-text-2" id="text-org8dab68d">
+<div id="outline-container-org1a09451" class="outline-2">
+<h2 id="org1a09451">Conteudo dinamico</h2>
+<div class="outline-text-2" id="text-org1a09451">
 <p>
 O conteudo da pagina <b>artigos</b> eh gerado dinamicamente com base nos
 dados dos outro artigos publicados. A tecnica usada eh equivalente
@@ -373,7 +377,7 @@ link para primeira imagem se existir e data de publicacao.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org11dba3b">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">org-element</span>)
+<pre class="src src-emacs-lisp" id="orgaab5867">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">org-element</span>)
 (<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">cl-lib</span>)
 
 (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website--extrack-kv</span> (ast)
@@ -427,11 +431,11 @@ link para primeira imagem se existir e data de publicacao.
 </div>
 </div>
 
-<div id="outline-container-orgd419075" class="outline-2">
-<h2 id="orgd419075">Componentes do projeto</h2>
-<div class="outline-text-2" id="text-orgd419075">
+<div id="outline-container-orgd281d98" class="outline-2">
+<h2 id="orgd281d98">Componentes do projeto</h2>
+<div class="outline-text-2" id="text-orgd281d98">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgc967c52">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">ox-publish</span>)
+<pre class="src src-emacs-lisp" id="org39981a4">(<span style="color: #8ac6f2; font-weight: bold;">require</span> '<span style="color: #e5786d;">ox-publish</span>)
 (<span style="color: #8ac6f2; font-weight: bold;">setq</span> org-publish-project-alist
       `(
         (<span style="color: #95e454;">"org-notes"</span>
@@ -465,9 +469,9 @@ link para primeira imagem se existir e data de publicacao.
 </div>
 </div>
 
-<div id="outline-container-orgce4dd9f" class="outline-2">
-<h2 id="orgce4dd9f">Suporte ao fluxo de trabalho</h2>
-<div class="outline-text-2" id="text-orgce4dd9f">
+<div id="outline-container-org8c6c2aa" class="outline-2">
+<h2 id="org8c6c2aa">Suporte ao fluxo de trabalho</h2>
+<div class="outline-text-2" id="text-org8c6c2aa">
 <p>
 O fluxo de trabalho consiste em criar/editar os arquivos <code>org</code>,
 <code>css</code>, <code>js</code> e etc com conteudo que pertencera ao site. Ao terminar
@@ -515,9 +519,9 @@ do arquivo, como <code>-Meu Artigo.org</code>.
 </p>
 </div>
 
-<div id="outline-container-orgdaaf1ef" class="outline-3">
-<h3 id="orgdaaf1ef">Producao de conteudo</h3>
-<div class="outline-text-3" id="text-orgdaaf1ef">
+<div id="outline-container-org748cbf4" class="outline-3">
+<h3 id="org748cbf4">Producao de conteudo</h3>
+<div class="outline-text-3" id="text-org748cbf4">
 <p>
 A estrutura basica de um artigo pode ser composto rapidamente com o
 comando <code>website-new-article</code>. O comando pergunta por informacoes
@@ -526,7 +530,7 @@ o artigo na estrutura de diretorios do projeto.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org6485043">
+<pre class="src src-emacs-lisp" id="org7cc8dd5">
 (<span style="color: #8ac6f2; font-weight: bold;">defun</span> <span style="color: #cae682;">website--extract-kw</span> (kw)
   <span style="color: #95e454;">"Auxiliar cria funcao que extrai lista de KW de todos os artigos."</span>
   (<span style="color: #8ac6f2; font-weight: bold;">lambda</span> (data)
@@ -584,15 +588,15 @@ o artigo na estrutura de diretorios do projeto.
 
 
 
-<div id="outline-container-org7a7df39" class="outline-2">
-<h2 id="org7a7df39">Exporta pacote website-publish</h2>
-<div class="outline-text-2" id="text-org7a7df39">
+<div id="outline-container-org242244e" class="outline-2">
+<h2 id="org242244e">Exporta pacote website-publish</h2>
+<div class="outline-text-2" id="text-org242244e">
 <p>
 Agora o script serah finalizado com a exportacao do pacote para emacs.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org2a037e0">(<span style="color: #8ac6f2; font-weight: bold;">provide</span> '<span style="color: #e5786d;">website-publish</span>)
+<pre class="src src-emacs-lisp" id="org5574b0e">(<span style="color: #8ac6f2; font-weight: bold;">provide</span> '<span style="color: #e5786d;">website-publish</span>)
 <span style="color: #99968b;">;;; </span><span style="color: #99968b;">website-publish.el ends here</span>
 
 </pre>
@@ -600,9 +604,9 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 </div>
 </div>
 
-<div id="outline-container-org5cd793a" class="outline-2">
-<h2 id="org5cd793a">Codigos</h2>
-<div class="outline-text-2" id="text-org5cd793a">
+<div id="outline-container-orge03cfcb" class="outline-2">
+<h2 id="orge03cfcb">Codigos</h2>
+<div class="outline-text-2" id="text-orge03cfcb">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #99968b;">;;; </span><span style="color: #99968b;">website-publish.el --- Configuracao publicar site com org-mode -*- lexical-binding:t -*-</span>
 
@@ -795,9 +799,9 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 </div>
 
 
-<div id="outline-container-orgd2f0f82" class="outline-2">
-<h2 id="orgd2f0f82">Referencia</h2>
-<div class="outline-text-2" id="text-orgd2f0f82">
+<div id="outline-container-org49cf853" class="outline-2">
+<h2 id="org49cf853">Referencia</h2>
+<div class="outline-text-2" id="text-org49cf853">
 <ul class="org-ul">
 <li><a href="http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html">Publishing Org-mode files to html</a></li>
 <li>[Dale]    <a href="http://dale.io/blog/automated-org-publishing.html">Automated Publishing Pipeline with Org Mode</a></li>
@@ -810,7 +814,7 @@ Agora o script serah finalizado com a exportacao do pacote para emacs.
 <div id="postamble" class="status">
 <p class="date">Data: 05/09/2017</p>
 <p class="author">Autor: Ildenir Barbosa</p>
-<p class="date">Criado em: 2024-04-06 sáb 12:58</p>
+<p class="date">Criado em: 2024-04-08 seg 20:48</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
