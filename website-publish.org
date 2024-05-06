@@ -268,7 +268,7 @@ com suporte facilitado para formulas matematica, codigo, image.
        (defun website--list-all (keyword)
 	 "Extrai lista de keyword de todos os arquivos"
 	 (let ((articles (website-generate-article)))
-	   (remove nil (mapcar (website--extract-kw keyword) articles))))
+	   (remove nil (delete-dups (mapcar (website--extract-kw keyword) articles)))))
 
      (defun website--keyword-list ()
        "Lista de todas opcoes KEYWORD dos artigos."
