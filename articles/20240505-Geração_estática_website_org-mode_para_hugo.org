@@ -77,7 +77,8 @@ para formato do hugo.
 	  date
 	  author
 	  draft
-	  lang)
+	  lang
+	  keywords)
       (with-temp-buffer
 	(org-mode)
 	(insert-file-contents filename)
@@ -87,7 +88,10 @@ para formato do hugo.
 			     (cl-second parsed-time)
 			     (cl-first parsed-time))))
 	(setq author (plist-get metadatas 'author))
-	(setq draft "true")
+	(setq keywords (plist-get metadatas 'keywords))
+  (message (prin1-to-string keywords))
+	(setq draft (if (and keywords  (string-match "\\.*draft\\.*" keywords))
+			"true" "false"))
 	(setq lang (plist-get metadatas 'language))
 	(org-org-export-as-org))
       (with-temp-file xfilename
