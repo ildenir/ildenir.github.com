@@ -4,7 +4,7 @@
 #+AUTHOR: Ildenir Barbosa
 #+EMAIL: ildenir+github@googlemail.com
 #+DESCRIPTION: Apresenta formulacoes e algoritmos para gerar o torus e outro objetos primitivos.
-#+KEYWORDS: (programming cg)
+#+KEYWORDS: (programming cg draft)
 #+LANGUAGE: pt_BR
 #+OPTIONS: num:nil
 
