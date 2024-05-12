@@ -79,6 +79,7 @@ para formato do hugo.
 	  draft
 	  lang)
       (with-temp-buffer
+	(org-mode)
 	(insert-file-contents filename)
 	(setq title (plist-get metadatas 'title))
 	(setq date (let ((parsed-time (parse-time-tokenize (plist-get metadatas 'date))))
@@ -87,10 +88,12 @@ para formato do hugo.
 			     (cl-first parsed-time))))
 	(setq author (plist-get metadatas 'author))
 	(setq draft "true")
-	(setq lang (plist-get metadatas 'language)))
+	(setq lang (plist-get metadatas 'language))
+	(org-org-export-as-org))
       (with-temp-file xfilename
 	(fundamental-mode)
-	(insert-file-contents filename)
+	(erase-buffer)
+	(insert-buffer (get-buffer "*Org ORG Export*"))
 	(goto-char 0)
 	(mark-paragraph)
 	(delete-region (region-beginning) (region-end))
@@ -162,7 +165,6 @@ para formato do hugo.
 	      (plist-put kv-plist
 			 'image (org-element-interpret-data (car link))))
 	(dolist (k kv-filtered kv-plist)
-	  (message (car k))
 	  (setq kv-plist
 		(plist-put kv-plist
 			   (intern (downcase (car k))) (car (cdr k))))))))
@@ -232,7 +234,6 @@ para formato do hugo.
 			       (format-time-string "%Y%m%d") "-"
 			       (string-join (split-string title) "_") ".org"))))
 	 (with-current-buffer (get-buffer-create filename)
-	   (insert "#+SETUPFILE: ../setup/xtreme-simple-theme\n")
 	   (insert (format "#+TITLE: %s\n" title))
 	   (insert (format "#+DATE: %s\n" date))
 	   (insert (format "#+AUTHOR: %s\n" author))
@@ -258,7 +259,7 @@ para formato do hugo.
 * Codigos
 
 #+NAME: website-publish
-#+BEGIN_SRC emacs-lisp :results discard silent :tangle website-publish.el :noweb yes
+#+BEGIN_SRC emacs-lisp :results discard silent :noweb yes
   ;;; website-publish.el --- Configuracao publicar site com org-mode -*- lexical-binding:t -*-
 
   ;; Copyright (C) 2024 Ildenir Barbosa
