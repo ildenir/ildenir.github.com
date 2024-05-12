@@ -1,0 +1,362 @@
+#+SETUPFILE: setup/xtreme-simple-theme
+#+TITLE: Geracao estatica website com emacs org-mode
+#+DATE: 05/09/2017
+#+AUTHOR: Ildenir Barbosa
+#+EMAIL: ildenir+github@googlemail.com
+#+LANGUAGE: pt_BR
+#+CREATOR: Emacs 25.2.1 (Org mode 9.0.9)
+#+DESCRIPTION: Como este site eh gerado estaticamente com emacs.
+#+OPTIONS: num:nil
+
+* Overview
+
+  Este documento descreve o processo de geracao estatica do site baseado no
+  modulo org-mode do emacs.
+
+  O script emacs-lisp para configurar projeto do org-mode pode ser gerado
+  processando este documento com
+  org-mode babel. Basta executar o script
+  seguinte com o comando =C-c C-c= com o cursor sobre o bloco.
+
+  #+BEGIN_SRC emacs-lisp :results output silent
+  (org-babel-tangle)
+  (load-file (concat (file-name-base) ".el"))
+  #+END_SRC
+
+  O objetivo site eh ser simples e com pouco conteudo
+  dinamico. Basicamente um conjunto de paginas de artigos e breve biografia.
+
+  O projeto do site segue a estrutura de diretorios como mostrado
+  abaixo. O diretorio =org= corresponde aos arquivos fontes de paginas
+  escritas em org-mode, estilos em css e etc. Os arquivos gerados ao
+  publicar o site eh escrito no diretorio raiz do projeto sendo o
+  conteudo eh resultado da compilacao dos arquivos fonte, e portanto,
+  totalmente descartável.
+
+#+BEGIN_EXAMPLE
+.
+├── about.org
+├── articles
+├── articles.org
+├── books.org
+├── css
+├── font-awesome-4.7.0
+├── index.org
+├── js
+├── site-map.org
+├── todo.org
+├── website-publish.el
+├── website-publish.org
+└── website-publish.sh
+#+END_EXAMPLE
+
+** COMMENT questoes
+   - por que site estatico?
+     site statico o autor possui o conteudo em formato de arquivo
+     github, dropbox, bitbucket ...
+     cms : blogspot, wordpress ...
+   - por que org-mode e nao html ou markdown?
+   - por que emacs?
+   - org-mode oferece um ambiente integrado para diversos midias
+com suporte facilitado para formulas matematica, codigo, image.
+
+* Variaveis utilitarias
+   Essas variaveis definem a localizacao dos diretorios do projeto.
+
+#+NAME: variaveis-utilitarias
+#+BEGIN_SRC emacs-lisp
+  (defcustom website-project-dir
+    (expand-file-name
+     (file-name-as-directory "~/ProjectsGitHub/ildenir.github.com/"))
+    "Diretorio do projeto do website."
+    :type 'directory)
+
+  (defsubst publish-dir ()
+    "Diretorio onde sera publicado o website."
+    website-project-dir)
+
+  (defsubst src-dir ()
+    "Diretorio dos arquivos fonte org, imagens, css e ..."
+    website-project-dir)
+
+  (defsubst src-articles-dir ()
+    "Diretorio fonte dos artigos."
+    (concat (file-name-as-directory (src-dir))
+	    (file-name-as-directory "articles")))
+
+  (defsubst publish-articles-dir ()
+    "Diretorio do artigos publicados."
+    (concat (file-name-as-directory (publish-dir))
+	    (file-name-as-directory "articles")))
+#+END_SRC
+
+* Header e footer do site
+   Toda pagina possui uma barra de navegacao e um rodape com referencia
+   ao emacs como gerenciador de conteudo, data da ultima atualizacao.
+
+   O conteudo do preambulo e *head* do html foram definidos em
+   variaveis separadas para simplificar definicao dos componentes do projeto.
+
+#+NAME: header-footer-site
+#+BEGIN_SRC emacs-lisp
+  (defun website-load-file (filename)
+  "Carrega arquivo apartir de FILENAME e retorna string com conteudo."
+  (with-temp-buffer (insert-file-contents filename)
+		    (buffer-substring (point-min) (point-max))))
+
+(defun website-preamble-loader (val)
+ (website-load-file (concat (file-name-as-directory (src-dir)) "preamble.html")))
+
+    (defvar website-html-preamble 'website-preamble-loader
+      "Cabecalho inserido em toda pagina.")
+
+#+END_SRC
+
+* Conteudo dinamico
+   O conteudo da pagina *artigos* eh gerado dinamicamente com base nos
+   dados dos outro artigos publicados. A tecnica usada eh equivalente
+   a descrita em [jgkamat]. A ideia consiste em criar o arquivo
+   =articles.org= com um *source block* elisp dinamico. O source block
+   dinamico executa o script lisp contido e substitui o bloco pelo
+   resultado do script. O processo de publicacao segue normalmente
+   como os outros arquivos =org=. No caso do artigo, o script elisp
+   executado serah a funcao ~website-generate-article-list~, que
+   produzirah uma lista ~plist~ com titulo, primeiro paragrafo como breve descricao,
+   link para primeira imagem se existir e data de publicacao.
+
+#+NAME: conteudo-dinamico
+#+BEGIN_SRC emacs-lisp
+  (require 'org-element)
+  (require 'cl-lib)
+
+  (defun website--extrack-kv (ast)
+    "Rotina interna para extrair (key value) da AST."
+    (org-element-map ast 'keyword
+      (lambda(key) (list
+		    (org-element-property :key key)
+		    (org-element-property :value key)) )))
+
+  (defun website--extract-link (ast)
+    "Rotina interna para extrair link para image da AST."
+    (org-element-map ast 'link
+      (lambda(lk) (when (string= (org-element-property :type lk) "fuzzy")
+		    lk))))
+
+  (defun website-filter-kv (kws filterregexp)
+    "Filtra lista KWS com key match padrao FILTERREGEXP."
+    (cl-remove-if-not (lambda (el) (string-match filterregexp (car el))) kws))
+
+  (defun website-extract-article-data (filename)
+    "Extrai dados do artigo com nome FILENAME.
+  Retorna plist keys title image description date"
+    (with-temp-buffer
+      (insert-file-contents filename)
+      (org-mode)
+      (let* ((filterregex "\\(TITLE\\|DATE\\|DESCRIPTION\\|EMAIL\\|KEYWORDS\\|AUTHOR\\)")
+	     (ast (org-element-parse-buffer))
+	     (kv (website--extrack-kv ast))
+	     (link (website--extract-link ast))
+	     (kv-filtered (website-filter-kv kv filterregex))
+	     kv-plist)
+	(setq kv-plist
+	      (plist-put kv-plist
+			 'image (org-element-interpret-data (car link))))
+	(dolist (k kv-filtered kv-plist)
+	  (message (car k))
+	  (setq kv-plist
+		(plist-put kv-plist
+			   (intern (downcase (car k))) (car (cdr k))))))))
+
+  (defun website-generate-article ()
+    "Gera lista com dados de artigos do projeto.
+  A lista retornada possui o formato
+  '(filename (title desc link-img pub-date)) onde link-img pode ser nil caso nao
+  exista.  Description vai ser extraida de #+DESCRIPTION:"
+    (let ((files (directory-files-recursively (src-dir) "\.org$")))
+      (mapcar (lambda (fn) (list fn (website-extract-article-data fn)))
+	      files)))
+#+END_SRC
+
+* Componentes do projeto
+
+#+NAME: componentes-projeto
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-publish)
+  (setq org-publish-project-alist
+	`(
+	  ("org-notes"
+	   :base-directory ,(src-dir)
+	   :base-extension "org"
+	   :publishing-directory ,(publish-dir)
+	   :recursive t
+	   :publishing-function org-html-publish-to-html
+	   :headline-levels 4             ; Just the default for this project.
+	   :auto-preamble t
+	   :org-html-doctype html5
+	   :html-doctype "html5"
+	   :org-html-html5-fancy t
+	   :exclude ".*--ig--.*"
+	   :html-preamble ,website-html-preamble
+	   :html-postamble-format ""
+	   :auto-sitemap t
+	   :sitemap-title "Site map"
+	   :sitemap-filename "site-map.org"
+	   )
+	  ("org-static"
+	   :base-directory ,(src-dir)
+	   :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf|otf\\|woff\\|woff2\\|ttf\\|svg"
+	   :publishing-directory ,(publish-dir)
+	   :recursive t
+	   :publishing-function org-publish-attachment
+	   )
+	  ("org" :components ("org-notes" "org-static"))))
+#+END_SRC
+
+* Suporte ao fluxo de trabalho
+  O fluxo de trabalho consiste em criar/editar os arquivos =org=,
+  =css=, =js= e etc com conteudo que pertencera ao site. Ao terminar
+  todas as edicoes, basta gerar o site com o comando
+  ~org-publish~ para publicar um projeto especifio ou
+  ~org-publish-all~ para publicar todos os projetos. Essa opcoes
+  tambem estao acessiveis pela combinacao de teclas =C-c C-e P x= ou
+  =C-c C-e P a=, respectivamente.
+
+  Ocasionamente, pode-se publicar o website via comando shell
+  =website-publish.sh=.
+
+  #+BEGIN_SRC sh :tangle website-publish.sh
+    #!/bin/bash
+    emacs --batch -l ./website-publish.el \
+	  --eval="(require 'website-publish)"\
+	  --eval="(org-publish-all)"
+  #+END_SRC
+
+  Os comando utilizados para publicar o site soh funcionara quando
+  o arquivo =website-publish.el= for carregado. No inicio deste
+  documento, tem uma instruncao para carregar. Mas sempre sera
+  necessario abrir este documento e executar as intrucoes. Para
+  evitar esse trabalho extra, coloque as seguinte intrucao no seu
+  arquivo =.emacs=:
+
+  #+BEGIN_SRC emacs-lisp :results output silent
+    (add-to-list 'load-path
+		 (expand-file-name "~/ProjectsGitHub/ildenir.github.com/org"))
+    (require 'website-publish)
+  #+END_SRC
+
+  O fluxo tambem suporta a escrita de rascunho. O rascunho consistem
+  em um artigo quem nao sera publicado com as instrucoes acima. Para
+  criar um rascunho, basta inserir um =- (menos)= no inicio do nome
+  do arquivo, como =-Meu Artigo.org=.
+
+** Producao de conteudo
+   A estrutura basica de um artigo pode ser composto rapidamente com o
+   comando ~website-new-article~. O comando pergunta por informacoes
+   como o titulo, descricao, palavra-chave e ao final do processo gera
+   o artigo na estrutura de diretorios do projeto.
+
+   #+NAME: content-generator
+   #+BEGIN_SRC emacs-lisp
+
+     (defun website--extract-kw (kw)
+       "Auxiliar cria funcao que extrai lista de KW de todos os artigos."
+       (lambda (data)
+	 (let ((pl (car (cdr data))) )
+	   (plist-get pl kw))))
+
+
+       (defun website--list-all (keyword)
+	 "Extrai lista de keyword de todos os arquivos"
+	 (let ((articles (website-generate-article)))
+	   (remove nil (delete-dups (mapcar (website--extract-kw keyword) articles)))))
+
+     (defun website--keyword-list ()
+       "Lista de todas opcoes KEYWORD dos artigos."
+       (let ((articles-kw (website--list-all 'keywords))
+	     (split-string-default-separators "[ \f\t\n\r\v,]+")
+	     (kw-list (list)))
+	 (dolist (l articles-kw kw-list)
+	   (setq kw-list (append kw-list (split-string l))))
+	 (remove "nil" (delete-dups kw-list))))
+
+       (defun website-new-article ()
+	 "Entrevista usuario e insera conteudo ao projeto"
+	 (interactive)
+	 (let* ((title (read-string "Title: " ))
+		(description (read-string "Descricao: "))
+		(author (completing-read "Autor: " (website--list-all 'author)))
+		(date (format-time-string "%d/%m/%Y"))
+		(email (completing-read "Email: " (website--list-all 'email)))
+		(keywords (completing-read-multiple "Palavras-chave: "
+					   (website--keyword-list)))
+		(filename (string-join
+			   (list (concat (file-name-as-directory (src-dir))
+					 (file-name-as-directory "articles"))
+				 (format-time-string "%Y%m%d") "-"
+				 (string-join (split-string title) "_") ".org"))))
+	   (with-current-buffer (get-buffer-create filename)
+	     (insert "#+SETUPFILE: ../setup/xtreme-simple-theme\n")
+	     (insert (format "#+TITLE: %s\n" title))
+	     (insert (format "#+DATE: %s\n" date))
+	     (insert (format "#+AUTHOR: %s\n" author))
+	     (insert (format "#+EMAIL: %s\n" email))
+	     (insert (format "#+DESCRIPTION: %s\n" description))
+	     (insert (format "#+KEYWORDS: %s\n" keywords))
+	     (insert "#+LANGUAGE: pt_BR\n")
+	     (insert "#+OPTIONS: num:nil\n")
+	     (write-file filename))))
+   #+END_SRC
+
+
+
+
+
+* Exporta pacote website-publish
+   Agora o script serah finalizado com a exportacao do pacote para emacs.
+
+   #+NAME: exporta-modulo
+   #+BEGIN_SRC emacs-lisp
+     (provide 'website-publish)
+     ;;; website-publish.el ends here
+
+   #+END_SRC
+
+* Codigos
+
+#+BEGIN_SRC emacs-lisp :results discard silent :tangle website-publish.el :noweb yes
+    ;;; website-publish.el --- Configuracao publicar site com org-mode -*- lexical-binding:t -*-
+
+    ;; Copyright (C) 2017 Ildenir Barbosa
+
+    ;; Author: I. C. Barbosa <ildenir+github@googlemail.com>
+    ;; Version: 0.0
+    ;; Keywords: website
+    ;; URL: http://github.com/ildenir/ildenir.github.com
+
+    ;;; Commentary:
+
+    ;; Este pacote configura/customiza o exportador do org-mode para gerar
+    ;; o website.
+
+    ;;; Code:
+
+    <<variaveis-utilitarias>>
+    <<header-footer-site>>
+
+    <<conteudo-dinamico>>
+
+    <<componentes-projeto>>
+
+    <<content-generator>>
+
+
+    <<exporta-modulo>>
+
+#+END_SRC
+
+
+* Referencia
+  - [[http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing Org-mode files to html]]
+  - [Dale]    [[http://dale.io/blog/automated-org-publishing.html][Automated Publishing Pipeline with Org Mode]]
+  - [Petton]  [[https://nicolas.petton.fr/blog/blogging-with-org-mode.html#org77b6e84][Blogging with org-mode]]
+  - [jgkamat] [[https://jgkamat.github.io/blog/website1.html][Creating a blog in Org Mode]]
