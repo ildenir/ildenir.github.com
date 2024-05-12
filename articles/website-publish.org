@@ -64,7 +64,7 @@ com suporte facilitado para formulas matematica, codigo, image.
    Essas variaveis definem a localizacao dos diretorios do projeto.
 
 #+NAME: variaveis-utilitarias
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :eval no :exports code
   (defcustom website-project-dir
     (expand-file-name
      (file-name-as-directory "~/ProjectsGitHub/ildenir.github.com/"))
@@ -98,7 +98,7 @@ com suporte facilitado para formulas matematica, codigo, image.
    variaveis separadas para simplificar definicao dos componentes do projeto.
 
 #+NAME: header-footer-site
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :eval no :exports code
   (defun website-load-file (filename)
   "Carrega arquivo apartir de FILENAME e retorna string com conteudo."
   (with-temp-buffer (insert-file-contents filename)
@@ -125,7 +125,7 @@ com suporte facilitado para formulas matematica, codigo, image.
    link para primeira imagem se existir e data de publicacao.
 
 #+NAME: conteudo-dinamico
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :eval no :exports code
   (require 'org-element)
   (require 'cl-lib)
 
@@ -180,7 +180,7 @@ com suporte facilitado para formulas matematica, codigo, image.
 * Componentes do projeto
 
 #+NAME: componentes-projeto
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :eval no :exports code
   (require 'ox-publish)
   (setq org-publish-project-alist
 	`(
@@ -224,7 +224,7 @@ com suporte facilitado para formulas matematica, codigo, image.
   Ocasionamente, pode-se publicar o website via comando shell
   =website-publish.sh=.
 
-  #+BEGIN_SRC sh :tangle website-publish.sh
+  #+BEGIN_SRC sh :eval no :exports code :tangle website-publish.sh
     #!/bin/bash
     emacs --batch -l ./website-publish.el \
 	  --eval="(require 'website-publish)"\
@@ -238,7 +238,7 @@ com suporte facilitado para formulas matematica, codigo, image.
   evitar esse trabalho extra, coloque as seguinte intrucao no seu
   arquivo =.emacs=:
 
-  #+BEGIN_SRC emacs-lisp :results output silent
+  #+BEGIN_SRC emacs-lisp  :eval no :exports code :results output silent
     (add-to-list 'load-path
 		 (expand-file-name "~/ProjectsGitHub/ildenir.github.com/org"))
     (require 'website-publish)
@@ -256,7 +256,7 @@ com suporte facilitado para formulas matematica, codigo, image.
    o artigo na estrutura de diretorios do projeto.
 
    #+NAME: content-generator
-   #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp  :eval no :exports code
 
      (defun website--extract-kw (kw)
        "Auxiliar cria funcao que extrai lista de KW de todos os artigos."
@@ -315,7 +315,7 @@ com suporte facilitado para formulas matematica, codigo, image.
    Agora o script serah finalizado com a exportacao do pacote para emacs.
 
    #+NAME: exporta-modulo
-   #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp :eval no :exports code
      (provide 'website-publish)
      ;;; website-publish.el ends here
 
