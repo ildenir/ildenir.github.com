@@ -322,8 +322,11 @@ com suporte facilitado para formulas matematica, codigo, image.
    #+END_SRC
 
 * Codigos
+Integra do modulo.
 
-#+BEGIN_SRC emacs-lisp :results discard silent :tangle website-publish.el :noweb yes
+
+#+BEGIN_SRC emacs-lisp :results discard silent :eval no :exports code :tangle website-publish.el :noweb yes
+
     ;;; website-publish.el --- Configuracao publicar site com org-mode -*- lexical-binding:t -*-
 
     ;; Copyright (C) 2017 Ildenir Barbosa
@@ -342,16 +345,10 @@ com suporte facilitado para formulas matematica, codigo, image.
 
     <<variaveis-utilitarias>>
     <<header-footer-site>>
-
     <<conteudo-dinamico>>
-
     <<componentes-projeto>>
-
     <<content-generator>>
-
-
     <<exporta-modulo>>
-
 #+END_SRC
 
 
