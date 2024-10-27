@@ -12,7 +12,8 @@
 
 Adaptação do workflow descrito anteriormente para exportar arquivos
 tratados para framework hugo. Publicacao org to org com tratamento
-para formato do hugo.
+para formato do hugo. Avalie documento com =C-c C-v C-b= para
+configurações terem efeito
 
 * Variaveis utilitarias
    Essas variaveis definem a localizacao dos diretorios do projeto.
