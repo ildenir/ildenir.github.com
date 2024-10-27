@@ -264,7 +264,7 @@ configurações terem efeito
 * Codigos
 
 #+NAME: website-publish
-#+BEGIN_SRC emacs-lisp :results discard silent :noweb yes
+#+BEGIN_SRC emacs-lisp :results discard silent :noweb yes :tangle website-publish.el
   ;;; website-publish.el --- Configuracao publicar site com org-mode -*- lexical-binding:t -*-
 
   ;; Copyright (C) 2024 Ildenir Barbosa
