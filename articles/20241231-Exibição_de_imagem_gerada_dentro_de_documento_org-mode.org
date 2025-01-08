@@ -1,0 +1,126 @@
+#+TITLE: Exibição de imagem gerada dentro de documento org-mode
+#+DATE: 31/12/2024
+#+AUTHOR: Ildenir Barbosa
+#+EMAIL: ildenir+github@googlemail.com
+#+DESCRIPTION: Exibição de imagem gerada dentro de documento org-mode
+#+KEYWORDS: (org-mode emacs draft)
+#+LANGUAGE: pt_BR
+#+OPTIONS: num:nil
+
+* Introdução
+Este documento demonstra diferentes maneiras de exibir imagens dentro
+de um arquivo Org-mode, abrangendo desde a geração dinâmica com blocos
+de código até a incorporação direta com codificação Base64.
+
+
+** Configuração para Exibição Inline
+Para que as imagens sejam exibidas diretamente no documento Org,
+adicione a seguinte linha ao cabeçalho do seu arquivo:
+
+#+begin_example
+
+#+STARTUP: inlineimages
+
+#+end_example
+
+Ou, alternativamente, você pode usar a variável `org-startup-with-inline-images`:
+
+#+begin_example
+
+#+STARTUP: inlineimages fun: org-display-inline-images var: org-startup-with-inline-images
+
+#+end_example
+
+Use diretiva org-mode para inserir imagem no documento:
+
+#+begin_example
+
+[[file:p.png]]
+
+#+end_example
+
+Ou, para especificar largura e altura:
+
+#+BEGIN_EXAMPLE
+[[file:p.png width=300 height=200]]
+#+END_EXAMPLE
+
+*  Imagem gerado por comando shell script
+Este método permite gerar imagens diretamente dentro do seu documento
+Org usando blocos de código. O exemplo abaixo utiliza `cat` para
+exibir o conteúdo de um arquivo PNG, simulando a geração de uma
+imagem. Em um cenário real, você poderia usar ferramentas como
+`gnuplot`, `imagemagick` ou outras bibliotecas de sua linguagem
+preferida para gerar gráficos e imagens complexas.
+
+#+begin_example
+
+#+begin_src bash :export both :results file :file p.png
+  cat p.png
+#+end_src
+
+[[file:p.png]] ; Exibe a imagem gerada
+#+end_example
+
+* Exibição a partir de uma imagem embutida
+Incorporar imagens diretamente no arquivo Org usando codificação
+Base64 elimina a dependência de arquivos externos, tornando o
+documento portátil. A imagem é codificada em base64 e inserida em uma
+string elisp em bloco de código. Este bloco pode estar em qualquer
+posição do documento.
+
+**  Codificando a Imagem para Base64
+Para embutir a imagem no documento, copie o bloco de codigo a seguir
+para o seu documento e com o cursor na posicao indica no bloco de
+codigo execute o comando *C-u C-M ! base64 p.png*.
+
+#+begin_example
+
+#+name: imgb64
+#+begin_src elisp :results silent :exports none
+"
+   ;; posicao do cursor aqui
+"
+#+end_src
+
+#+end_example
+
+** Decodificando e Exibindo a Imagem Base64
+O bloco de código abaixo decodifica a string Base64 e gera um arquivo
+temporário com a imagem.
+
+#+begin_example
+
+#+begin_src elisp :var pik=imgb64 :exports both :results file :file p.png
+(let (img)
+    (with-temp-buffer
+      (insert (base64-decode-string pik))
+      (setq img (buffer-string)))
+    img)
+#+end_src
+
+#+end_example
+
+Exibe a imagem decodificada
+
+#+begin_example
+[[file:p.png]]
+#+end_example
+
+* Considerações Finais
+
+A geração dinâmica é útil para criar gráficos e visualizações com base
+em dados ou cálculos. A incorporação com Base64 é ideal para
+documentos portáteis, mas aumenta o tamanho do arquivo. Escolha o
+método mais adequado para suas necessidades.
+
+Este documento foi parcialmente assistido pelo modelo de linguagem
+Gemini, que auxiliou na organização, clareza e expansão do conteúdo. A
+contribuição do Gemini não invalida a autoria principal do texto, mas
+representa uma valiosa ferramenta de apoio à escrita.
+
+* Dicas Adicionais
+
+- Para gerar gráficos mais complexos, explore pacotes como `gnuplot` e `ob-gnuplot`.
+- Use o parâmetro `:imagemagick` nos blocos de código para processar imagens com o ImageMagick.
+- A diretiva `#+ATTR_HTML` permite adicionar atributos HTML às imagens, como classes CSS para estilização.
