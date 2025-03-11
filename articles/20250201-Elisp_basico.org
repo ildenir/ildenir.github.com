@@ -94,7 +94,7 @@ Aprender Elisp oferece várias vantagens para usuários do Emacs:
  ((>= nota 90) (message "A"))
  ((>= nota 80) (message "B"))
  ((>= nota 70) (message "C"))
- (t (message "D")))
+ (t (message "D"))) ; Output: B
 #+end_src
 
 #+RESULTS:
@@ -118,6 +118,8 @@ Aprender Elisp oferece várias vantagens para usuários do Emacs:
 #+end_src
 
 *** Property List (plist)
+Uma lista de propriedade permite associar um nome de
+atributo/propriedade a um valor.
 
 #+begin_src elisp
 ;; Criando plist
@@ -132,6 +134,8 @@ Aprender Elisp oferece várias vantagens para usuários do Emacs:
 #+end_src
 
 *** Association List (alist)
+Como o **Property List**, associa um nome a um valor. No entanto, a
+lista é composta por pares chave-valor e não como uma lista simples.
 
 #+begin_src elisp
 ;; Criando alist
