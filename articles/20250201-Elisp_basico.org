@@ -1,0 +1,206 @@
+#+TITLE: Guia Básico de Elisp
+#+DATE: 01/02/2025
+#+AUTHOR: Ildenir Barbosa
+#+EMAIL: ildenir+github@googlemail.com
+#+DESCRIPTION: Elisp basico
+#+KEYWORDS: (draft, elisp)
+#+LANGUAGE: pt_BR
+#+OPTIONS: num:nil
+
+* Introdução
+
+O Emacs é muito mais que um editor de texto - é um ambiente de
+computação extensível e personalizável, criado originalmente por
+Richard Stallman em 1976. Uma das características mais poderosas do
+Emacs é que ele é construído sobre uma linguagem de programação
+completa chamada Emacs Lisp (Elisp).
+
+** O que é Emacs Lisp?
+
+Emacs Lisp é um dialeto da família de linguagens Lisp, especialmente
+projetado para escrever o editor Emacs e suas extensões. É uma
+linguagem dinâmica, interpretada e funcionalmente orientada que
+permite:
+
+- Personalizar o comportamento do Emacs
+- Automatizar tarefas repetitivas
+- Criar novos comandos e funcionalidades
+- Implementar modos maiores e menores
+- Interagir com o sistema operacional
+- Manipular texto e dados de forma eficiente
+
+** Por que aprender Elisp?
+
+Aprender Elisp oferece várias vantagens para usuários do Emacs:
+
+1. Personalização avançada: Você pode adaptar o Emacs exatamente às
+   suas necessidades
+2. Automação: Criar funções para automatizar tarefas repetitivas
+3. Extensibilidade: Desenvolver suas próprias extensões e plugins
+4. Compreensão mais profunda: Entender melhor como o Emacs funciona
+5. Produtividade: Otimizar seu fluxo de trabalho com funções
+   personalizadas
+
+
+* Programação Básica
+
+#+begin_src elisp
+;; Definindo variáveis
+(setq x 10)
+(let ((y 20))
+  (message "x: %d, y: %d" x y))  ; Output: "x: 10, y: 20"
+
+;; Definindo funções
+(defun soma (a b)
+  "Soma dois números."
+  (+ a b))
+
+(soma 5 3)  ; Output: 8
+#+end_src
+
+** Estruturas de Controle
+
+*** Condicional
+
+- IF
+
+#+begin_src elisp
+;; If
+(if (> 5 3)
+    (message "5 é maior que 3")
+  (message "5 não é maior que 3"))
+#+end_src
+
+#+RESULTS:
+: 5 é maior que 3
+
+- WHEN equivale a (if sem else)
+#+begin_src elisp
+;; When
+(when (file-exists-p "/etc/fstab")
+  (message "Arquivo existe"))
+#+end_src
+
+#+RESULTS:
+: Arquivo existe
+
+
+- Condicional estilo CASE
+#+begin_src elisp
+
+;; Cond (múltiplas condições)
+(setq nota 85)
+(cond
+ ((>= nota 90) (message "A"))
+ ((>= nota 80) (message "B"))
+ ((>= nota 70) (message "C"))
+ (t (message "D")))
+#+end_src
+
+#+RESULTS:
+: B
+
+** Estruturas de Dados
+*** List
+
+#+begin_src elisp
+;; Criando listas
+(setq frutas '("maçã" "banana" "laranja"))
+
+;; Acessando elementos
+(car frutas)   ; Output: "maçã" (primeiro elemento)
+(cdr frutas)   ; Output: ("banana" "laranja") (resto da lista)
+(nth 1 frutas) ; Output: "banana" (elemento no índice 1)
+
+;; Adicionando elementos
+(push "uva" frutas)  ; Adiciona no início
+(add-to-list 'frutas "pera")  ; Adiciona se não existir
+#+end_src
+
+*** Property List (plist)
+
+#+begin_src elisp
+;; Criando plist
+(setq pessoa (list :nome "João" :idade 30 :cidade "São Paulo"))
+
+;; Acessando propriedades
+(plist-get pessoa :nome)   ; Output: "João"
+(plist-get pessoa :idade)  ; Output: 30
+
+;; Modificando propriedades
+(setq pessoa (plist-put pessoa :idade 31))
+#+end_src
+
+*** Association List (alist)
+
+#+begin_src elisp
+;; Criando alist
+(setq config '((debug . t)
+	       (port . 8080)
+	       (host . "localhost")))
+
+;; Acessando valores
+(cdr (assoc 'port config))  ; Output: 8080
+(assoc-default 'host config)  ; Output: "localhost"
+
+;; Adicionando entrada
+(push '(timeout . 30) config)
+#+end_src
+
+*** Strings
+
+#+begin_src elisp
+;; Verificando string vazia
+(string-empty-p "")      ; Output: t
+(string-empty-p "texto") ; Output: nil
+
+;; Comparando strings
+(string-equal "texto" "texto")  ; Output: t
+(string-equal "Texto" "texto")  ; Output: nil
+
+;; Match-string (após regex-search)
+(when (string-match "\\([0-9]+\\)" "abc123def")
+  (match-string 1 "abc123def"))  ; Output: "123"
+#+end_src
+
+** Acessando Arquivos e Diretórios
+
+#+begin_src elisp
+;; Verificando se arquivo existe
+(file-exists-p "arquivo.txt")  ; Output: t ou nil
+
+;; Verificando se é diretório
+(file-directory-p "/home/user")  ; Output: t ou nil
+
+;; Listando arquivos do diretório
+(directory-files "~/Documents")  ; Output: lista de arquivos
+(directory-files "~/Documents" t "\\.txt$")  ; Apenas arquivos .txt com caminho completo
+#+end_src
+
+** Exemplos Práticos
+
+#+begin_src elisp
+;; Função para contar arquivos em um diretório
+(defun contar-arquivos (diretorio)
+  "Conta quantos arquivos existem no diretório especificado."
+  (length (directory-files diretorio nil "^[^.]")))
+
+;; Função para processar uma lista de números
+(defun processar-numeros (lista)
+  "Soma todos os números pares da lista."
+  (let ((soma 0))
+    (dolist (num lista)
+      (when (evenp num)
+	(setq soma (+ soma num))))
+    soma))
+
+(processar-numeros '(1 2 3 4 5 6))  ; Output: 12 (2 + 4 + 6)
+#+end_src
+
+* Referências
+- GNU Emacs Lisp Reference Manual
+- Practical Emacs Lisp Programming
+- Emacs Wiki - Elisp Programming
+
+-----
+/Este documento foi gerado com assistência do Claude.ai (Anthropic)./
