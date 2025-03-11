@@ -1,3 +1,5 @@
+#+STARTUP: inlineimages
+
 #+TITLE: Use ps5 joystick como keypad para usar com wacom tablet
 #+DATE: 26/02/2025
 #+AUTHOR: Ildenir Barbosa
@@ -73,10 +75,17 @@ guardará todas as configurações dos botoes do joystick. Ao clicar na
 imagem do joystick, uma nova janela aparecera permitindo mapear o
 botao a uma tecla do teclado ou do mouse.
 
-[[file:~/Projetos/ildenir.github.com/images/2025-02-26 19_38_00-Window.png]]
-[[file:~/Projetos/ildenir.github.com/images/2025-02-26 19_38_45-Window.png]]
-[[file:~/Projetos/ildenir.github.com/images/2025-02-26 19_39_03-Window.png]]
-[[file:~/Projetos/ildenir.github.com/images/2025-02-26 19_39_19-Window.png]]
+#+CAPTION: Janela principal do DS4Windows
+[[file:../images/2025-02-26 19_38_00-Window.png]]
+
+#+CAPTION: Aba Profiles
+[[../images/2025-02-26 19_38_45-Window.png]]
+
+#+CAPTION: Controls
+[[../images/2025-02-26 19_39_03-Window.png]]
+
+#+CAPTION: Janela para selecao de acao ao clicar no botão do joystick
+[[../images/2025-02-26 19_39_19-Window.png]]
 
 * Configuração no linux com antimicro
 A configuração no linux é tao simples quanto no windows. Para tanto,
