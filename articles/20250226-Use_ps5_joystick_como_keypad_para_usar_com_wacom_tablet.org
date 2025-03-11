@@ -5,7 +5,7 @@
 #+AUTHOR: Ildenir Barbosa
 #+EMAIL: ildenir+github@googlemail.com
 #+DESCRIPTION: Use ps5 joystick como keypad para usar com wacom tablet
-#+KEYWORDS: (art cg blender draft)
+#+KEYWORDS: (art cg blender wacom)
 #+LANGUAGE: pt_BR
 #+OPTIONS: num:nil
 
