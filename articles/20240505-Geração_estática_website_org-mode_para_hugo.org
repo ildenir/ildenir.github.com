@@ -261,6 +261,29 @@ configurações terem efeito
 
    #+END_SRC
 
+* Instruções para construir site com hugo
+
+Ao baixar site do repositorio, será necessário reconstruir os submodulos
+do git.
+
+#+begin_src bash :eval no :results discard silent
+  git submodule update --init --recursive
+#+end_src
+
+Para levantar um servidor de teste com páginas draft
+
+#+begin_src bash :eval no :results discard silent
+  hugo server --buildDrafts
+#+end_src
+
+ou apenas
+
+#+begin_src bash :eval no :results discard silent
+  hugo server
+#+end_src
+
+
+
 * Codigos
 
 #+NAME: website-publish
@@ -293,3 +316,4 @@ configurações terem efeito
 * Referencia
 
 - [[https://gohugo.io/documentation/][Go Hugo Documentation]]
+- [[https://stackoverflow.com/questions/12641469/list-submodules-in-a-git-repository]]
