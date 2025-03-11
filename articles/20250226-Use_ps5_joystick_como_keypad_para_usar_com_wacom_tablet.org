@@ -1,0 +1,108 @@
+#+TITLE: Use ps5 joystick como keypad para usar com wacom tablet
+#+DATE: 26/02/2025
+#+AUTHOR: Ildenir Barbosa
+#+EMAIL: ildenir+github@googlemail.com
+#+DESCRIPTION: Use ps5 joystick como keypad para usar com wacom tablet
+#+KEYWORDS: (art cg blender draft)
+#+LANGUAGE: pt_BR
+#+OPTIONS: num:nil
+
+* Seu joystick como controle remoto ...
+Usar um joystick do PS5 como um teclado complementar, especialmente em
+conjunto com uma mesa digitalizadora Wacom, oferece uma série de
+vantagens que podem otimizar seu fluxo de trabalho criativo e aumentar
+sua produtividade. Aqui estão alguns dos principais benefícios:
+
+ - Ergonomia e conforto:
+O design ergonômico do joystick do PS5 permite que você mantenha uma
+postura mais natural durante longas sessões de trabalho, reduzindo a
+fadiga e o risco de lesões por esforço repetitivo (LER).  A facilidade
+de acesso aos botões e direcionais do joystick proporciona um controle
+mais intuitivo e confortável do que o uso exclusivo de um teclado
+tradicional.
+
+ - Personalização e versatilidade:
+Você pode personalizar a função de cada botão do joystick para
+corresponder aos atalhos e comandos que você mais utiliza em seus
+softwares de criação.  Essa personalização permite criar um fluxo de
+trabalho mais eficiente e adaptado às suas necessidades específicas.
+O joystick pode ser usado para diversas funções, como zoom, rotação,
+navegação em menus e seleção de ferramentas, liberando suas mãos para
+se concentrarem na criação.
+
+ - Aumento da produtividade:
+Ao ter atalhos e comandos importantes ao alcance dos seus dedos, você
+pode executar tarefas com mais rapidez e precisão, economizando tempo
+e aumentando sua produtividade.  A combinação do joystick com a mesa
+digitalizadora Wacom proporciona uma experiência de criação mais
+fluida e intuitiva, permitindo que você se concentre na sua arte.
+
+ - Acessibilidade:
+Para pessoas que tem dificuldade de usar o teclado e mouse, o joystick
+pode ser uma ferramenta de acessibilidade importante.  Em resumo, usar
+um joystick do PS5 como um teclado complementar é uma solução
+inovadora e eficaz para otimizar seu fluxo de trabalho criativo,
+proporcionando mais conforto, personalização e produtividade.
+
+ - Custo-benefício:
+Em comparação com teclados especializados ou keypads projetados
+especificamente para uso com tablets gráficos, o joystick do PS5
+oferece uma alternativa significativamente mais acessível.  Muitos
+usuários já possuem um joystick do PS5, eliminando a necessidade de
+investir em um periférico adicional.
+
+ - Facilidade de aquisição:
+Joysticks do PS5 são amplamente disponíveis em lojas de eletrônicos,
+lojas de jogos e varejistas online, tornando-os fáceis de encontrar e
+adquirir.  A popularidade do console PlayStation 5 garante uma oferta
+constante de joysticks, tanto novos quanto usados.
+
+ - Reutilização de um periférico existente:
+Ao invés de comprar um novo equipamento, o usuário pode usar o
+controle que já tem em casa, evitando o descarte desnecessário
+de um objeto, e contribuindo para um consumo mais sustentável.
+
+
+* Configuração no windows com DS4Windows
+Um joystick DualSense para PS5 pode ser configurado facilmente no
+windows com o aplicativo *DS4Windows*.  O aplicativo permite mapear os
+botões do joystick para eventos do teclado e mouse.
+
+Na aba Profiles, crie um novo profile especifico. Este profile
+guardará todas as configurações dos botoes do joystick. Ao clicar na
+imagem do joystick, uma nova janela aparecera permitindo mapear o
+botao a uma tecla do teclado ou do mouse.
+
+[[file:~/Projetos/ildenir.github.com/images/2025-02-26 19_38_00-Window.png]]
+[[file:~/Projetos/ildenir.github.com/images/2025-02-26 19_38_45-Window.png]]
+[[file:~/Projetos/ildenir.github.com/images/2025-02-26 19_39_03-Window.png]]
+[[file:~/Projetos/ildenir.github.com/images/2025-02-26 19_39_19-Window.png]]
+
+* Configuração no linux com antimicro
+A configuração no linux é tao simples quanto no windows. Para tanto,
+precisamos instalar o aplicativo antimicro.
+
+No ubuntu,
+
+#+begin_src bash
+  !sudo apt install antimicro
+#+end_src
+
+Ao finalizar a instalação, execute o programa e realize o mapeamento
+das teclas.
+
+#+begin_src bash
+  !antimicrox
+#+end_src
+
+[[file:../images/Captura de tela de 2025-02-26 19-58-08.png]]
+
+* Considerações Finais
+
+Um gamepad wireless ,possivelmente abandonado em uma gaveta, pode ser
+reutilizado como um keypad wireless sem custos adicionais.
+
+Este documento foi parcialmente assistido pelo modelo de linguagem
+Gemini, que auxiliou na organização, clareza e expansão do conteúdo. A
+contribuição do Gemini não invalida a autoria principal do texto, mas
+representa uma valiosa ferramenta de apoio à escrita.
