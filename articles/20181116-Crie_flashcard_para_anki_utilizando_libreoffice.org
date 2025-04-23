@@ -4,7 +4,7 @@
 #+AUTHOR: Ildenir Barbosa
 #+EMAIL: ildenir+github@googlemail.com
 #+DESCRIPTION: Orientacoes de como criar cartoes flashcard para anki empregando a ferramenta de apresentacao impress do libreoffice
-#+KEYWORDS: (estudo, esl)
+#+KEYWORDS: (estudo esl)
 #+LANGUAGE: pt_BR
 #+OPTIONS: num:nil toc:nil
 

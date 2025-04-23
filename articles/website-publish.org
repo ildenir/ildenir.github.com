@@ -6,6 +6,7 @@
 #+LANGUAGE: pt_BR
 #+CREATOR: Emacs 25.2.1 (Org mode 9.0.9)
 #+DESCRIPTION: Como este site eh gerado estaticamente com emacs.
+#+KEYWORDS: (emacs org-mode)
 #+OPTIONS: num:nil
 
 * Overview

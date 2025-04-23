@@ -3,7 +3,7 @@
 #+AUTHOR: Ildenir Barbosa
 #+EMAIL: ildenir+github@googlemail.com
 #+DESCRIPTION: Elisp basico
-#+KEYWORDS: (draft, elisp)
+#+KEYWORDS: (draft elisp)
 #+LANGUAGE: pt_BR
 #+OPTIONS: num:nil
 
