@@ -62,6 +62,8 @@ Aprender Elisp oferece várias vantagens para usuários do Emacs:
 
 *** Condicional
 
+
+
 - IF
 
 #+begin_src elisp
@@ -99,6 +101,20 @@ Aprender Elisp oferece várias vantagens para usuários do Emacs:
 
 #+RESULTS:
 : B
+
+*** Estrutura de repetição
+- Iterando em listas
+
+  #+begin_src elisp
+    (setq files '("bin/file1" "bin/file2" "bin/file3"))
+    (dolist (file files out)
+      (push (file-name-base file) out))
+    (print out)
+  #+end_src
+
+  #+RESULTS:
+  | file3 | file2 | file1 | file3 | file2 | file1 |
+
 
 ** Estruturas de Dados
 *** List
@@ -170,15 +186,18 @@ lista é composta por pares chave-valor e não como uma lista simples.
 ** Acessando Arquivos e Diretórios
 
 #+begin_src elisp
-;; Verificando se arquivo existe
-(file-exists-p "arquivo.txt")  ; Output: t ou nil
+  ;; Converte nome de diretorio para nome de arquivo ex: /bin/dir/  => /bin/dir
+  (directory-file-name "/bin/dir/") ; Output: /bin/dir
 
-;; Verificando se é diretório
-(file-directory-p "/home/user")  ; Output: t ou nil
+  ;; Verificando se arquivo existe
+  (file-exists-p "arquivo.txt")  ; Output: t ou nil
 
-;; Listando arquivos do diretório
-(directory-files "~/Documents")  ; Output: lista de arquivos
-(directory-files "~/Documents" t "\\.txt$")  ; Apenas arquivos .txt com caminho completo
+  ;; Verificando se é diretório
+  (file-directory-p "/home/user")  ; Output: t ou nil
+
+  ;; Listando arquivos do diretório
+  (directory-files "~/Documents")  ; Output: lista de arquivos
+  (directory-files "~/Documents" t "\\.txt$")  ; Apenas arquivos .txt com caminho completo
 #+end_src
 
 ** Exemplos Práticos
