@@ -100,6 +100,16 @@ Aprender Elisp oferece várias vantagens para usuários do Emacs:
 #+RESULTS:
 : B
 
+*** Repetição
+**** dolist
+
+#+begin_src elisp
+  (dolist (num '(2 3 4))
+    (print (format "double num %d\n" (* num 2))))
+#+end_src
+
+**** dowhile
+
 ** Estruturas de Dados
 *** List
 
@@ -137,6 +147,7 @@ atributo/propriedade a um valor.
 Como o **Property List**, associa um nome a um valor. No entanto, a
 lista é composta por pares chave-valor e não como uma lista simples.
 
+Exemplo:
 #+begin_src elisp
 ;; Criando alist
 (setq config '((debug . t)
@@ -149,7 +160,383 @@ lista é composta por pares chave-valor e não como uma lista simples.
 
 ;; Adicionando entrada
 (push '(timeout . 30) config)
+
+;; Modificando entrada
 #+end_src
+
+
+Usa equal para comparar
+- assoc KEY ALIST
+- rassoc  VALUE ALIST
+
+Usa eq para comparar
+- assq KEY ALIST
+- rassq VALUE ALIST
+
+  As funções a seguir possui comportamento destrutivo:
+- assq-delete-all KEY ALIST
+- rassq-delete-all VALUE ALIST
+
+  Copia alist
+- copy-alist ALIST
+
+
+
+
+
+*** Sequence
+- seq-elt
+- seq-lenght
+- seq-drop SEQ n
+- seq-do
+- seq-map FN SEQ
+- seq-reduce FN SEQ INIT-VAL
+- seq-some PRED SEQ
+- seq-find PRED SEQ
+- seq-every-p PRED SEQ
+- seq-empty-p PRED SEQ
+- seq-count PRED SEQ
+- seq-contains SEQ ELT
+- seq-position SEQ ELT
+- seq-unique SEQ
+
+**** seq-elt
+Retorna o elemento na posição N da sequência.
+
+#+BEGIN_SRC elisp
+(seq-elt '(a b c d) 2)
+#+END_SRC
+
+#+RESULTS:
+: c
+
+#+BEGIN_SRC elisp
+(seq-elt "string" 3)
+#+END_SRC
+
+#+RESULTS:
+: i
+
+#+BEGIN_SRC elisp
+(seq-elt [10 20 30 40] 1)
+#+END_SRC
+
+#+RESULTS:
+: 20
+
+**** seq-length
+Retorna o comprimento da sequência.
+
+#+BEGIN_SRC elisp
+(seq-length '(a b c))
+#+END_SRC
+
+#+RESULTS:
+: 3
+
+#+BEGIN_SRC elisp
+(seq-length "hello")
+#+END_SRC
+
+#+RESULTS:
+: 5
+
+#+BEGIN_SRC elisp
+(seq-length [1 2 3 4 5])
+#+END_SRC
+
+#+RESULTS:
+: 5
+
+**** seq-drop
+Remove os primeiros N elementos da sequência.
+
+#+BEGIN_SRC elisp
+(seq-drop '(a b c d e) 2)
+#+END_SRC
+
+#+RESULTS:
+: (c d e)
+
+#+BEGIN_SRC elisp
+(seq-drop "hello world" 6)
+#+END_SRC
+
+#+RESULTS:
+: "world"
+
+#+BEGIN_SRC elisp
+(seq-drop [10 20 30 40 50] 3)
+#+END_SRC
+
+#+RESULTS:
+: [40 50]
+
+**** seq-do
+Executa função para cada elemento da sequência. Retorna nil.
+
+#+BEGIN_SRC elisp
+(seq-do (lambda (x) (message "Elemento: %s" x)) '(a b c))
+#+END_SRC
+
+#+RESULTS:
+: nil
+
+;; No buffer *Messages*:
+: Elemento: a
+: Elemento: b
+: Elemento: c
+
+#+BEGIN_SRC elisp
+(let ((soma 0))
+  (seq-do (lambda (x) (setq soma (+ soma x))) [1 2 3 4])
+  soma)
+#+END_SRC
+
+#+RESULTS:
+: 10
+
+**** seq-map
+Aplica a função a cada elemento e retorna uma nova sequência com os resultados.
+
+#+BEGIN_SRC elisp
+(seq-map #'1+ '(1 2 3))
+#+END_SRC
+
+#+RESULTS:
+: (2 3 4)
+
+#+BEGIN_SRC elisp
+(seq-map #'upcase "abc")
+#+END_SRC
+
+#+RESULTS:
+: [65 66 67]
+
+#+BEGIN_SRC elisp
+(seq-map (lambda (x) (* x x)) [1 2 3 4])
+#+END_SRC
+
+#+RESULTS:
+: [1 4 9 16]
+
+**** seq-reduce
+Reduz a sequência usando função de acumulação e valor inicial.
+
+#+BEGIN_SRC elisp
+(seq-reduce #'+ '(1 2 3 4) 0)
+#+END_SRC
+
+#+RESULTS:
+: 10
+
+#+BEGIN_SRC elisp
+(seq-reduce #'cons '(a b c) nil)
+#+END_SRC
+
+#+RESULTS:
+: (((nil . a) . b) . c)
+
+#+BEGIN_SRC elisp
+(seq-reduce (lambda (acc x) (+ acc (if (> x 0) x 0)))
+	    [-2 5 -1 3 4 -7]
+	    0)
+#+END_SRC
+
+#+RESULTS:
+: 12
+
+**** seq-some
+Retorna o primeiro resultado não-nil da aplicação do predicado aos elementos.
+
+#+BEGIN_SRC elisp
+(seq-some #'numberp '(a b 3 d))
+#+END_SRC
+
+#+RESULTS:
+: t
+
+#+BEGIN_SRC elisp
+(seq-some (lambda (x) (and (> x 10) x)) '(2 5 15 3 12))
+#+END_SRC
+
+#+RESULTS:
+: 15
+
+#+BEGIN_SRC elisp
+(seq-some #'cl-evenp [1 3 5 7])
+#+END_SRC
+
+#+RESULTS:
+: nil
+
+**** seq-find
+Retorna o primeiro elemento que satisfaz o predicado.
+
+#+BEGIN_SRC elisp
+(seq-find #'numberp '(a 2 c 4))
+#+END_SRC
+
+#+RESULTS:
+: 2
+
+#+BEGIN_SRC elisp
+(seq-find (lambda (x) (> x 5)) '(1 3 7 2 9))
+#+END_SRC
+
+#+RESULTS:
+: 7
+
+#+BEGIN_SRC elisp
+(seq-find #'cl-oddp [2 4 6 8])
+#+END_SRC
+
+#+RESULTS:
+: nil
+
+**** seq-every-p
+Retorna t se predicado é verdadeiro para todos os elementos.
+
+#+BEGIN_SRC elisp
+(seq-every-p #'numberp '(1 2 3 4))
+#+END_SRC
+
+#+RESULTS:
+: t
+
+#+BEGIN_SRC elisp
+(seq-every-p #'cl-evenp '(2 4 6 7))
+#+END_SRC
+
+#+RESULTS:
+: nil
+
+#+BEGIN_SRC elisp
+(seq-every-p (lambda (c) (>= c ?a)) "abcdef")
+#+END_SRC
+
+#+RESULTS:
+: t
+
+**** seq-empty-p
+Retorna t se a sequência está vazia.
+
+#+BEGIN_SRC elisp
+(seq-empty-p '())
+#+END_SRC
+
+#+RESULTS:
+: t
+
+#+BEGIN_SRC elisp
+(seq-empty-p "")
+#+END_SRC
+
+#+RESULTS:
+: t
+
+#+BEGIN_SRC elisp
+(seq-empty-p [1 2 3])
+#+END_SRC
+
+#+RESULTS:
+: nil
+
+**** seq-count
+Conta elementos que satisfazem o predicado.
+
+#+BEGIN_SRC elisp
+(seq-count #'cl-evenp '(1 2 3 4 5 6))
+#+END_SRC
+
+#+RESULTS:
+: 3
+
+#+BEGIN_SRC elisp
+(seq-count (lambda (c) (= c ?a)) "abracadabra")
+#+END_SRC
+
+#+RESULTS:
+: 5
+
+#+BEGIN_SRC elisp
+(seq-count (lambda (x) (> x 10)) [5 15 3 20 7])
+#+END_SRC
+
+#+RESULTS:
+: 2
+
+**** seq-contains
+Retorna t se a sequência contém o elemento.
+
+#+BEGIN_SRC elisp
+(seq-contains '(a b c) 'b)
+#+END_SRC
+
+#+RESULTS:
+: t
+
+#+BEGIN_SRC elisp
+(seq-contains "hello" ?o)
+#+END_SRC
+
+#+RESULTS:
+: t
+
+#+BEGIN_SRC elisp
+(seq-contains [1 2 3] 4)
+#+END_SRC
+
+#+RESULTS:
+: nil
+
+**** seq-position
+Retorna a posição do elemento na sequência ou nil.
+
+#+BEGIN_SRC elisp
+(seq-position '(a b c d) 'c)
+#+END_SRC
+
+#+RESULTS:
+: 2
+
+#+BEGIN_SRC elisp
+(seq-position "hello" ?l)
+#+END_SRC
+
+#+RESULTS:
+: 2
+
+#+BEGIN_SRC elisp
+(seq-position [10 20 30] 25)
+#+END_SRC
+
+#+RESULTS:
+: nil
+
+**** seq-unique
+Retorna sequência com elementos duplicados removidos.
+
+#+BEGIN_SRC elisp
+(seq-unique '(a b a c b d))
+#+END_SRC
+
+#+RESULTS:
+: (a b c d)
+
+#+BEGIN_SRC elisp
+(seq-unique "abracadabra")
+#+END_SRC
+
+#+RESULTS:
+: "abrcda"
+
+#+BEGIN_SRC elisp
+(seq-unique [1 2 1 3 2 4])
+#+END_SRC
+
+#+RESULTS:
+: [1 2 3 4]
 
 *** Strings
 
