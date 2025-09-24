@@ -7,10 +7,16 @@
 #+LANGUAGE: pt_BR
 #+OPTIONS: num:nil
 
+* Introducao
 
-#+TODO: TODO(t) | DONE(d)
-#+TODO: REPORT(r) BUG(b) | FIXED(f)
-#+TODO: CANCELED(c)
+#+begin_example
+
+  #+TODO: TODO(t) | DONE(d)
+  #+TODO: REPORT(r) BUG(b) | FIXED(f)
+  #+TODO: CANCELED(c)
+
+#+end_example
+
 
 * Tags
 *C-c C-q* ou *C-c C-c* estampa tags
