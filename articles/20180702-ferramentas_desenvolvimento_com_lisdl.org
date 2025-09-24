@@ -5,7 +5,7 @@
 #+EMAIL: ildenir+github@googlemail.com
 #+DESCRIPTION: como utilizar libsdl portavel
 #+LANGUAGE: pt_BR
-#+KEYWORDS: gamedev libsdl
+#+KEYWORDS: (gamedev libsdl)
 #+OPTIONS: num:nil
 
 

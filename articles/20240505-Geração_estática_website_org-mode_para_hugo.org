@@ -70,40 +70,46 @@ configurações terem efeito
 
 #+NAME: publish-fun
 #+BEGIN_SRC emacs-lisp :eval no :exports code
-    (defun ilm-website-to-hugo  (plist filename pub-dir)
-      (let* ((fname (file-name-base filename))
-	    (xfilename (expand-file-name (concat fname ".org") pub-dir))
-	    (metadatas (website-extract-article-data filename))
-	    title
-	    date
-	    author
-	    draft
-	    lang
-	    keywords)
-	(with-temp-buffer
-	  (org-mode)
-	  (insert-file-contents filename)
-	  (setq title (plist-get metadatas 'title))
-	  (setq date (let ((parsed-time (parse-time-tokenize (plist-get metadatas 'date))))
-		       (format "%d-%.2d-%.2d" (cl-third parsed-time)
-			       (cl-second parsed-time)
-			       (cl-first parsed-time))))
-	  (setq author (plist-get metadatas 'author))
-	  (setq keywords (plist-get metadatas 'keywords))
-    (message (prin1-to-string keywords))
-	  (setq draft (if (and keywords  (string-match "\\.*draft\\.*" keywords))
-			  "true" "false"))
-	  (setq lang (plist-get metadatas 'language))
-	  (org-org-export-as-org))
-	(with-temp-file xfilename
-;;	  (fundamental-mode)
-	  (erase-buffer)
-	  (insert-buffer (get-buffer "*Org ORG Export*"))
-	  (goto-char 0)
-	  (mark-paragraph)
-	  (delete-region (region-beginning) (region-end))
-	  (insert (format "---\ntitle: \"%s\"\nauthor: \"%s\"\ndate: %s\ndraft: %s\n---\n" title author date draft))
-	  (org-mode))))
+  (defun ilm-convert-tags (keywords)
+    "Converte KEYWORDS para format ['key1', 'key2']."
+  (let ((keywords-seq (read keywords)))
+    (concat "[" (string-join (mapcar #'prin1-to-string keywords-seq) ",") "]")))
+
+  (defun ilm-website-to-hugo  (plist filename pub-dir)
+    (let* ((fname (file-name-base filename))
+	   (xfilename (expand-file-name (concat fname ".org") pub-dir))
+	   (metadatas (website-extract-article-data filename))
+	   title
+	   date
+	   author
+	   draft
+	   lang
+	   keywords)
+      (with-temp-buffer
+	(org-mode)
+	(insert-file-contents filename)
+	(setq title (plist-get metadatas 'title))
+	(setq date (let ((parsed-time (parse-time-tokenize (plist-get metadatas 'date))))
+		     (format "%d-%.2d-%.2d" (cl-third parsed-time)
+			     (cl-second parsed-time)
+			     (cl-first parsed-time))))
+	(setq author (plist-get metadatas 'author))
+	(setq keywords (plist-get metadatas 'keywords))
+	(message (prin1-to-string keywords))
+	(setq draft (if (and keywords  (string-match "\\.*draft\\.*" keywords))
+			"true" "false"))
+	(setq lang (plist-get metadatas 'language))
+	(org-org-export-as-org))
+      (with-temp-file xfilename
+	;;	  (fundamental-mode)
+	(erase-buffer)
+	(insert-buffer (get-buffer "*Org ORG Export*"))
+	(goto-char 0)
+	(mark-paragraph)
+	(delete-region (region-beginning) (region-end))
+	(insert (format "---\ntitle: \"%s\"\nauthor: \"%s\"\ndate: %s\ndraft: %s\ntags: %s\n---\n" title author date draft (ilm-convert-tags keywords)))
+	(message (ilm-convert-tags keywords))
+	(org-mode))))
 #+END_SRC
 
 
