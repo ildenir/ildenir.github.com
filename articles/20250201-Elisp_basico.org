@@ -58,6 +58,9 @@ Aprender Elisp oferece várias vantagens para usuários do Emacs:
 (soma 5 3)  ; Output: 8
 #+end_src
 
+#+RESULTS:
+: 8
+
 ** Estruturas de Controle
 
 *** Condicional
@@ -108,6 +111,8 @@ Aprender Elisp oferece várias vantagens para usuários do Emacs:
     (print (format "double num %d\n" (* num 2))))
 #+end_src
 
+#+RESULTS:
+
 **** dowhile
 
 ** Estruturas de Dados
@@ -127,6 +132,9 @@ Aprender Elisp oferece várias vantagens para usuários do Emacs:
 (add-to-list 'frutas "pera")  ; Adiciona se não existir
 #+end_src
 
+#+RESULTS:
+| pera | uva | maçã | banana | laranja |
+
 *** Property List (plist)
 Uma lista de propriedade permite associar um nome de
 atributo/propriedade a um valor.
@@ -142,6 +150,9 @@ atributo/propriedade a um valor.
 ;; Modificando propriedades
 (setq pessoa (plist-put pessoa :idade 31))
 #+end_src
+
+#+RESULTS:
+| :nome | João | :idade | 31 | :cidade | São Paulo |
 
 *** Association List (alist)
 Como o **Property List**, associa um nome a um valor. No entanto, a
@@ -163,6 +174,9 @@ Exemplo:
 
 ;; Modificando entrada
 #+end_src
+
+#+RESULTS:
+: ((timeout . 30) (debug . t) (port . 8080) (host . localhost))
 
 
 Usa equal para comparar
@@ -215,7 +229,7 @@ Retorna o elemento na posição N da sequência.
 #+END_SRC
 
 #+RESULTS:
-: i
+: 105
 
 #+BEGIN_SRC elisp
 (seq-elt [10 20 30 40] 1)
@@ -256,14 +270,14 @@ Remove os primeiros N elementos da sequência.
 #+END_SRC
 
 #+RESULTS:
-: (c d e)
+| c | d | e |
 
 #+BEGIN_SRC elisp
 (seq-drop "hello world" 6)
 #+END_SRC
 
 #+RESULTS:
-: "world"
+: world
 
 #+BEGIN_SRC elisp
 (seq-drop [10 20 30 40 50] 3)
@@ -280,7 +294,7 @@ Executa função para cada elemento da sequência. Retorna nil.
 #+END_SRC
 
 #+RESULTS:
-: nil
+| a | b | c |
 
 ;; No buffer *Messages*:
 : Elemento: a
@@ -304,21 +318,21 @@ Aplica a função a cada elemento e retorna uma nova sequência com os resultado
 #+END_SRC
 
 #+RESULTS:
-: (2 3 4)
+| 2 | 3 | 4 |
 
 #+BEGIN_SRC elisp
 (seq-map #'upcase "abc")
 #+END_SRC
 
 #+RESULTS:
-: [65 66 67]
+| 65 | 66 | 67 |
 
 #+BEGIN_SRC elisp
 (seq-map (lambda (x) (* x x)) [1 2 3 4])
 #+END_SRC
 
 #+RESULTS:
-: [1 4 9 16]
+| 1 | 4 | 9 | 16 |
 
 **** seq-reduce
 Reduz a sequência usando função de acumulação e valor inicial.
@@ -368,7 +382,6 @@ Retorna o primeiro resultado não-nil da aplicação do predicado aos elementos.
 #+END_SRC
 
 #+RESULTS:
-: nil
 
 **** seq-find
 Retorna o primeiro elemento que satisfaz o predicado.
@@ -392,7 +405,6 @@ Retorna o primeiro elemento que satisfaz o predicado.
 #+END_SRC
 
 #+RESULTS:
-: nil
 
 **** seq-every-p
 Retorna t se predicado é verdadeiro para todos os elementos.
@@ -409,7 +421,6 @@ Retorna t se predicado é verdadeiro para todos os elementos.
 #+END_SRC
 
 #+RESULTS:
-: nil
 
 #+BEGIN_SRC elisp
 (seq-every-p (lambda (c) (>= c ?a)) "abcdef")
@@ -440,7 +451,6 @@ Retorna t se a sequência está vazia.
 #+END_SRC
 
 #+RESULTS:
-: nil
 
 **** seq-count
 Conta elementos que satisfazem o predicado.
@@ -474,21 +484,20 @@ Retorna t se a sequência contém o elemento.
 #+END_SRC
 
 #+RESULTS:
-: t
+: b
 
 #+BEGIN_SRC elisp
 (seq-contains "hello" ?o)
 #+END_SRC
 
 #+RESULTS:
-: t
+: 111
 
 #+BEGIN_SRC elisp
 (seq-contains [1 2 3] 4)
 #+END_SRC
 
 #+RESULTS:
-: nil
 
 **** seq-position
 Retorna a posição do elemento na sequência ou nil.
@@ -512,31 +521,30 @@ Retorna a posição do elemento na sequência ou nil.
 #+END_SRC
 
 #+RESULTS:
-: nil
 
 **** seq-unique
 Retorna sequência com elementos duplicados removidos.
 
 #+BEGIN_SRC elisp
-(seq-unique '(a b a c b d))
+(seq-uniq '(a b a c b d))
 #+END_SRC
 
 #+RESULTS:
-: (a b c d)
+| a | b | c | d |
 
 #+BEGIN_SRC elisp
-(seq-unique "abracadabra")
+(seq-uniq "abracadabra")
 #+END_SRC
 
 #+RESULTS:
-: "abrcda"
+| 97 | 98 | 114 | 99 | 100 |
 
 #+BEGIN_SRC elisp
-(seq-unique [1 2 1 3 2 4])
+(seq-uniq [1 2 1 3 2 4])
 #+END_SRC
 
 #+RESULTS:
-: [1 2 3 4]
+| 1 | 2 | 3 | 4 |
 
 *** Strings
 
@@ -554,39 +562,49 @@ Retorna sequência com elementos duplicados removidos.
   (match-string 1 "abc123def"))  ; Output: "123"
 #+end_src
 
+#+RESULTS:
+: 123
+
 ** Acessando Arquivos e Diretórios
 
 #+begin_src elisp
 ;; Verificando se arquivo existe
-(file-exists-p "arquivo.txt")  ; Output: t ou nil
+(file-exists-p "/etc/fstab")  ; Output: t ou nil
 
 ;; Verificando se é diretório
-(file-directory-p "/home/user")  ; Output: t ou nil
+(file-directory-p "/tmp")  ; Output: t ou nil
 
 ;; Listando arquivos do diretório
-(directory-files "~/Documents")  ; Output: lista de arquivos
-(directory-files "~/Documents" t "\\.txt$")  ; Apenas arquivos .txt com caminho completo
+(directory-files "/etc")  ; Output: lista de arquivos
+(directory-files "/lib" t "\\.so$")  ; Apenas arquivos .so com caminho completo
 #+end_src
+
+#+RESULTS:
+| /lib/klibc-sw0VayLfV0hmLGCQE9vyfOnj81g.so |
 
 ** Exemplos Práticos
 
 #+begin_src elisp
-;; Função para contar arquivos em um diretório
-(defun contar-arquivos (diretorio)
-  "Conta quantos arquivos existem no diretório especificado."
-  (length (directory-files diretorio nil "^[^.]")))
+  ;; Função para contar arquivos em um diretório
+  (require 'cl-lib)
+  (defun contar-arquivos (diretorio)
+    "Conta quantos arquivos existem no diretório especificado."
+    (length (directory-files diretorio nil "^[^.]")))
 
-;; Função para processar uma lista de números
-(defun processar-numeros (lista)
-  "Soma todos os números pares da lista."
-  (let ((soma 0))
-    (dolist (num lista)
-      (when (evenp num)
-	(setq soma (+ soma num))))
-    soma))
+  ;; Função para processar uma lista de números
+  (defun processar-numeros (lista)
+    "Soma todos os números pares da lista."
+    (let ((soma 0))
+      (dolist (num lista)
+	(when (cl-evenp num)
+	  (setq soma (+ soma num))))
+      soma))
 
-(processar-numeros '(1 2 3 4 5 6))  ; Output: 12 (2 + 4 + 6)
+  (processar-numeros '(1 2 3 4 5 6))  ; Output: 12 (2 + 4 + 6)
 #+end_src
+
+#+RESULTS:
+: 12
 
 * Referências
 - GNU Emacs Lisp Reference Manual
