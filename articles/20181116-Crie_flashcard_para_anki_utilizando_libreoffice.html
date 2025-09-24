@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
 <head>
-<!-- 2024-04-08 seg 21:12 -->
+<!-- 2025-09-16 ter 18:17 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Crie flashcard para anki utilizando libreoffice</title>
@@ -222,9 +222,9 @@
 <h1 class="title">Crie flashcard para anki utilizando libreoffice</h1>
 
 
-<div id="outline-container-org8ad974d" class="outline-2">
-<h2 id="org8ad974d">Introducao</h2>
-<div class="outline-text-2" id="text-org8ad974d">
+<div id="outline-container-org67fbfd1" class="outline-2">
+<h2 id="org67fbfd1">Introducao</h2>
+<div class="outline-text-2" id="text-org67fbfd1">
 <p>
 Quem nunca se frustrou ao passar horas estudando um determinado topico
 por hora para em poucos minutos esquecer grande parte do que estudou?
@@ -266,7 +266,7 @@ GMail, etc.
 </p>
 
 
-<div id="org92c141a" class="figure">
+<div id="org5135494" class="figure">
 <p><img src="../images/curva-esquecimento.png" alt="curva-esquecimento.png">
 </p>
 <p><span class="figure-number">Figura 1: </span>O grafico ilustra como o conteudo estudado decai ao longo do tempo.</p>
@@ -292,9 +292,9 @@ imediatamento o slide verso.
 </div>
 </div>
 
-<div id="outline-container-orge306956" class="outline-2">
-<h2 id="orge306956">Ferramenta para gerar os decks</h2>
-<div class="outline-text-2" id="text-orge306956">
+<div id="outline-container-orgd063b35" class="outline-2">
+<h2 id="orgd063b35">Ferramenta para gerar os decks</h2>
+<div class="outline-text-2" id="text-orgd063b35">
 <p>
 O shell script descrito nesta secao executa os passos necessarios para
 gerar os arquivo <b>csv</b> e <b>png</b>. Durante a execucao, a apresentacao no
@@ -310,7 +310,7 @@ final consiste em gerar o arquivo csv que serah importado no anki.
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org80fc63e"><span style="color: #cae682;">LO</span>=libreoffice
+<pre class="src src-bash" id="org451b501"><span style="color: #cae682;">LO</span>=libreoffice
 
 [[ -e <span style="color: #95e454;">"$1"</span> &amp;&amp; <span style="color: #95e454;">"${1: -4}"</span> == <span style="color: #95e454;">".odp"</span> ]] || <span style="color: #e5786d;">help</span>
 
@@ -324,8 +324,8 @@ gs -sDEVICE=pngalpha -o ${<span style="color: #cae682;">DECK_DIR</span>}/${<span
 [[ -d ${<span style="color: #cae682;">ANKI_COLLECTION_DIR</span>} ]] || <span style="color: #e5786d;">help</span>
 cp   ${<span style="color: #cae682;">DECK_DIR</span>}/*.png <span style="color: #95e454;">"${ANKI_COLLECTION_DIR}"</span>
 
-<span style="color: #99968b;"># </span><span style="color: #99968b;">Gera arquivo csv a ser importado pelo anki</span>
-create-csv-file
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Gera arquivo csv a ser importado pelo anki
+</span>create-csv-file
 </pre>
 </div>
 
@@ -334,7 +334,7 @@ create-csv-file
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org95cf60d">
+<pre class="src src-bash" id="orgd13217f">
 <span style="color: #e5786d;">help</span>()
 {
     <span style="color: #e5786d;">echo</span> <span style="color: #95e454;">"Uso: $0 &lt;nome-apresentacao&gt;"</span>
@@ -366,9 +366,9 @@ create-csv-file
 
 
 
-<div id="outline-container-org15f0a1c" class="outline-2">
-<h2 id="org15f0a1c">Código completo</h2>
-<div class="outline-text-2" id="text-org15f0a1c">
+<div id="outline-container-org886e435" class="outline-2">
+<h2 id="org886e435">Código completo</h2>
+<div class="outline-text-2" id="text-org886e435">
 <div class="org-src-container">
 <pre class="src src-bash">
 <span style="color: #e5786d;">help</span>()
@@ -409,16 +409,16 @@ gs -sDEVICE=pngalpha -o ${<span style="color: #cae682;">DECK_DIR</span>}/${<span
 [[ -d ${<span style="color: #cae682;">ANKI_COLLECTION_DIR</span>} ]] || <span style="color: #e5786d;">help</span>
 cp   ${<span style="color: #cae682;">DECK_DIR</span>}/*.png <span style="color: #95e454;">"${ANKI_COLLECTION_DIR}"</span>
 
-<span style="color: #99968b;"># </span><span style="color: #99968b;">Gera arquivo csv a ser importado pelo anki</span>
-create-csv-file
+<span style="color: #99968b;"># </span><span style="color: #99968b;">Gera arquivo csv a ser importado pelo anki
+</span>create-csv-file
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org3436717" class="outline-2">
-<h2 id="org3436717">Conclusão</h2>
-<div class="outline-text-2" id="text-org3436717">
+<div id="outline-container-orgb04fbd4" class="outline-2">
+<h2 id="orgb04fbd4">Conclusão</h2>
+<div class="outline-text-2" id="text-orgb04fbd4">
 <p>
 Foi apresentado uma maneira pratica de gerar cartoes para anki. As
 etapas apresentadas nao ficam restritas aos pacotes de software
@@ -454,9 +454,9 @@ complica por demais :).
 </div>
 </div>
 
-<div id="outline-container-orgfd2fac3" class="outline-2">
-<h2 id="orgfd2fac3">Referencia</h2>
-<div class="outline-text-2" id="text-orgfd2fac3">
+<div id="outline-container-org1507e96" class="outline-2">
+<h2 id="org1507e96">Referencia</h2>
+<div class="outline-text-2" id="text-org1507e96">
 <ul class="org-ul">
 <li>[1] <a href="https://lifehacker.com/learn-chinese-faster-with-this-anki-add-on-1828938649">Learn chinese faster with this anki add on</a></li>
 <li>[2] <a href="http://blog.fluent-forever.com/create-better-flashcards/">8 ways to create better flashcards</a></li>
@@ -474,7 +474,7 @@ complica por demais :).
 <div id="postamble" class="status">
 <p class="date">Data: 16/11/2018</p>
 <p class="author">Autor: Ildenir Barbosa</p>
-<p class="date">Criado em: 2024-04-08 seg 21:12</p>
+<p class="date">Criado em: 2025-09-16 ter 18:17</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -7,5 +7,10 @@
 - [[file:about.org][Sobre]]
 - articles
   - [[file:articles/20181116-Crie_flashcard_para_anki_utilizando_libreoffice.org][Crie flashcard para anki utilizando libreoffice]]
+  - [[file:articles/20241231-Exibição_de_imagem_gerada_dentro_de_documento_org-mode.org][Exibição de imagem gerada dentro de documento org-mode]]
   - [[file:articles/20180702-ferramentas_desenvolvimento_com_lisdl.org][Ferramentas desenvolvimento com lisdl]]
+  - [[file:articles/website-publish.org][Geracao estatica website com emacs org-mode]]
+  - [[file:articles/20240505-Geração_estática_website_org-mode_para_hugo.org][Geração estática website org-mode para hugo]]
+  - [[file:articles/20250201-Elisp_basico.org][Guia Básico de Elisp]]
   - [[file:articles/20180627-Souce Code Pro Adobe Fonte para emacs.org][Souce Code Pro Adobe Fonte para emacs]]
+  - [[file:articles/20250226-Use_ps5_joystick_como_keypad_para_usar_com_wacom_tablet.org][Use ps5 joystick como keypad para usar com wacom tablet]]
