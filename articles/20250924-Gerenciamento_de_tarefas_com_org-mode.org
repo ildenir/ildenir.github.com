@@ -1,0 +1,77 @@
+#+TITLE: Gerenciamento de tarefas com org-mode
+#+DATE: 24/09/2025
+#+AUTHOR: Ildenir Barbosa
+#+EMAIL: ildenir+github@googlemail.com
+#+DESCRIPTION: Descreve funcionalidade do org-mode que suporta gerenciamento de tarefas
+#+KEYWORDS: (org-mode produtividade emacs)
+#+LANGUAGE: pt_BR
+#+OPTIONS: num:nil
+
+
+#+TODO: TODO(t) | DONE(d)
+#+TODO: REPORT(r) BUG(b) | FIXED(f)
+#+TODO: CANCELED(c)
+
+* Tags
+*C-c C-q* ou *C-c C-c* estampa tags
+
+
+* Org mode task management
+
+
+* Task
+*S-M-RET* insert todo
+*C-c C-t*
+
+
+** Log progress
+*C-u C-c C-t*
+
+** TODO
+
+- State "TODO"       from "REPORT"     [2025-07-26 sáb 20:58] \\
+  diidlskjdf diaf lkadj fjia djfja difj ijd akdjf
+** DONE
+** Breaking Task Down
+inserir *[/]* ou *[%] no heading
+*** top heading [33%]
+**** TODO task 1
+**** DONE task 2
+**** TODO task 3
+
+
+
+* Time stamp
+
+
+
+** Plain stamp
+  - *C-.*
+
+** Schedule
+SCHEDULED: <2025-07-26 sáb>
+  - *C-c C-s*
+
+** Deadline
+  - *C-c C-d*
+** Schedule Deadline
+SCHEDULED: <2025-07-27 dom> DEADLINE: <2025-09-26 sex 22:00>
+
+* Time Tracking
+
+** clock in *C-c C-x C-i*
+
+** clock out *C-c C-x C-o*
+
+** clock jump *C-c C-x C-j*
+
+*** TODO diiskkdaf ldkajdfk aidjflkadjf
+:PROPERTIES:
+:ORDERED:  t
+:END:
+:LOGBOOK:
+CLOCK: [2025-07-26 sáb 20:37]--[2025-07-26 sáb 20:39] =>  0:02
+:END:
+
+
+** Steps
